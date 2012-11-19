@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaProgrammingContest.Domain", "JavaProgrammingContest.Domain\JavaProgrammingContest.Domain.csproj", "{4AA3B70C-8D2B-41CF-A6E8-69D9C3B52AC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaProgrammingContest.DataAccess", "JavaProgrammingContest.DataAccess\JavaProgrammingContest.DataAccess.csproj", "{E16DD783-0CFB-4B8C-BDAD-3ACAE6F9B521}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaProgrammingContest.DataAccess.Tests", "JavaProgrammingContest.DataAccess.Tests\JavaProgrammingContest.DataAccess.Tests.csproj", "{30D9E662-6536-4BB2-AA16-498F52BEB51C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4AA3B70C-8D2B-41CF-A6E8-69D9C3B52AC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AA3B70C-8D2B-41CF-A6E8-69D9C3B52AC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AA3B70C-8D2B-41CF-A6E8-69D9C3B52AC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AA3B70C-8D2B-41CF-A6E8-69D9C3B52AC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E16DD783-0CFB-4B8C-BDAD-3ACAE6F9B521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E16DD783-0CFB-4B8C-BDAD-3ACAE6F9B521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E16DD783-0CFB-4B8C-BDAD-3ACAE6F9B521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E16DD783-0CFB-4B8C-BDAD-3ACAE6F9B521}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30D9E662-6536-4BB2-AA16-498F52BEB51C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30D9E662-6536-4BB2-AA16-498F52BEB51C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30D9E662-6536-4BB2-AA16-498F52BEB51C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30D9E662-6536-4BB2-AA16-498F52BEB51C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
