@@ -51,7 +51,7 @@ namespace JavaProgrammingContest.Web.Models {
 
     public class LoginModel {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Email address")]
         public string UserName { get; set; }
 
         [Required]
@@ -65,7 +65,8 @@ namespace JavaProgrammingContest.Web.Models {
 
     public class RegisterModel {
         [Required]
-        [Display(Name = "User name")]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Email address")]
         public string UserName { get; set; }
 
         [Required]
@@ -78,6 +79,10 @@ namespace JavaProgrammingContest.Web.Models {
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Info support can contact me")]
+        [UIHint("SwitchedBoolean")]
+        public bool CanContact { get; set; }
     }
 
     public class ExternalLogin {
