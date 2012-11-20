@@ -23,5 +23,13 @@ namespace JavaProgrammingContest.Web.Controllers {
 
             return View();
         }
+
+
+        public ActionResult Asignments()
+        {
+            ViewBag.Message = "Your asignments page.";
+
+            return View();
+        }
     }
 }
