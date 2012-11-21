@@ -69,9 +69,9 @@ namespace JavaProgrammingContest.Web.Controllers {
             if (ModelState.IsValid) {
                 // Attempt to register the user
                 try {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, model.CanContact, false);
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Asignments", "Home");
                 } catch (MembershipCreateUserException e) {
                     ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
                 }

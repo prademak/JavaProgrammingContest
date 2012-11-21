@@ -25,10 +25,16 @@ namespace JavaProgrammingContest.Web.Models {
 
     public class RegisterExternalLoginModel {
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Email address")]
         public string UserName { get; set; }
 
+       [Display(Name = "Info support can contact me")]
+        [UIHint("SwitchedBoolean")]
+        public bool CanContact { get; set; }
+
         public string ExternalLoginData { get; set; }
+
+
     }
 
     public class LocalPasswordModel {
@@ -64,6 +70,12 @@ namespace JavaProgrammingContest.Web.Models {
     }
 
     public class RegisterModel {
+
+        [Required]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
         [Required]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email address")]
