@@ -37,6 +37,20 @@ namespace JavaProgrammingContest.Web.App_Start {
 
 
             bundles.Add(new ScriptBundle("~/Script/Bootstrap").Include("~/Scripts/bootstrap.js"));
+
+            // CodeMirror Files
+            bundles.Add(new StyleBundle("~/Content/CodeMirror").Include(
+                        "~/Scripts/codemirror-2.35/lib/codemirror.css",
+                        "~/Content/editor.css",
+
+                        "~/Scripts/codemirror-2.35/theme/eclipse.css",
+                        "~/Scripts/codemirror-2.35/theme/lesser-dark.css",
+                        "~/Scripts/codemirror-2.35/theme/monokai.css"));
+
+            bundles.Add(new ScriptBundle("~/Script/CodeMirror").Include(
+                "~/Scripts/codemirror-2.35/lib/codemirror.js",
+                "~/Scripts/codemirror-2.35/mode/clike/clike.js",
+                "~/Scripts/editor.js"));
         }
     }
 }

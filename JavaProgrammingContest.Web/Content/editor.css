@@ -1,0 +1,53 @@
+﻿/**
+ * Markup for Editor/IDE environment for JavaProgrammingContest
+ */
+
+.editor-row {
+    position: absolute;
+    top: 40px;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+}
+
+.pane {
+    position: absolute;
+    top: 2px;
+    bottom: 1px;
+}
+
+.pane.assignments {
+    top: 4px;
+    left: 1px;
+    right: 81%;
+
+    border-right: 1px solid #999;
+}
+
+.pane.editor {
+    right: 1px;
+    left: 20%;
+}
+
+.pane.editor .btn-toolbar {
+    position: absolute;
+    top: 0;
+    left: 3px;
+    right: 3px;
+}
+
+#ContestEditor .CodeMirror {
+    position: absolute;
+    top: 50px;
+    left: 3px;
+    right: 3px;
+    bottom: 2px;
+}
+#ContestEditor .CodeMirror-scroll {
+    height: auto !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
