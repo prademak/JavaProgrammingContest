@@ -11,5 +11,6 @@ namespace JavaProgrammingContest.DataAccess.Context{
         public IDbSet<Participant> Participants { get; set; }
         public IDbSet<Score> Scores { get; set; }
         public IDbSet<Result> Results { get; set; }
+        public IDbSet<UserSetting> UserSettings { get; set; } 
     }
 }
