@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Web.WebPages.OAuth;
-using JavaProgrammingContest.Web.Models;
+﻿using Microsoft.Web.WebPages.OAuth;
 
-namespace JavaProgrammingContest.Web {
+namespace JavaProgrammingContest.Web.App_Start {
     public static class AuthConfig {
         public static void RegisterAuth() {
          
