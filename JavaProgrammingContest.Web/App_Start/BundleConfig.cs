@@ -37,8 +37,6 @@ namespace JavaProgrammingContest.Web.App_Start {
 
 
             bundles.Add(new ScriptBundle("~/Script/Bootstrap").Include("~/Scripts/bootstrap.js"));
-
-
         }
     }
 }
