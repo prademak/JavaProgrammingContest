@@ -37,6 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InMemory\GenericRepository.cs" />
     <Compile Include="SQLServer\GenericRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
