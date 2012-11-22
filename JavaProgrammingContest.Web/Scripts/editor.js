@@ -41,8 +41,8 @@ ContestEditor.prototype.setEditorContent = function(content) {
     return this.codeMirror.setValue(content);
 };
 
-ContestEditor.prototype.setEditorOptions = function(options) {
-    
+ContestEditor.prototype.setOption = function(option, value) {
+    this.codeMirror.setOption(option, value);
 };
 
 
@@ -87,4 +87,64 @@ ContestEditor.prototype._retrieveAssignmentList = function() {
 // Initialize the editor environment
 $(document).ready(function () {
     window.cedit = new ContestEditor($('#ContestEditor').get(0));
+
+    $('.pane.editor .dropdown-menu a').click(function () {
+        window.cedit.setOption('theme', $(this).attr('data-theme'));
+    });
+
+    $('#settings-save').click(function() {
+        $('#settings-dialog form input, #settings-dialog form select').each(function (key, value) {
+            var el = $(value);
+            if (el.attr('data-original') != el.val()) {
+                console.log('Diffrnce '+el.val());
+                
+                // Submit
+                /*$.ajax({
+                    // @TODO Use a real user id
+                    url: '/api/settings/01',
+                    method: 'get',
+                    dataType: 'json',
+
+                    callback: function (data) {
+                        $.each(data, function (key, value) {
+                            var curEl = $('#settings-dialog form input[name~=' + key + ']');
+                            curEl.attr('data-original', value);
+                            curEl.value(value);
+                        });
+                    }
+                });*/
+
+                // Set the originals
+                el.attr('data-original', el.val());
+            }
+        });
+    });
+    
+    function populateSettings() {
+        // Check if they are already populated
+        if ($('#settings-dialog form input:first-child').attr('data-original') == "") {
+            // Get settings from REST Service
+            $.ajax({
+                // @TODO Use a real user id
+                url: '/api/settings/01',
+                method: 'get',
+                dataType: 'json',
+
+                callback: function(data) {
+                    $.each(data, function (key, value) {
+                        var curEl = $('#settings-dialog form input[name~=' + key + ']');
+                        curEl.attr('data-original', value);
+                        curEl.val(value);
+                    });
+                }
+            });
+        } else {
+            // Populate the original fields from the values
+            $('#settings-dialog form input, #settings-dialog form select').each(function(key, value) {
+                
+            });
+        }
+    }
+
+    populateSettings();
 });

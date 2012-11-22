@@ -2,46 +2,78 @@
     ViewBag.Title = "Index";
 }
 
- @Styles.Render("~/Content/CodeMirror")
- @Scripts.Render("~/Script/CodeMirror")
+@Styles.Render("~/Content/CodeMirror")
+@Scripts.Render("~/Script/CodeMirror")
+
+<div class="modal hide fade" id="settings-dialog">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Editor Settings</h3>
+    </div>
+    <div class="modal-body">
+        <form onsubmit="return false;">
+            <fieldset>
+                <div class="row-fluid">
+                    <div class="pull-left span7">
+                        <div class="input-prepend">
+                            <span class="add-on">Theme</span>
+                            <select name="Theme" data-original="">
+                                <option value="eclipse">Eclipse (Default)</option>
+                                <option value="lesser-dark">Lesser Dark</option>
+                                <option value="monokai">Monokai</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-prepend">
+                            <span class="add-on">Tabsize</span>
+                            <input name="TabSize" type="number" style="width: 35px" min="2" max="6" data-original="" value="" />
+                        </div>
+                    </div>
+                <div class="pull-right span5">
+                    <label class="checkbox"><input name="IntelliSense" type="checkbox" data-original="" value="" /> IntelliSense</label>
+                    <label class="checkbox"><input name="MatchBrackets" type="checkbox" data-original="" value=""/> Match Brackets</label>
+                    <label class="checkbox"><input name="LineWrapping" type="checkbox" data-original="" value=""/> Line-Wrapping</label>
+                    <label class="checkbox"><input name="AutoIndent" type="checkbox" data-original="" value=""/> Automatic Indention</label>
+                </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <a href="#" class="btn btn-primary" id="settings-save">Apply</a>
+    </div>
+</div>
 
 <div class="editor-row">
-    <div class="pane assignments" id="AssignmentList"> 
-                <ul class="nav nav-list">
-                    <li class="nav-header">Sidebar</li>
-                    <li class="active"><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="nav-header">Sidebar</li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li class="nav-header">Sidebar</li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                </ul> 
+    <div class="pane assignments" id="AssignmentList">
+        <ul>
+            <li data-assignmentid="0">
+                <h3>Assignmenttitle1</h3>
+                <img src="~/Content/images/glyphicons-halflings.png" alt="Opdracht."/>
+            </li>
+            <li data-assignmentid="1">
+                <h3>Assignmenttitle2</h3>
+                <img src="~/Content/images/glyphicons-halflings.png" alt="Opdracht."/>
+            </li>
+        </ul>
     </div>
     <div class="pane editor">
         <div class="btn-toolbar">
             <div class="btn-group">
-                <a class="btn" href="#"><i class="icon-hdd"></i> <u>S</u>ave</a>
-                <a class="btn" href="#"><i class="icon-repeat"></i> Reset</a>
+                <a class="btn btn-success" href="#"><i class="icon-hdd"></i> <u>S</u>ave</a>
+                <a class="btn btn-danger" href="#"><i class="icon-repeat"></i> Reset</a>
             </div>
             <div class="btn-group">
-                <a class="btn" href="#"><i class="icon-cog"></i> Sett<u>i</u>ngs</a>
-                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-tint"></i> Theme <span class="caret"></span></a>
-                <ul class="dropdown-menu">
+                <a class="btn" href="#settings-dialog" data-toggle="modal"><i class="icon-cog"></i> Sett<u>i</u>ngs</a>
+                <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-tint"></i> Theme <span class="caret"></span></a>
+                <ul class="dropdown-menu pull-right">
                     <li><a href="#" data-theme="eclipse">Eclipse (Default)</a></li>
                     <li><a href="#" data-theme="monokai">Monokai</a></li>
-                    <li><a href="#" data-theme="lesser-dark">Lesser-Dark</a></li>
+                    <li><a href="#" data-theme="lesser-dark">Lesser Dark</a></li>
                 </ul>
             </div>
         </div>
         <div id="ContestEditor"></div>
-    </div> 
-</div>  
+    </div>
+</div>
