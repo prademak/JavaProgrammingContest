@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
      <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
@@ -28,7 +29,7 @@
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Opdrachten", "Asignments", "Home")</li>
+                        <li>@Html.ActionLink("Opdrachten", "Index", "Editor")</li>
                         <li>@Html.ActionLink("Leaderboard", "Leaderboard", "Home")</li>
                         <li>@Html.ActionLink("About", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
@@ -39,15 +40,21 @@
             </div>
         </div>
     </div>
-
-    <div class="container">
-        @if(IsSectionDefined("featured")){
-        <div class="hero-unit"> @RenderSection("featured", required: false)</div>
-       }
-        @RenderBody()
-    </div>   
     
-    @Scripts.Render("~/bundles/jquery")
+    @if (IsSectionDefined("editor-row"))
+    {
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    }
+    else
+    {
+        <div class="container">
+        @RenderBody()
+    </div>
+    }
+       
+    
     @Scripts.Render("~/Script/Bootstrap")
     @RenderSection("scripts", required: false)
 </body>

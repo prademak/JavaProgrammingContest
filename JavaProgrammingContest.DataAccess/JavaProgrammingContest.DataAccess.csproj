@@ -35,11 +35,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.Entity" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\JavaProgrammingContestContext.cs" />
-    <Compile Include="Context\JavaProgrammingContestContextInitializer.cs" />
     <Compile Include="InMemory\GenericRepository.cs" />
     <Compile Include="SQLServer\GenericRepository.cs" />
     <Compile Include="IRepository.cs" />
@@ -48,12 +45,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\JavaProgrammingContest.Domain\JavaProgrammingContest.Domain.csproj">
-      <Project>{4AA3B70C-8D2B-41CF-A6E8-69D9C3B52AC0}</Project>
-      <Name>JavaProgrammingContest.Domain</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
