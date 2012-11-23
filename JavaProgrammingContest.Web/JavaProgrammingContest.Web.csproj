@@ -190,6 +190,7 @@
     <Content Include="Content\editor.css" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\qunit.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -252,6 +253,10 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\application\collections\Settings.js" />
+    <Content Include="Scripts\application\editor.js" />
+    <Content Include="Scripts\backbone.js" />
+    <Content Include="Scripts\backbone.min.js" />
     <Content Include="Scripts\codemirror-2.35\keymap\emacs.js" />
     <Content Include="Scripts\codemirror-2.35\keymap\vim.js" />
     <Content Include="Scripts\codemirror-2.35\lib\codemirror.css" />
@@ -379,6 +384,9 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\qunit.js" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
     <Content Include="Views\Editor\Index.cshtml" />
     <None Include="Views\Shared\DisplayTemplates\SwitchedBoolean.cshtml" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />

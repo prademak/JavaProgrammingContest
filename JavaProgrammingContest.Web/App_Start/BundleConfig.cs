@@ -51,6 +51,11 @@ namespace JavaProgrammingContest.Web.App_Start {
                 "~/Scripts/codemirror-2.35/lib/codemirror.js",
                 "~/Scripts/codemirror-2.35/mode/clike/clike.js",
                 "~/Scripts/editor.js"));
+
+            // Backbone
+            bundles.Add(new ScriptBundle("~/Script/Backbone").Include(
+                "~/Scripts/underscore.js",
+                "~/Scripts/backbone.js"));
         }
     }
 }
