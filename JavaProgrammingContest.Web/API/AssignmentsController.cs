@@ -6,7 +6,7 @@ using System.Web.Http;
 using JavaProgrammingContest.DataAccess;
 using JavaProgrammingContest.Domain.Entities;
 
-namespace JavaProgrammingContest.Service{
+namespace JavaProgrammingContest.Web.API{
     public class AssignmentsController : ApiController{
         private readonly IRepository<Assignment> _assignmentsRepository;
 
@@ -37,9 +37,9 @@ namespace JavaProgrammingContest.Service{
 
                 var response = Request.CreateResponse(HttpStatusCode.Created, assignment);
 
-                //TODO set to correct route!
-                var uri = Url.Link("route here", new{id = assignment.Id});
-                response.Headers.Location = new Uri(uri);
+                var uri = Url.Link("DefaultApi", new { id = assignment.Id });
+                if (uri != null)
+                    response.Headers.Location = new Uri(uri);
 
                 return response;
             } catch (Exception){
@@ -54,7 +54,6 @@ namespace JavaProgrammingContest.Service{
             try{
                 var dbAssignment = _assignmentsRepository.GetById(id);
 
-                //dbAssignment.X = assignment.X;
                 //TODO set properties
 
                 _assignmentsRepository.SaveChanges();

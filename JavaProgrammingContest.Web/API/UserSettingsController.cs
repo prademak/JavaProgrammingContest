@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Web.Http;
 using JavaProgrammingContest.DataAccess;
 using JavaProgrammingContest.Domain.Entities;
 
-namespace JavaProgrammingContest.Service{
+namespace JavaProgrammingContest.Web.API{
     public class UserSettingsController : ApiController{
         private readonly IRepository<UserSetting> _userSettingsRepository;
 
@@ -12,7 +13,7 @@ namespace JavaProgrammingContest.Service{
         }
 
         public IEnumerable<UserSetting> Get(){
-            return _userSettingsRepository.GetAll();
+            throw new HttpResponseException(HttpStatusCode.NotImplemented);
         }
 
         public UserSetting Get(int id){
