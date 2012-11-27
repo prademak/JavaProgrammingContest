@@ -13,6 +13,7 @@ $(document).ready(function () {
 
         // Delegated events for creating new items, and clearing completed ones.
         events: {
+            "click .pane.editor .dropdown-menu a": "changeTheme"
             //"keypress #new-todo": "createOnEnter",
             //"click #clear-completed": "clearCompleted",
             //"click #toggle-all": "toggleAllComplete"
@@ -37,7 +38,21 @@ $(document).ready(function () {
 
         // Re-rendering the App just means refreshing the statistics -- the rest
         // of the app doesn't change.
-        render: function() {
+        render: function () {
+            // Firstly check the assignments
+            this.assignments.render();
+            if (this.assignments.length <= 0) {
+                this.$('#noAssignmentsModal').modal({
+                    keyboard: false,
+                    backdrop: true,
+                    show: true
+                });
+                console.log('Lawl');
+            } else {
+                console.log(this.assignments);
+            }
+
+
             /*var done = Todos.done().length;
             var remaining = Todos.remaining().length;
 
@@ -51,6 +66,10 @@ $(document).ready(function () {
             }
 
             this.allCheckbox.checked = !remaining;*/
+        },
+        
+        changeTheme: function(e) {
+            this.editor.setOption("theme", $(e.currentTarget).attr('data-theme'));
         },
 
         // Add a single todo item to the list by creating a view for it, and

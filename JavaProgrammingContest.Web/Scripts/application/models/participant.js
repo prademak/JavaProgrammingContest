@@ -8,11 +8,14 @@
         defaults: function () {
             return {
                 Id: 0,
+                
                 Firstname: "John",
                 Insert: "",
                 Lastname: "Doe",
+                
                 Password: "",
                 Email: "",
+                
                 Interested: true
             };
         },

@@ -10,16 +10,23 @@ $(window).ready(function () {
         defaults: function () {
             return {
                 Id: 0,
-                Code: '',
-                Time: 0.0,
-                CompileTime: 0.0
+                
+                Title: '',
+                Description: '',
+                
+                CodeGiven: '',
+                
+                TargetSolveTime: 0.0,
+                TargetCompileTime: 0.0,
+                
+                Solved: false
             };
-        },
+        }//,
 
         // Initialize the model
-        initialize: function () {
+        //initialize: function () {
             
-        }
+        //}
     });
 
     /**

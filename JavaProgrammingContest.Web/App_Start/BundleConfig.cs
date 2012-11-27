@@ -60,6 +60,7 @@ namespace JavaProgrammingContest.Web.App_Start {
                 "~/Scripts/application/models/participant.js",
                 "~/Scripts/application/models/scoreboard.js",
                 "~/Scripts/application/models/settings.js",
+                "~/Scripts/application/models/solution.js",
 
                 "~/Scripts/application/views/assignments.js",
                 "~/Scripts/application/views/editor.js",

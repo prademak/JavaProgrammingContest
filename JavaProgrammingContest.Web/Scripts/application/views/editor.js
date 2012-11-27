@@ -3,7 +3,7 @@
 $(document).ready(function () {
     EditorView = Backbone.View.extend({
         // Representing element
-        el: $("#ContestEditor"),
+        el: $("#EditorPane"),
 
         // Default CodeMirror Options
         defaultEditorOptions: {
