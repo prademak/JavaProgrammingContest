@@ -6,8 +6,8 @@
     this.codeMirror = CodeMirror(editorElem, ContestEditor.defaultEditorOptions);
 
     // Load first assignment
-    //this._retrieveAssignmentList();
-    this.loadNextAssignment();
+    this._retrieveAssignmentList();
+    //this.loadNextAssignment();
 }
 
 // Static Properties
@@ -126,7 +126,7 @@ $(document).ready(function () {
             // Get settings from REST Service
             $.ajax({
                 // @TODO Use a real user id
-                url: '/api/settings/01',
+                url: '/api/Settings/01',
                 method: 'get',
                 dataType: 'json',
 
