@@ -258,11 +258,14 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\application\editor.js" />
+    <Content Include="Scripts\application\application.js" />
     <Content Include="Scripts\application\models\assignment.js" />
     <Content Include="Scripts\application\models\participant.js" />
     <Content Include="Scripts\application\models\scoreboard.js" />
     <Content Include="Scripts\application\models\settings.js" />
+    <Content Include="Scripts\application\views\application.js" />
+    <Content Include="Scripts\application\views\assignments.js" />
+    <Content Include="Scripts\application\views\editor.js" />
     <Content Include="Scripts\backbone.js" />
     <Content Include="Scripts\backbone.min.js" />
     <Content Include="Scripts\codemirror-2.35\keymap\emacs.js" />

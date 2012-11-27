@@ -7,21 +7,21 @@
         // Default attributes
         defaults: function () {
             return {
-                id: 0,
-                firstname: "John",
-                insert: "",
-                lastname: "Doe",
-                password: "",
-                email: "",
-                interested: true
+                Id: 0,
+                Firstname: "John",
+                Insert: "",
+                Lastname: "Doe",
+                Password: "",
+                Email: "",
+                Interested: true
             };
         },
 
         // 
         initialize: function () {
-            if (!this.get("title")) {
-                this.set({ "title": this.defaults.title });
-            }
+            //if (!this.get("title")) {
+            //    this.set({ "title": this.defaults.title });
+            //}
         }
     });
 

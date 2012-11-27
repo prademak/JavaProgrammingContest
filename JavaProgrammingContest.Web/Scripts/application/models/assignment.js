@@ -1,31 +1,38 @@
-﻿$(window).ready(function () {
+﻿var AssignmentModel, AssignmentCollection;
+
+$(window).ready(function () {
     /**
      * Assignment Model
      */
-    var AssignmentModel = Backbone.Model.extend({
+    AssignmentModel = Backbone.Model.extend({
 
         // Default attributes
         defaults: function () {
             return {
-                id: 0
+                Id: 0,
+                Code: '',
+                Time: 0.0,
+                CompileTime: 0.0
             };
         },
 
-        // 
+        // Initialize the model
         initialize: function () {
-            if (!this.get("title")) {
-                this.set({ "title": this.defaults.title });
-            }
+            
         }
     });
 
     /**
      * Assignment Collection
      */
-    var AssignmentCollection = Backbone.Collection.extend({
+    AssignmentCollection = Backbone.Collection.extend({
 
         // Reference to this collection's model.
         model: AssignmentModel,
+
+        initialize: function() {
+            this.fetch({url: '/api/Assignments'});
+        },
 
         // Todos are sorted by their original insertion order.
         comparator: function (assignment) {

@@ -49,13 +49,23 @@ namespace JavaProgrammingContest.Web.App_Start {
 
             bundles.Add(new ScriptBundle("~/Script/CodeMirror").Include(
                 "~/Scripts/codemirror-2.35/lib/codemirror.js",
-                "~/Scripts/codemirror-2.35/mode/clike/clike.js",
-                "~/Scripts/editor.js"));
+                "~/Scripts/codemirror-2.35/mode/clike/clike.js"));
 
             // Backbone
             bundles.Add(new ScriptBundle("~/Script/Backbone").Include(
                 "~/Scripts/underscore.js",
-                "~/Scripts/backbone.js"));
+                "~/Scripts/backbone.js",
+
+                "~/Scripts/application/models/assignment.js",
+                "~/Scripts/application/models/participant.js",
+                "~/Scripts/application/models/scoreboard.js",
+                "~/Scripts/application/models/settings.js",
+
+                "~/Scripts/application/views/assignments.js",
+                "~/Scripts/application/views/editor.js",
+                "~/Scripts/application/views/application.js",
+
+                "~/Scripts/application/application.js"));
         }
     }
 }
