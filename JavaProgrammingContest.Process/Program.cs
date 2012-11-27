@@ -6,7 +6,6 @@ namespace JavaProgrammingContest.Process
 {
     internal class Program
     {
-
         private const String Javac = @"javac";
         private const String Arguments = @"helloWorld.java";
         private static double CompileTime;

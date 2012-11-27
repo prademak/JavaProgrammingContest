@@ -40,6 +40,7 @@ namespace JavaProgrammingContest.Web.Tests.Api{
         [ExpectedException(typeof (HttpResponseException))]
         public void GetAssignmentThrowsHttpResponseExceptionWhenContextReturnsNull(){
             _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(1));
+
             _controller.Get(2);
 
             Assert.Fail();
@@ -51,6 +52,7 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             SetupControllerForTests(_controller);
 
             var result = _controller.Post(new Assignment { Id = 3, Title = "title 3" });
+
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);
         }
 
@@ -69,7 +71,6 @@ namespace JavaProgrammingContest.Web.Tests.Api{
         [ExpectedException(typeof(HttpResponseException))]
         public void PostAssignmentWithInvalidModelThrowsBadRequestException(){
             SetupControllerForTests(_controller);
-            
             _controller.ModelState.AddModelError("test", "test");
 
             _controller.Post(new Assignment());
@@ -84,8 +85,11 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             _contextMock.Setup(m => m.SaveChanges()).Throws(new Exception());
 
             _controller.Post(new Assignment());
+
             Assert.Fail();
         }
+
+
 
         private static FakeAssignmentsSet CreateSampleData(int nrOfRecords){
             var sampleData = new FakeAssignmentsSet();
