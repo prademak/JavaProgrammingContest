@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -40,6 +41,8 @@ namespace JavaProgrammingContest.Web.Tests.Api{
         public void GetAssignmentThrowsHttpResponseExceptionWhenContextReturnsNull(){
             _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(1));
             _controller.Get(2);
+
+            Assert.Fail();
         }
 
         [Test]
@@ -69,7 +72,19 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             
             _controller.ModelState.AddModelError("test", "test");
 
-            _controller.Put(1, new Assignment());
+            _controller.Post(new Assignment());
+
+            Assert.Fail();
+        }
+
+        [Test]
+        [ExpectedException(typeof(HttpResponseException))]
+        public void PostAssignmentShouldThrowInternalServerErrorWhenSavingEntityFailed(){
+            SetupControllerForTests(_controller);
+            _contextMock.Setup(m => m.SaveChanges()).Throws(new Exception());
+
+            _controller.Post(new Assignment());
+            Assert.Fail();
         }
 
         private static FakeAssignmentsSet CreateSampleData(int nrOfRecords){

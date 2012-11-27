@@ -34,17 +34,16 @@ namespace JavaProgrammingContest.Web.API{
             try{
                 _context.Assignments.Add(assignment);
                 _context.SaveChanges();
-
-                var response = Request.CreateResponse(HttpStatusCode.Created, assignment);
-
-                var uri = Url.Link("DefaultApi", new{id = assignment.Id});
-                if (uri != null)
-                    response.Headers.Location = new Uri(uri);
-
-                return response;
+                return CreatePostResponse(assignment);
             } catch (Exception){
                 throw new HttpResponseException(HttpStatusCode.InternalServerError);
             }
+        }
+
+        private HttpResponseMessage CreatePostResponse(Assignment assignment){
+            var response = Request.CreateResponse(HttpStatusCode.Created, assignment);
+            //TODO set header.location
+            return response;
         }
 
         public void Put(int id, Assignment assignment){
