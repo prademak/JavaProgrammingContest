@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
-using JavaProgrammingContest.DataAccess;
+using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
 
 namespace JavaProgrammingContest.Web.API{
     public class UserSettingsController : ApiController{
-        private readonly IRepository<UserSetting> _userSettingsRepository;
+        private readonly IDbContext _context;
 
-        public UserSettingsController(IRepository<UserSetting> userSettingsRepository){
-            _userSettingsRepository = userSettingsRepository;
+        public UserSettingsController(IDbContext context){
+            _context = context;
         }
 
         public IEnumerable<UserSetting> Get(){
@@ -17,7 +17,10 @@ namespace JavaProgrammingContest.Web.API{
         }
 
         public UserSetting Get(int id){
-            return _userSettingsRepository.GetById(id);
+            var userSetting = _context.UserSettings.Find(id);
+            if (userSetting == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            return userSetting;
         }
     }
 }
