@@ -1,5 +1,6 @@
 ﻿namespace JavaProgrammingContest.Domain.Entities{
     public class UserSetting{
+        public int Id { get; set; }
         public string Theme { get; set; }
         public bool MatchBrackets { get; set; }
         public bool AutoIndent { get; set; }

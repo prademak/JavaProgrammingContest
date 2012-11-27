@@ -5,9 +5,7 @@ using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
-using JavaProgrammingContest.DataAccess;
 using JavaProgrammingContest.DataAccess.Context;
-using JavaProgrammingContest.DataAccess.SQLServer;
 
 // ReSharper disable CheckNamespace
 
@@ -16,18 +14,37 @@ namespace JavaProgrammingContest.Web{
         public static void RegisterTypes(){
             var builder = new ContainerBuilder();
 
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            builder.RegisterControllers(typeof (MvcApplication).Assembly);
-            builder.RegisterType<JavaProgrammingContestContext>().As<DbContext>();
-            builder.RegisterGeneric(typeof (GenericRepository<>)).As(typeof (IRepository<>));
+            RegisterControllers(builder);
+            RegisterDataContext(builder);
+            RegisterOther(builder);
 
             var container = builder.Build();
 
-            var webApiResolver = new AutofacWebApiDependencyResolver(container);
-            GlobalConfiguration.Configuration.DependencyResolver = webApiResolver;
+            SetApiResolver(container);
+            SetMvcResolver(container);
+        }
 
+        private static void RegisterDataContext(ContainerBuilder builder){
+            builder.RegisterType<JavaProgrammingContestContext>().As<IDbContext>();
+        }
+
+        private static void RegisterControllers(ContainerBuilder builder){
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            builder.RegisterControllers(typeof (MvcApplication).Assembly);
+        }
+
+        private static void RegisterOther(ContainerBuilder builder){
+
+        }
+
+        private static void SetMvcResolver(ILifetimeScope container){
             var mvcResolver = new AutofacDependencyResolver(container);
             DependencyResolver.SetResolver(mvcResolver);
+        }
+
+        private static void SetApiResolver(ILifetimeScope container){
+            var webApiResolver = new AutofacWebApiDependencyResolver(container);
+            GlobalConfiguration.Configuration.DependencyResolver = webApiResolver;
         }
     }
 }

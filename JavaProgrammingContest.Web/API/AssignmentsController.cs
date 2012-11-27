@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using JavaProgrammingContest.DataAccess;
+using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
 
 namespace JavaProgrammingContest.Web.API{
     public class AssignmentsController : ApiController{
-        private readonly IRepository<Assignment> _assignmentsRepository;
+        private readonly IDbContext _context;
 
-        public AssignmentsController(IRepository<Assignment> assignmentsRepository){
-            _assignmentsRepository = assignmentsRepository;
+        public AssignmentsController(IDbContext context){
+            _context = context;
         }
 
         public IEnumerable<Assignment> Get(){
-            return _assignmentsRepository.GetAll();
+            return _context.Assignments;
         }
 
         public Assignment Get(int id){
-            var assignment = _assignmentsRepository.GetById(id);
+            var assignment = _context.Assignments.Find(id);
 
             if (assignment == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -32,12 +32,12 @@ namespace JavaProgrammingContest.Web.API{
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
             try{
-                _assignmentsRepository.Add(assignment);
-                _assignmentsRepository.SaveChanges();
+                _context.Assignments.Add(assignment);
+                _context.SaveChanges();
 
                 var response = Request.CreateResponse(HttpStatusCode.Created, assignment);
 
-                var uri = Url.Link("DefaultApi", new { id = assignment.Id });
+                var uri = Url.Link("DefaultApi", new{id = assignment.Id});
                 if (uri != null)
                     response.Headers.Location = new Uri(uri);
 
@@ -52,11 +52,11 @@ namespace JavaProgrammingContest.Web.API{
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
             try{
-                var dbAssignment = _assignmentsRepository.GetById(id);
+                var dbAssignment = _context.Assignments.Find(id);
 
                 //TODO set properties
 
-                _assignmentsRepository.SaveChanges();
+                _context.SaveChanges();
             } catch (Exception){
                 throw new HttpResponseException(HttpStatusCode.InternalServerError);
             }
@@ -64,11 +64,11 @@ namespace JavaProgrammingContest.Web.API{
 
         public void Delete(int id){
             try{
-                var assignment = _assignmentsRepository.GetById(id);
+                var assignment = _context.Assignments.Find(id);
                 if (assignment == null)
                     throw new HttpResponseException(HttpStatusCode.NotFound);
 
-                _assignmentsRepository.Remove(assignment);
+                _context.Assignments.Remove(assignment);
             } catch (Exception){
                 throw new HttpResponseException(HttpStatusCode.InternalServerError);
             }
