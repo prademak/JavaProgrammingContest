@@ -25,7 +25,35 @@ $(document).ready(function () {
         },
 
         // Re-render the titles of the todo item.
-        render: function() {
+        render: function () {
+            // Fetch the data
+            var ns = this;
+            this.model.fetch({
+                url: '/api/Assignments',
+                success: function () {
+                    if (ns.length <= 0) {
+                        $('#noAssignmentsModal').modal({
+                            backdrop: true,
+                            keyboard: false,
+                            show: true
+                        });
+                    } else {
+                        
+                    }
+                },
+                
+                error: function() {
+                    $('#noAssignmentsModal').modal({
+                        backdrop: true,
+                        keyboard: false,
+                        show: true
+                    });
+                }
+            });
+
+
+
+
             //this.$el.html(this.template(this.model.toJSON()));
             this.$el.html(this.template({title: 'testjuhh'}));
             this.$el.toggleClass('done', this.model.get('done'));

@@ -21,8 +21,10 @@ $(document).ready(function () {
 
         initialize: function() {
             this.editor = new EditorView();
-
-            this.assignments = new AssignmentView({model: new AssignmentCollection()});
+            this.assignments = new AssignmentView({ model: new AssignmentCollection() });
+            //asCol.reset([{ Id: 0, Title: 'asdf' }, { Id: 0, Title: 'asdfff' }]);
+            
+            
             //this.input = this.$("#new-todo");
             //this.allCheckbox = this.$("#toggle-all")[0];
 
@@ -41,7 +43,7 @@ $(document).ready(function () {
         render: function () {
             // Firstly check the assignments
             this.assignments.render();
-            if (this.assignments.length <= 0) {
+            /*if (this.assignments.length <= 0) {
                 this.$('#noAssignmentsModal').modal({
                     keyboard: false,
                     backdrop: true,
@@ -49,8 +51,8 @@ $(document).ready(function () {
                 });
                 console.log('Lawl');
             } else {
-                console.log(this.assignments);
-            }
+                console.log(this.assignments.length);
+            }*/
 
 
             /*var done = Todos.done().length;
