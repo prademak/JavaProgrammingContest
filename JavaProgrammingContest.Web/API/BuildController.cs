@@ -1,19 +1,25 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using JavaProgrammingContest.Process.Compiler;
 
 namespace JavaProgrammingContest.Web.API{
     public class BuildController : ApiController{
-        public BuildController() {}
+        private readonly ICompiler _compiler;
+
+        public BuildController(ICompiler compiler){
+            _compiler = compiler;
+        }
 
         public HttpResponseMessage Post(BuildJob buildJob){
+            var result = _compiler.CompileFromPlainText(buildJob.Code);
+
+            //TODO use CompilerResult class as response
             return Request.CreateResponse(HttpStatusCode.Created,
                 new BuildResult{
-                    CompileTime = 3000,
-                    Error =
-                        @"C:\Users\martijn\Documents\Visual Studio 11\Projects\JavaProgrammingContest\JavaProgrammingContest\JavaProgrammingContest.Web\API\BuildController.cs(11,140,11,141): error CS1002: ; expected",
-                    Output = @"========== Build: 2 succeeded, 0 failed, 3 up-to-date, 2 skipped =========="
+                    Output = result.StandardOutput,
+                    Error = result.StandardError,
+                    CompileTime = result.CompilationTime
                 });
         }
     }

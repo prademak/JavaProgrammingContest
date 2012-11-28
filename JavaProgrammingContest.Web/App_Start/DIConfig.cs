@@ -6,6 +6,12 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using JavaProgrammingContest.DataAccess.Context;
+using JavaProgrammingContest.Process.Compiler;
+using JavaProgrammingContest.Process.Compiler.Java;
+using JavaProgrammingContest.Process.Compiler.Java.Helpers;
+using JavaProgrammingContest.Process.Runner;
+using JavaProgrammingContest.Process.Runner.Java;
+using JavaProgrammingContest.Process.Runner.Java.Helpers;
 
 // ReSharper disable CheckNamespace
 
@@ -34,7 +40,10 @@ namespace JavaProgrammingContest.Web{
         }
 
         private static void RegisterOther(ContainerBuilder builder){
-
+            builder.RegisterType<JavaCompiler>().As<ICompiler>().PropertiesAutowired();
+            builder.RegisterType<JavaCompilerProcess>().As<ICompilerProcess>();
+            builder.RegisterType<JavaRunner>().As<IRunner>().PropertiesAutowired();
+            builder.RegisterType<JavaRunnerProcess>().As<IRunnerProcess>();
         }
 
         private static void SetMvcResolver(ILifetimeScope container){
