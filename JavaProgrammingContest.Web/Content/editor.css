@@ -43,7 +43,7 @@
     background-color: #333;
 }
 
-.tabbable {
+.pane.editor > .tabbable {
     position: absolute;
     left: 0;
     right: 0;
@@ -51,18 +51,19 @@
     background-color: #333333;
     z-index: 40;
 }
-.tabbable .nav {
+.pane.editor > .tabbable .nav {
     margin-bottom: 0;
 }
-.tabs-below > .nav-tabs {
+.pane.editor > .tabs-below > .nav-tabs {
     border-top: #555 2px solid;
 }
-#EditorPane {
+#EditorPane, #ConsolePane {
     position: absolute;
     top: 40px;
     left: 0px;
     right: 0px;
     bottom: 37px;
+    background-color: #f0f0f0;
 }
 #EditorPane .CodeMirror,
 #EditorPane .CodeMirror-scroll {
@@ -72,6 +73,33 @@
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+#ConsolePane > .tabbable .nav {
+    margin: 0;
+}
+
+#ConsolePane > .tabbable .tab-content, #ConsolePane > .tabbable {
+    height: 100%;
+}
+#ConsolePane > .tabbable .tab-content {
+    background-color: white;
+    overflow: auto;
+}
+
+#buildStream, #outputStream, #errorStream {
+    font-family: courier;
+    text-wrap: none;
+    padding: 6px 15px;
+    margin: 0;
+}
+
+#EditorPane, #ConsolePane {
+    z-index: 10;
+}
+
+#EditorPane.activePane, #ConsolePane.activePane {
+    z-index: 20;
 }
 
 .pane.assignments h2 {

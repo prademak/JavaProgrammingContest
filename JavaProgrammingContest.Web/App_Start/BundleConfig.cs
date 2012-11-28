@@ -55,6 +55,7 @@ namespace JavaProgrammingContest.Web.App_Start {
             bundles.Add(new ScriptBundle("~/Script/Backbone").Include(
                 "~/Scripts/underscore.js",
                 "~/Scripts/backbone.js",
+                "~/Scripts/json2.js",
 
                 "~/Scripts/application/models/assignment.js",
                 "~/Scripts/application/models/participant.js",
@@ -64,8 +65,10 @@ namespace JavaProgrammingContest.Web.App_Start {
 
                 "~/Scripts/application/views/assignments.js",
                 "~/Scripts/application/views/editor.js",
+                "~/Scripts/application/views/console.js",
                 "~/Scripts/application/views/application.js",
 
+                "~/Scripts/application/builder.js",
                 "~/Scripts/application/application.js"));
         }
     }

@@ -38,7 +38,13 @@ $(window).ready(function () {
         model: AssignmentModel,
 
         initialize: function() {
-            this.fetch({url: '/api/Assignments'});
+            /*console.log(this.fetch({url: '/api/Assignments', success: function() {
+                console.log(this);
+            }
+            }), this.length);*/
+            console.log(this.length);
+            //console.log(Backbone.sync('read', this, { url: '/api/assignments' }));
+
         },
 
         // Todos are sorted by their original insertion order.

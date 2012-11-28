@@ -262,12 +262,14 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\application\application.js" />
     <Content Include="Scripts\application\models\assignment.js" />
+    <Content Include="Scripts\application\builder.js" />
     <Content Include="Scripts\application\models\participant.js" />
     <Content Include="Scripts\application\models\scoreboard.js" />
     <Content Include="Scripts\application\models\settings.js" />
     <Content Include="Scripts\application\models\solution.js" />
     <Content Include="Scripts\application\views\application.js" />
     <Content Include="Scripts\application\views\assignments.js" />
+    <Content Include="Scripts\application\views\console.js" />
     <Content Include="Scripts\application\views\editor.js" />
     <Content Include="Scripts\backbone.js" />
     <Content Include="Scripts\backbone.min.js" />
@@ -398,6 +400,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\json2.js" />
+    <Content Include="Scripts\json2.min.js" />
     <Content Include="Scripts\qunit.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
