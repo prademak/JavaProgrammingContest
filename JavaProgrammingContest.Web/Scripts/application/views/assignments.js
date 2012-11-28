@@ -32,13 +32,14 @@ $(document).ready(function () {
                 url: '/api/Assignments',
                 success: function () {
                     if (ns.length <= 0) {
+                        console.log('Found assignments:'+ns.length);
                         $('#noAssignmentsModal').modal({
                             backdrop: true,
                             keyboard: false,
                             show: true
                         });
                     } else {
-                        
+                        console.warn('No assignments.');
                     }
                 },
                 

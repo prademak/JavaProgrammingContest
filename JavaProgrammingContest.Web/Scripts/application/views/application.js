@@ -4,6 +4,8 @@ $(document).ready(function () {
     ApplicationView = Backbone.View.extend({
         el: $(".editor-row").get(0),
 
+        console: null,
+
         editor: null,
         
         assignments: null,
@@ -13,13 +15,15 @@ $(document).ready(function () {
 
         // Delegated events for creating new items, and clearing completed ones.
         events: {
-            "click .pane.editor .dropdown-menu a": "changeTheme"
+            "click .pane.editor .dropdown-menu a": "changeTheme",
+            "click .tabbable.tabs-below li a": "changeViewEvent"
             //"keypress #new-todo": "createOnEnter",
             //"click #clear-completed": "clearCompleted",
             //"click #toggle-all": "toggleAllComplete"
         },
 
-        initialize: function() {
+        initialize: function () {
+            this.console = new ConsoleView();
             this.editor = new EditorView();
             this.assignments = new AssignmentView({ model: new AssignmentCollection() });
             //asCol.reset([{ Id: 0, Title: 'asdf' }, { Id: 0, Title: 'asdfff' }]);
@@ -73,6 +77,38 @@ $(document).ready(function () {
         changeTheme: function(e) {
             this.editor.setOption("theme", $(e.currentTarget).attr('data-theme'));
         },
+
+        changeView: function(view) {
+            if (view == 'editor') {
+                this.$el.find('.tabbable.tabs-below .active').removeClass('active');
+                this.$el.find('.tabbable.tabs-below a[href~=#editor]').parent().addClass('active');
+
+                this.$el.find('.activePane').removeClass('activePane');
+                this.$el.find('#EditorPane').addClass('activePane');
+            } else if (view == 'console') {
+                this.$el.find('.tabbable.tabs-below .active').removeClass('active');
+                this.$el.find('.tabbable.tabs-below a[href~=#console]').parent().addClass('active');
+
+                this.$el.find('.activePane').removeClass('activePane');
+                this.$el.find('#ConsolePane').addClass('activePane');
+            } else {
+                console.warn('Unknown view type "'+view+'".');
+            }
+        },
+        
+        changeViewEvent: function(e) {
+            this.changeView($(e.currentTarget).attr('href').substring(1));
+            return false;
+        },
+
+
+
+
+
+
+
+
+
 
         // Add a single todo item to the list by creating a view for it, and
         // appending its element to the `<ul>`.
