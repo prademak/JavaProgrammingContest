@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -51,7 +50,7 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(2));
             SetupControllerForTests(_controller);
 
-            var result = _controller.Post(new Assignment { Id = 3, Title = "title 3" });
+            var result = _controller.Post(new Assignment{Id = 3, Title = "title 3"});
 
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);
         }
@@ -68,7 +67,7 @@ namespace JavaProgrammingContest.Web.Tests.Api{
         }
 
         [Test]
-        [ExpectedException(typeof(HttpResponseException))]
+        [ExpectedException(typeof (HttpResponseException))]
         public void PostAssignmentWithInvalidModelThrowsBadRequestException(){
             SetupControllerForTests(_controller);
             _controller.ModelState.AddModelError("test", "test");
@@ -79,7 +78,7 @@ namespace JavaProgrammingContest.Web.Tests.Api{
         }
 
         [Test]
-        [ExpectedException(typeof(HttpResponseException))]
+        [ExpectedException(typeof (HttpResponseException))]
         public void PostAssignmentShouldThrowInternalServerErrorWhenSavingEntityFailed(){
             SetupControllerForTests(_controller);
             _contextMock.Setup(m => m.SaveChanges()).Throws(new Exception());
@@ -88,8 +87,6 @@ namespace JavaProgrammingContest.Web.Tests.Api{
 
             Assert.Fail();
         }
-
-
 
         private static FakeAssignmentsSet CreateSampleData(int nrOfRecords){
             var sampleData = new FakeAssignmentsSet();
