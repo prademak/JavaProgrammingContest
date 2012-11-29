@@ -116,9 +116,9 @@
     margin: 0;
     padding: 0;
     position: absolute;
-    top: 5px;
+    top: 48px;
     left: 8px;
-    right: 8px;
+    right: -1px;
 }
 
 .pane.assignments li {
@@ -131,6 +131,7 @@
     overflow: hidden;
     position: relative;
     cursor: pointer;
+    min-height: 20px;
 }
 
 .pane.assignments li:hover {

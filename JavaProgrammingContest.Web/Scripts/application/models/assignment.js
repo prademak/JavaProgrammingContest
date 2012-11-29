@@ -48,8 +48,8 @@ $(window).ready(function () {
         },
 
         // Todos are sorted by their original insertion order.
-        comparator: function (assignment) {
-            return assignment.get('sort');
-        }
+        //comparator: function (assignment) {
+        //    return assignment.get('sort');
+        //}
     });
 });

@@ -7,13 +7,13 @@ $(window).ready(function () {
     BuilderFactory = {
 
         build: function (code, complete) {
-            this._call('build', JSON.stringify({ code: code }), function (data) {
+            this._call('build', JSON.stringify({ BuildJob: { Code: code } }), function (data) {
                 complete(data);
             });
         },
 
         run: function(code, complete) {
-            this._call('run', JSON.stringify({code: code}), function(data) {
+            this._call('run', JSON.stringify({ BuildJob: { Code: code } }), function(data) {
                 complete(data);
             });
         },

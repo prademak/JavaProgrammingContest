@@ -16,7 +16,10 @@ $(document).ready(function () {
         // Delegated events for creating new items, and clearing completed ones.
         events: {
             "click .pane.editor .dropdown-menu a": "changeTheme",
-            "click .tabbable.tabs-below li a": "changeViewEvent"
+            "click .tabbable.tabs-below li a": "changeViewEvent",
+            
+            "click .pane.editor .btn-toolbar .btn[href=#build]": "buildCode",
+            "click .pane.editor .btn-toolbar .btn[href=#run]": "runCode"
             //"keypress #new-todo": "createOnEnter",
             //"click #clear-completed": "clearCompleted",
             //"click #toggle-all": "toggleAllComplete"
@@ -26,54 +29,21 @@ $(document).ready(function () {
             this.console = new ConsoleView();
             this.editor = new EditorView();
             this.assignments = new AssignmentView({ model: new AssignmentCollection() });
-            //asCol.reset([{ Id: 0, Title: 'asdf' }, { Id: 0, Title: 'asdfff' }]);
-            
-            
-            //this.input = this.$("#new-todo");
-            //this.allCheckbox = this.$("#toggle-all")[0];
-
-            //Todos.bind('add', this.addOne, this);
-            //Todos.bind('reset', this.addAll, this);
-            //Todos.bind('all', this.render, this);
-
-            //this.footer = this.$('footer');
-            //this.main = $('#main');
-
-            //Todos.fetch();
+            var ns = this;
+            this.assignments.on('select', function (mdl) { ns.setAssignment.call(ns, mdl); });
         },
 
         // Re-rendering the App just means refreshing the statistics -- the rest
         // of the app doesn't change.
         render: function () {
             // Firstly check the assignments
-            this.assignments.render();
-            /*if (this.assignments.length <= 0) {
-                this.$('#noAssignmentsModal').modal({
-                    keyboard: false,
-                    backdrop: true,
-                    show: true
-                });
-                console.log('Lawl');
-            } else {
-                console.log(this.assignments.length);
-            }*/
-
-
-            /*var done = Todos.done().length;
-            var remaining = Todos.remaining().length;
-
-            if (Todos.length) {
-                this.main.show();
-                this.footer.show();
-                this.footer.html(this.statsTemplate({ done: done, remaining: remaining }));
-            } else {
-                this.main.hide();
-                this.footer.hide();
-            }
-
-            this.allCheckbox.checked = !remaining;*/
+            this.assignments.model.fetch({ url: '/api/assignments' });
         },
         
+        setAssignment: function(mdl) {
+            this.editor.setContent(mdl.get('CodeGiven'));
+        },
+
         changeTheme: function(e) {
             this.editor.setOption("theme", $(e.currentTarget).attr('data-theme'));
         },
@@ -101,7 +71,14 @@ $(document).ready(function () {
             return false;
         },
 
-
+        buildCode: function() {
+            this.console.build(this.editor.getContent());
+            return false;
+        },
+        runCode: function () {
+            this.console.run(this.editor.getContent());
+            return false;
+        },
 
 
 

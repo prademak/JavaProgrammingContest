@@ -7,7 +7,9 @@
 @Scripts.Render("~/Script/CodeMirror")
 
 <script type="text/template" id="assignment-template">
-    <h3><%= title %></h3>
+    <li data-assignment="{Id}">
+        <h3>{Title}</h3>
+    </li>
 </script>
 
 <div id="loadingModal" class="modal hide">
@@ -92,12 +94,12 @@
     <div class="pane editor">
         <div class="btn-toolbar">
             <div class="btn-group">
-                <a class="btn btn-small btn-success" href="#"><i class="icon-hdd"></i> <u>S</u>ubmit</a>
-                <a class="btn btn-small btn-danger" href="#"><i class="icon-repeat"></i> <u>R</u>eset</a>
+                <a class="btn btn-small btn-success" href="#submit"><i class="icon-hdd"></i> <u>S</u>ubmit</a>
+                <a class="btn btn-small btn-danger" href="#reset"><i class="icon-repeat"></i> <u>R</u>eset</a>
             </div>
             <div class="btn-group">
-                <a class="btn btn-small btn-warning" href="#" onclick="app.console.build('testcode');"><i class="icon-fire"></i> <u>B</u>uild</a>
-                <a class="btn btn-small btn-success" href="#" onclick="app.console.run('testcode');"><i class="icon-fire"></i> <u>R</u>un</a>
+                <a class="btn btn-small btn-warning" href="#build"><i class="icon-fire"></i> <u>B</u>uild</a>
+                <a class="btn btn-small btn-success" href="#run"><i class="icon-fire"></i> <u>R</u>un</a>
             </div>
             <div class="btn-group">
                 <a class="btn btn-small" href="#settings-dialog" data-toggle="modal"><i class="icon-cog"></i> Sett<u>i</u>ngs</a>

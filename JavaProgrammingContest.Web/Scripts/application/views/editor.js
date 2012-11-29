@@ -46,6 +46,10 @@ $(document).ready(function () {
         setContent: function(content) {
             return this.codeMirror.setValue(content);
         },
+        
+        getContent: function() {
+            return this.codeMirror.getValue();
+        },
 
         setOption: function(option, value) {
             this.codeMirror.setOption(option, value);
