@@ -70,6 +70,12 @@ namespace JavaProgrammingContest.Web.App_Start {
 
                 "~/Scripts/application/builder.js",
                 "~/Scripts/application/application.js"));
+
+            bundles.Add(new ScriptBundle("~/Script/Noty").Include(
+                "~/Scripts/noty/jquery.noty.js",
+                "~/Scripts/noty/layouts/top.js",
+                "~/Scripts/noty/layouts/topRight.js",
+                "~/Scripts/noty/themes/default.js"));
         }
     }
 }
