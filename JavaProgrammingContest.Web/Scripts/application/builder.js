@@ -25,6 +25,9 @@ $(window).ready(function () {
                 dataType: 'json',
                 cache: false,
                 success: success,
+                error: function (data, a, b) {
+                    noty({ text: 'Something went wrong trying to build the program: ' + b, type: 'error' });
+                },
                 data: data
             });
         }
