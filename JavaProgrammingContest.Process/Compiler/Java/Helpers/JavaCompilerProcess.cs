@@ -1,3 +1,4 @@
+using System.Configuration;
 using JavaProgrammingContest.Process.Compiler.Model;
 
 namespace JavaProgrammingContest.Process.Compiler.Java.Helpers{
@@ -6,8 +7,10 @@ namespace JavaProgrammingContest.Process.Compiler.Java.Helpers{
             StartInfo.UseShellExecute = false;
             StartInfo.RedirectStandardOutput = true;
             StartInfo.RedirectStandardError = true;
-            StartInfo.FileName = "C:\\glassfish3\\jdk7\\bin\\javac"; //todo settingsprovider using appconfig
+            StartInfo.FileName = new AppSettingsReader().GetValue("javaCompiler", typeof(System.String)).ToString();
+
         }
+    
 
         public CompilerResult Compile(string arguments){
             StartInfo.Arguments = arguments;
