@@ -12,8 +12,8 @@ namespace JavaProgrammingContest.Web.API{
         }
 
         public HttpResponseMessage Post(BuildJob buildJob){
-            var result = _compiler.CompileFromPlainText(buildJob.Code);
-
+          var result = _compiler.CompileFromPlainText(buildJob.Code);
+            
             //TODO use CompilerResult class as response
             return Request.CreateResponse(HttpStatusCode.Created,
                 new BuildResult{
