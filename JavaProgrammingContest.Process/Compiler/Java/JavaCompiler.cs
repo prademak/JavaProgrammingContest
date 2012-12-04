@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using JavaProgrammingContest.Process.Compiler.Model;
 
 namespace JavaProgrammingContest.Process.Compiler.Java{
@@ -16,5 +17,18 @@ namespace JavaProgrammingContest.Process.Compiler.Java{
             var fileName = appName + ".java";
             return Path.Combine(currentPath, fileName);
         }
+    }   
+
+
+    public class CodeStoragePathHelper{
+        public string GetCodeStoragePath(ProgrammingLanguage programmingLanguage){
+            var current = Directory.GetCurrentDirectory();
+            var sub = "code/";
+            throw new NotImplementedException();
+        }
+    }
+
+    public enum ProgrammingLanguage{
+        Java
     }
 }

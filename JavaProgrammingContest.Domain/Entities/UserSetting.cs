@@ -7,5 +7,7 @@
         public int TabSize { get; set; }
         public bool LineWrapping { get; set; }
         public bool IntelliSense { get; set; }
+
+        public Participant Participant { get; set; }
     }
 }

@@ -3,18 +3,16 @@ using JavaProgrammingContest.Process.Compiler.Model;
 
 namespace JavaProgrammingContest.Process.Compiler.Java.Helpers{
     public class JavaCompilerProcess : System.Diagnostics.Process, ICompilerProcess{
-        public JavaCompilerProcess(){
+        public JavaCompilerProcess(ISettingsReader appSettingsReader){
             StartInfo.UseShellExecute = false;
             StartInfo.RedirectStandardOutput = true;
             StartInfo.RedirectStandardError = true;
-            StartInfo.FileName = new AppSettingsReader().GetValue("javaCompiler", typeof(System.String)).ToString();
-
+            StartInfo.FileName = appSettingsReader.GetValueAsString("javac_path");
         }
-    
 
         public CompilerResult Compile(string arguments){
             StartInfo.Arguments = arguments;
-            
+
             Start();
 
             var compilerResult = new CompilerResult{
@@ -26,6 +24,27 @@ namespace JavaProgrammingContest.Process.Compiler.Java.Helpers{
             WaitForExit();
 
             return compilerResult;
+        }
+    }
+
+    public interface ISettingsReader{
+        string GetValueAsString(string key);
+        object GetValueAsObject(string key);
+    }
+
+    public class SettingsReader : ISettingsReader{
+        private readonly AppSettingsReader _appSettingsReader;
+
+        public SettingsReader(){
+            _appSettingsReader = new AppSettingsReader();
+        }
+
+        public string GetValueAsString(string key){
+            return _appSettingsReader.GetValue(key, typeof (string)).ToString();
+        }
+
+        public object GetValueAsObject(string key){
+            return _appSettingsReader.GetValue(key, typeof (object));
         }
     }
 }

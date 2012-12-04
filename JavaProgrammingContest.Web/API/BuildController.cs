@@ -1,6 +1,8 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Security;
+using System.Web.UI;
 using JavaProgrammingContest.Process.Compiler;
 
 namespace JavaProgrammingContest.Web.API{
@@ -12,7 +14,8 @@ namespace JavaProgrammingContest.Web.API{
         }
 
         public HttpResponseMessage Post(BuildJob buildJob){
-          var result = _compiler.CompileFromPlainText(buildJob.Code);
+            var user = Membership.GetUser(User.Identity.Name);
+            var result = _compiler.CompileFromPlainText(buildJob.Code);
             
             //TODO use CompilerResult class as response
             return Request.CreateResponse(HttpStatusCode.Created,
