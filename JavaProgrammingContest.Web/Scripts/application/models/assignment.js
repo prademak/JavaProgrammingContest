@@ -21,12 +21,17 @@ $(window).ready(function () {
                 
                 Solved: false
             };
-        }//,
+        },
 
+        
         // Initialize the model
         //initialize: function () {
             
-        //}
+        //},
+
+        solve: function (code) {
+            
+        }
     });
 
     /**

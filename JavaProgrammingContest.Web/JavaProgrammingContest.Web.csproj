@@ -185,6 +185,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\EditorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TestSuiteController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -420,6 +421,8 @@
     <Content Include="Scripts\noty\layouts\topRight.js" />
     <Content Include="Scripts\noty\themes\default.js" />
     <Content Include="Scripts\qunit.js" />
+    <Content Include="Scripts\tests\models\assignment.js" />
+    <Content Include="Scripts\tests\testsuite.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Views\Editor\Index.cshtml" />
@@ -471,6 +474,7 @@
     <Content Include="Views\Home\Asignments.cshtml" />
     <Content Include="Views\Home\Leaderboard.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\SwitchedBoolean.cshtml" />
+    <Content Include="Views\TestSuite\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

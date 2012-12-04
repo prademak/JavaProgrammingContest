@@ -55,8 +55,10 @@ namespace JavaProgrammingContest.Web.App_Start {
             bundles.Add(new ScriptBundle("~/Script/Backbone").Include(
                 "~/Scripts/underscore.js",
                 "~/Scripts/backbone.js",
-                "~/Scripts/json2.js",
+                "~/Scripts/json2.js"));
 
+            // Backbone Application
+            bundles.Add(new ScriptBundle("~/Script/Application").Include(
                 "~/Scripts/application/models/assignment.js",
                 "~/Scripts/application/models/participant.js",
                 "~/Scripts/application/models/scoreboard.js",
@@ -71,11 +73,19 @@ namespace JavaProgrammingContest.Web.App_Start {
                 "~/Scripts/application/builder.js",
                 "~/Scripts/application/application.js"));
 
+            // Noty
             bundles.Add(new ScriptBundle("~/Script/Noty").Include(
                 "~/Scripts/noty/jquery.noty.js",
                 "~/Scripts/noty/layouts/top.js",
                 "~/Scripts/noty/layouts/topRight.js",
                 "~/Scripts/noty/themes/default.js"));
+
+            // QUnit
+            bundles.Add(new StyleBundle("~/Content/QUnit").Include(
+                       "~/Content/qunit.css"));
+            bundles.Add(new ScriptBundle("~/Script/QUnit").Include(
+                "~/Scripts/qunit.js",
+                "~/Scripts/tests/testsuite.js"));
         }
     }
 }
