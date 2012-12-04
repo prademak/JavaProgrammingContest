@@ -1,11 +1,11 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace JavaProgrammingContest.Domain.Entities{
-    public class Contest
-    {
+    public class Contest{
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Event { get; set; }
-        public DateTime Date { get; set; }
+        public bool IsActive { get; set; }
+
+        public ICollection<ContestAssignment> ContestAssignments { get; set; }
     }
 }

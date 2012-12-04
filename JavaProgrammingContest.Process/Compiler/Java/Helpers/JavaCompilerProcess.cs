@@ -20,6 +20,8 @@ namespace JavaProgrammingContest.Process.Compiler.Java.Helpers{
                 CompilationTime = (int) ExitTime.Subtract(StartTime).TotalMilliseconds
             };
 
+            
+
             WaitForExit();
 
             return compilerResult;

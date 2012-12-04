@@ -41,8 +41,6 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(1));
 
             _controller.Get(2);
-
-            Assert.Fail();
         }
 
         [Test]
@@ -73,8 +71,6 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             _controller.ModelState.AddModelError("test", "test");
 
             _controller.Post(new Assignment());
-
-            Assert.Fail();
         }
 
         [Test]
@@ -84,9 +80,10 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             _contextMock.Setup(m => m.SaveChanges()).Throws(new Exception());
 
             _controller.Post(new Assignment());
-
-            Assert.Fail();
         }
+
+        [Test]
+        public void 
 
         private static FakeAssignmentsSet CreateSampleData(int nrOfRecords){
             var sampleData = new FakeAssignmentsSet();
