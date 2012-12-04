@@ -82,9 +82,6 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             _controller.Post(new Assignment());
         }
 
-        [Test]
-        public void 
-
         private static FakeAssignmentsSet CreateSampleData(int nrOfRecords){
             var sampleData = new FakeAssignmentsSet();
 
