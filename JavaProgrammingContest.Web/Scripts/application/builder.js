@@ -23,6 +23,7 @@ $(window).ready(function () {
                 url: '/api/' + controller,
                 type: 'POST',
                 dataType: 'json',
+                contentType: 'application/json',
                 cache: false,
                 success: success,
                 error: function (data, a, b) {
