@@ -44,6 +44,8 @@ namespace JavaProgrammingContest.Web{
             builder.RegisterType<JavaCompilerProcess>().As<ICompilerProcess>();
             builder.RegisterType<JavaRunner>().As<IRunner>().PropertiesAutowired();
             builder.RegisterType<JavaRunnerProcess>().As<IRunnerProcess>();
+            builder.RegisterType<SettingsReader>().As<ISettingsReader>();
+            
         }
 
         private static void SetMvcResolver(ILifetimeScope container){
