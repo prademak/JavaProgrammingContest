@@ -1,19 +1,18 @@
 ﻿var BuilderFactory;
 
-$(window).ready(function () {
+$(window).ready(function() {
     /**
      * Assignment Model
      */
     BuilderFactory = {
-
-        build: function (code, complete) {
-            this._call('build', JSON.stringify({ BuildJob: { Code: code } }), function (data) {
+        build: function(code, complete) {
+            this._call('build', JSON.stringify({ Code: code }), function(data) {
                 complete(data);
             });
         },
 
         run: function(code, complete) {
-            this._call('run', JSON.stringify({ BuildJob: { Code: code } }), function(data) {
+            this._call('run', JSON.stringify({ Code: code }), function(data) {
                 complete(data);
             });
         },
@@ -26,7 +25,7 @@ $(window).ready(function () {
                 contentType: 'application/json',
                 cache: false,
                 success: success,
-                error: function (data, a, b) {
+                error: function(data, a, b) {
                     noty({ text: 'Something went wrong trying to build the program: ' + b, type: 'error' });
                 },
                 data: data

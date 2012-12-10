@@ -8,14 +8,12 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using JavaProgrammingContest.Web.Filters;
 using JavaProgrammingContest.Web.Models;
 
 namespace JavaProgrammingContest.Web.Controllers {
     [Authorize]
-    [InitializeSimpleMembership]
     public class AccountController : Controller {
-        //
+     
         // GET: /Account/Login
 
         [AllowAnonymous]

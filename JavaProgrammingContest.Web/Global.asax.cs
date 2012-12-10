@@ -19,6 +19,7 @@ namespace JavaProgrammingContest.Web{
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
             DIConfig.RegisterTypes();
+            DatabaseConfig.InitializeDatabase();
         }
     }
 }
