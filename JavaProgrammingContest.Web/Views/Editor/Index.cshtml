@@ -114,7 +114,17 @@
             </div>
         </div>
         <div id="EditorViewport">
-            <div id="EditorPane" class="activePane"></div>
+            <div id="AssignmentPane" class="activePane">
+                <h1>#TITLE</h1>
+                <div class="properties">
+                    <h2>Target solve time:</h2>
+                    <span class="time"></span>
+                    <a href="" class="btn btn-large btn-success">Start the Time!</a>
+                </div>
+                <div class="description">#DESCRIPTION</div>
+            </div>
+            <div id="SplitscreenPane"></div>
+            <div id="EditorPane"></div>
             <div id="ConsolePane">
                 <div class="tabbable">
                     <ul class="nav nav-tabs">
@@ -132,9 +142,9 @@
         </div>
         <div class="tabbable tabs-below">
             <ul class="nav nav-tabs">
-                <li><a href="#assignment">Assignment</a></li>
+                <li class="active"><a href="#assignment">Assignment</a></li>
                 <li><a href="#splitscreen">Splitscreen</a></li>
-                <li class="active"><a href="#editor">Editor</a></li>
+                <li><a href="#editor">Editor</a></li>
                 <li><a href="#console">Console <span class="label label-important">3</span></a></li>
             </ul>
         </div>
