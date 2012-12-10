@@ -18,8 +18,12 @@ $(document).ready(function () {
             "click .pane.editor .dropdown-menu a": "changeTheme",
             "click .tabbable.tabs-below li a": "changeViewEvent",
             
+            "click .pane.editor .btn-toolbar .btn[href=#submit]": "submitAssignment",
+            "click .pane.editor .btn-toolbar .btn[href=#reset]": "resetAssignment",
             "click .pane.editor .btn-toolbar .btn[href=#build]": "buildCode",
-            "click .pane.editor .btn-toolbar .btn[href=#run]": "runCode"
+            "click .pane.editor .btn-toolbar .btn[href=#run]": "runCode",
+            
+            "click .pane.editor #AssignmentPane .properties .btn": "startAssignment"
             //"keypress #new-todo": "createOnEnter",
             //"click #clear-completed": "clearCompleted",
             //"click #toggle-all": "toggleAllComplete"
@@ -31,6 +35,8 @@ $(document).ready(function () {
             this.assignments = new AssignmentView({ model: new AssignmentCollection() });
             var ns = this;
             this.assignments.on('select', function (mdl) { ns.setAssignment.call(ns, mdl); });
+            
+            
         },
 
         // Re-rendering the App just means refreshing the statistics -- the rest
@@ -61,6 +67,18 @@ $(document).ready(function () {
 
                 this.$el.find('.activePane').removeClass('activePane');
                 this.$el.find('#ConsolePane').addClass('activePane');
+            } else if(view == 'assignment'){
+                this.$el.find('.tabbable.tabs-below .active').removeClass('active');
+                this.$el.find('.tabbable.tabs-below a[href~=#assignment]').parent().addClass('active');
+
+                this.$el.find('.activePane').removeClass('activePane');
+                this.$el.find('#AssignmentPane').addClass('activePane');
+            } else if (view == 'splitscreen') {
+                this.$el.find('.tabbable.tabs-below .active').removeClass('active');
+                this.$el.find('.tabbable.tabs-below a[href~=#splitscreen]').parent().addClass('active');
+
+                this.$el.find('.activePane').removeClass('activePane');
+                this.$el.find('#SplitscreenPane').addClass('activePane');
             } else {
                 console.warn('Unknown view type "'+view+'".');
             }
@@ -80,9 +98,23 @@ $(document).ready(function () {
             return false;
         },
 
+        submitAssignment: function() {
+            var newCodeSubmission = new AssignmentModel({
+                Code: this.editor.getContent()
+            });
+            newCodeSubmission.save();
+            return false;
+        },
+        
+        resetAssignment: function () {
+            this.setAssignment(this.assignments.current);
+            return false;
+        },
 
-
-
+        startAssignment: function() {
+            // TODO STart the timer <Alexender>
+            return false;
+        },
 
 
 

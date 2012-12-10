@@ -5,6 +5,8 @@ $(window).ready(function () {
      * Assignment Model
      */
     AssignmentModel = Backbone.Model.extend({
+        urlRoot: 'api/assignments/',
+        idAttribute: "Id",
 
         // Default attributes
         defaults: function () {

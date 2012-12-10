@@ -32,36 +32,15 @@ $(document).ready(function () {
 
         // Re-render the titles of the todo item.
         render: function () {
-            console.warn('Rendering assignments..');
-            // Fetch the data
-            /*var ns = this;
-            this.model.fetch({
-                url: '/api/Assignments',
-                success: function () {
-                    if (ns.model.length <= 0) {
-                        // TODO: Use noty for this.
-                        $('#noAssignmentsModal').modal({
-                            backdrop: true,
-                            keyboard: false,
-                            show: true
-                        });
-                    } else {
-                        ns.$el.html(ns.template(ns.model.toJSON()));
-                        //console.log(ns.model.toJSON());
-                    }
-                },
-                
-                error: function () {
-                    // TODO: Use noty for this
-                    $('#noAssignmentsModal').modal({
-                        backdrop: true,
-                        keyboard: false,
-                        show: true
-                    });
-                }
-            });*/
+            // Check for current
+            if (this.current == null) {
+                console.log('Loaded frst assignmnt');
+                this.current = this.model.at(0);
+                app.setAssignment(this.current);
+                this.renderPane();
+            }
 
-
+            // Template
             var list = "";
             var ns = this;
             this.model.each(function (model) {
@@ -75,6 +54,13 @@ $(document).ready(function () {
             return this;
         },
         
+        renderPane: function() {
+            var ass = $('#AssignmentPane');
+            ass.find('h1').text(this.current.get('Title'));
+            ass.find('.description').text(this.current.get('Description'));
+            ass.find('.time').text((this.current.get('TargetSolveTime')/60)+' minutes');
+        },
+
         select: function(e) {
             $(e.currentTarget).addClass('selected');
             this.setState($(e.currentTarget),'selected');
