@@ -6,7 +6,7 @@ namespace JavaProgrammingContest.Domain.Entities{
         public string Title { get; set; }
         public string Description { get; set; }
         public string CodeGiven { get; set; }
-        public double TargetSolveTime { get; set; }
+        public double MaxSolveTime { get; set; }
 
         public ICollection<ContestAssignment> ContestAssignments { get; set; } 
     }

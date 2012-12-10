@@ -1,4 +1,6 @@
-﻿namespace JavaProgrammingContest.Domain.Entities{
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace JavaProgrammingContest.Domain.Entities{
     public class UserSetting{
         public int Id { get; set; }
         public string Theme { get; set; }
@@ -8,6 +10,7 @@
         public bool LineWrapping { get; set; }
         public bool IntelliSense { get; set; }
 
+        [Required]
         public Participant Participant { get; set; }
     }
 }
