@@ -21,7 +21,7 @@ namespace JavaProgrammingContest.Web.API{
                     CodeGiven = "// Sample class\nclass HelloWorldApp {\n\tpublic static void main(String[] args){\n\t\tSystem.out.println(\"Hello World!\");\n\t}\n}\n",
                     Description = "Nullam ac venenatis arcu. Curabitur vitae malesuada sapien. Nam cursus, odio eget mollis rutrum, arcu ipsum pharetra diam, quis rhoncus magna sem non augue. Sed mollis rutrum dui, sed consequat ipsum congue eu. In luctus, orci id semper vehicula, neque lectus tristique lectus, eu interdum risus dolor non erat. Nullam ipsum eros, dignissim ac cursus non, ultrices vitae leo. Pellentesque mollis nisi ut orci euismod ac gravida magna aliquet. Aenean mi urna, fermentum ac lobortis condimentum, tincidunt in leo.",
                     Title = "This is a sample assignment",
-                    MaxSolveTime = 900
+                    MaxSolveTime = 900,
                 },
                 new Assignment{
                     Id = 2,

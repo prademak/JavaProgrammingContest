@@ -13,6 +13,7 @@ $(document).ready(function () {
         
         modelIndex: 0,
         current: null,
+        started: false,
 
         // Cache the template function for a single item.
         template: $('#assignment-template').html(),
@@ -33,6 +34,12 @@ $(document).ready(function () {
 
         // Re-render the titles of the todo item.
         render: function () {
+            // Check if model is empty
+            if (this.model.length == 0) {
+                noty({ text: '<h3>No assignments found!</h3>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
+                return false;
+            }
+
             // Check for current
             if (this.current == null) {
                 this.current = this.model.at(0);
@@ -77,13 +84,17 @@ $(document).ready(function () {
             var ass = $('#AssignmentPane');
             ass.find('h1').text(this.current.get('Title'));
             ass.find('.description').text(this.current.get('Description'));
-            ass.find('.time').text((this.current.get('TargetSolveTime')/60)+' minutes');
+            ass.find('.time').text((this.current.get('MaxSolveTime')/60)+' minutes');
         },
 
         select: function (e) {
+            // Check if an assignment is in progress
+            if (this.started == true) return false;
+            
             this.$el.find('.selected').removeClass('selected');
             $(e.currentTarget).addClass('selected');
-            this.setState($(e.currentTarget),'selected');
+            this.setState($(e.currentTarget), 'selected');
+            
             //alert('selected'); //this.setActive();
             //window.app.loadAssignment(this);
         },

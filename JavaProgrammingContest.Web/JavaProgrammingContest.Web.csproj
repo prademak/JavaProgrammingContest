@@ -197,6 +197,7 @@
   <ItemGroup>
     <None Include="Scripts\jquery-1.8.3.intellisense.js" />
     <Content Include="Content\editor.dark.css" />
+    <Content Include="Scripts\application\models\codesubmit.js" />
     <Content Include="Scripts\jquery-1.8.3.js" />
     <Content Include="Scripts\jquery-1.8.3.min.js" />
     <Content Include="Scripts\moment.js" />
@@ -278,7 +279,7 @@
     <Content Include="Scripts\application\models\participant.js" />
     <Content Include="Scripts\application\models\scoreboard.js" />
     <Content Include="Scripts\application\models\settings.js" />
-    <Content Include="Scripts\application\models\solution.js" />
+    <Content Include="Scripts\application\models\progress.js" />
     <Content Include="Scripts\application\views\application.js" />
     <Content Include="Scripts\application\views\assignments.js" />
     <Content Include="Scripts\application\views\console.js" />

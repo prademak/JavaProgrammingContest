@@ -15,13 +15,8 @@ $(window).ready(function () {
                 
                 Title: '',
                 Description: '',
-                
                 CodeGiven: '',
-                
-                TargetSolveTime: 0.0,
-                TargetCompileTime: 0.0,
-                
-                Solved: false
+                MaxTimeSpent: 0,
             };
         },
 

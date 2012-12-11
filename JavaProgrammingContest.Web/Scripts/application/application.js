@@ -6,6 +6,7 @@ $(document).ready(function () {
     
     // Noty notification settings
     $.noty.defaults.layout = 'topRight';
+    $.noty.defaults.dismissQueue = true;
     /*$.noty.defaults = {
         layout: 'topRight',
         theme: 'default',
