@@ -6,6 +6,7 @@ using JavaProgrammingContest.Domain.Entities;
 
 namespace JavaProgrammingContest.Web.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AssignmentController : Controller
     {
          private readonly IDbContext _context;
