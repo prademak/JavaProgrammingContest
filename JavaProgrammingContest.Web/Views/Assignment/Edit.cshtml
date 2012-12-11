@@ -35,9 +35,9 @@
                  @Html.ValidationMessageFor(m => m.CodeGiven)
              </li>
              <li>
-                 @Html.LabelFor(m => m.TargetSolveTime)
-                 @Html.TextBoxFor(m => m.TargetSolveTime, new { @Value = @ViewBag.am.TargetSolveTime}))
-                 @Html.ValidationMessageFor(m => m.TargetSolveTime)
+                 @Html.LabelFor(m => m.MaxSolveTime)
+                 @Html.TextBoxFor(m => m.MaxSolveTime, new { @Value = @ViewBag.am.MaxSolveTime}))
+                 @Html.ValidationMessageFor(m => m.MaxSolveTime)
              </li> 
          </ol>
          <input type="submit" value="Submit" />
