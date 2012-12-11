@@ -10,6 +10,8 @@ $(document).ready(function () {
         
         assignments: null,
 
+        timer: null,
+
         // Our template for the line of statistics at the bottom of the app.
         //statsTemplate: _.template($('#stats-template').html()),
 
@@ -123,7 +125,7 @@ $(document).ready(function () {
             })).save();
 
             // Show the timer
-            this.assignments.startTime = new Date();
+            this.timer = new TimerView();
 
             // Enable all the editor tabs
             this.$el.find('.tabbable.tabs-below li')

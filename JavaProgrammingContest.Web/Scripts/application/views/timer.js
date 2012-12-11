@@ -3,24 +3,49 @@
 $(document).ready(function () {
     TimerView = Backbone.View.extend({
         // Representing element
-        el: $("#TimePane"),
+        el: $("#TimerPane"),
 
-        initialize: function () {
-            this.factory = BuilderFactory;
+        running: true,
+        start: null,
+        time: 0,
+
+        initialize: function(){
+            this.start = new Date();
+            this.render();
         },
 
         render: function () {
-            if (this.current) {
-                if (this.current.build) {
-                    console.log('Received build info, populating console.');
-                    this.$el.find('#buildStream').html('<div style="color: red;">' + this.current.build.error + '</div>' + this.current.build.output);
-                }
-                if (this.current.run) {
-                    console.log('Received runner info.');
-                    this.$el.find('#outputStream').text(this.current.run.output);
-                    this.$el.find('#errorStream').text(this.current.run.error);
-                }
+            var ns = this;
+            
+            var curTime = new Date();
+            var difference = Math.floor((curTime.getTime() - this.start.getTime()) / 1000);
+            
+            var hours = 0;
+            var minutes = 0;
+
+            while (difference >= (60 * 60)) {
+                difference -= (60 * 60);
+                hours++;
             }
+
+            while (difference >= 60) {
+                difference -= 60;
+                minutes++;
+            }
+
+            var strHours = hours.toString();
+            var strMinutes = minutes.toString();
+            var strSeconds = difference.toString();
+
+            this.$el.find('.hours').text((hours < 10) ? '0' + hours : hours);
+            this.$el.find('.minutes').text((minutes < 10) ? '0' + minutes : minutes);
+            this.$el.find('.seconds').text((difference < 10) ? '0' + difference : difference);
+
+            if (this.running) setTimeout(function () { ns.render.call(ns); }, 1000);
+        },
+
+        stop: function () {
+            this.running = false;
         }
     });
 });
