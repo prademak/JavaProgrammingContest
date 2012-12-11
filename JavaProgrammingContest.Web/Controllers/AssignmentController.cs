@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
@@ -19,8 +20,10 @@ namespace JavaProgrammingContest.Web.Controllers
         public ActionResult Index()
         {
             var items = new List<Assignment>();
-            _context.Assignments.Find();
-            ViewBag.Items = items;
+           var it = _context.Assignments.ToList();
+
+           ViewBag.Items = it;
+     
             return View();
         }
 
@@ -68,38 +71,11 @@ namespace JavaProgrammingContest.Web.Controllers
         }
 
         //
-        // POST: /Assignment/Create
-
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
         // GET: /Assignment/Edit/5
 
         public ActionResult Edit(int id)
         {
-           // var assignment = _context.Assignments.Find(id);
-
-            ViewBag.am = new Assignment
-            {
-                Id = 2,
-                CodeGiven = "",
-                Description = "Quis rhoncus magna sem non augue. Sed mollis rutrum dui, sed consequat ipsum congue eu. In luctus, orci id semper vehicula, neque lectus tristique lectus, eu interdum risus dolor non erat. Nullam ipsum eros, dignissim ac cursus non, ultrices vitae leo. Pellentesque mollis nisi ut orci euismod ac gravida magna aliquet. Aenean mi urna, fermentum ac lobortis condimentum, tincidunt in leo.",
-                Title = "Another awesome assignment",
-                MaxSolveTime = 15000
-            };
+             ViewBag.am = _context.Assignments.Find(id);
             return View();
         }
 
@@ -130,8 +106,9 @@ namespace JavaProgrammingContest.Web.Controllers
               
                    
                 _context.Assignments.Remove(assignment);
-             
-            return View();
+                  _context.SaveChanges();
+                return RedirectToAction("Index");
+           
         }
 
         //
