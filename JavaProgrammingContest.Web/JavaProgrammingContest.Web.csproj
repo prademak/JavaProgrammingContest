@@ -436,6 +436,7 @@
     <Content Include="Views\Assignment\Details.cshtml" />
     <Content Include="Views\Assignment\Edit.cshtml" />
     <Content Include="Views\Assignment\Index.cshtml" />
+    <Content Include="Views\Assignment\Delete.cshtml" />
     <None Include="Views\Shared\DisplayTemplates\SwitchedBoolean.cshtml" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />

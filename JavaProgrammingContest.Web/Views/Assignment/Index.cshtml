@@ -10,11 +10,12 @@
   {            
       <tr>
           
-          <td>@assignment.Id</td>    
+          <td width="10px">@assignment.Id</td>    
           <td> <a href="/Assignment/Edit/@assignment.Id">@assignment.Title  </a>   </td>
-          <td>@assignment.MaxSolveTime Sec</td>
-         
-          <td>   <i class="icon-remove"></i></td>
+          <td width="50px">@assignment.MaxSolveTime Sec</td>
+           <td width="10px">   <a href="/Assignment/Edit/@assignment.Id"> <i class="icon-wrench"></i> </a> </td>
+      
+          <td width="10px">  <a href="/Assignment/Delete/@assignment.Id"> <i class="icon-remove"></i></a></td>
        
       </tr>   
   } 
