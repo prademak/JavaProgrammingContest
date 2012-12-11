@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Web;
 using JavaProgrammingContest.Process.Runner.Model;
 
 namespace JavaProgrammingContest.Process.Runner.Java{
@@ -12,7 +13,9 @@ namespace JavaProgrammingContest.Process.Runner.Java{
         }
 
         public string CreateFilePath(){
-            return string.Format("\"{0}\"", Directory.GetCurrentDirectory());
+            var path = HttpContext.Current.Server.MapPath("~/");
+            path = path.Remove(path.LastIndexOf('\\'));
+            return string.Format("\"{0}\"", path );
         }
     }
 }

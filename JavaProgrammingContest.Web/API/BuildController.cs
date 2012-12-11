@@ -22,7 +22,7 @@ namespace JavaProgrammingContest.Web.API{
             //TODO use CompilerResult class as response
             return Request.CreateResponse(HttpStatusCode.Created,
                 new BuildResult{
-                    Output = result.StandardOutput,
+                    Output = result.StandardOutput == "" ? "Build succeeded" : "",
                     Error = result.StandardError,
                     CompileTime = result.CompilationTime
                 });
