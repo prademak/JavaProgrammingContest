@@ -1,0 +1,43 @@
+﻿@model JavaProgrammingContest.Domain.Entities.Assignment
+<div class="btn-toolbar">
+  <div class="btn-group">
+    <a class="btn" href="/Assignment/Index">List Assignments</a>
+    <a class="btn" href="/Assignment/Add">Add Assignment</a>
+  </div>
+</div> <section id="assignmentForm">
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+     <fieldset>
+         <legend>Add Assignment</legend>
+         <ol>
+             <li>
+                 @Html.LabelFor(m => m.Id)
+                 @Html.TextBoxFor(m => m.Id)
+                 @Html.ValidationMessageFor(m => m.Id)
+             </li>
+             <li>
+                 @Html.LabelFor(m => m.Title)
+                 @Html.TextBoxFor(m => m.Title) 
+                 @Html.ValidationMessageFor(m => m.Title)
+             </li> 
+             <li>
+                 @Html.LabelFor(m => m.Description)
+                 @Html.TextBoxFor(m => m.Description)
+                 @Html.ValidationMessageFor(m => m.Description)
+             </li> 
+             <li>
+                 @Html.LabelFor(m => m.CodeGiven)
+                 @Html.TextBoxFor(m => m.CodeGiven)
+                 @Html.ValidationMessageFor(m => m.CodeGiven)
+             </li>
+             <li>
+                 @Html.LabelFor(m => m.TargetSolveTime)
+                 @Html.TextBoxFor(m => m.TargetSolveTime)
+                 @Html.ValidationMessageFor(m => m.TargetSolveTime)
+             </li> 
+         </ol>
+         <input type="submit" value="Submit" />
+     </fieldset>
+     }
+     </section>
