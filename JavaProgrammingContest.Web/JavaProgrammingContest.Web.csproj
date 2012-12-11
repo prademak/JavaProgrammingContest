@@ -174,7 +174,9 @@
   <ItemGroup>
     <Compile Include="API\AssignmentsController.cs" />
     <Compile Include="API\BuildController.cs" />
+    <Compile Include="API\ProgressController.cs" />
     <Compile Include="API\RunController.cs" />
+    <Compile Include="API\ScoresController.cs" />
     <Compile Include="API\UserSettingsController.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
