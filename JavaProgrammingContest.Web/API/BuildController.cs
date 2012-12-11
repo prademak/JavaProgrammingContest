@@ -1,9 +1,7 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using JavaProgrammingContest.DataAccess.Context;
-using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Process.Compiler;
 using WebMatrix.WebData;
 
@@ -18,17 +16,8 @@ namespace JavaProgrammingContest.Web.API{
         }
 
         public HttpResponseMessage Post(BuildJob buildJob){
-            var userid = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
-
-            Assignment currentAssignment;
-            
-            try{
-                 currentAssignment= GetCurrentAssignment(userid);
-            } catch (Exception ex){
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Currently loged-in user hasn't started an assigment yet!");
-            }
-
-            var result = _compiler.CompileFromPlainText(buildJob.Code);
+            var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
+            var result = _compiler.CompileFromPlainText(participant, buildJob.Code);
 
             //TODO use CompilerResult class as response
             return Request.CreateResponse(HttpStatusCode.Created,
@@ -37,10 +26,6 @@ namespace JavaProgrammingContest.Web.API{
                     Error = result.StandardError,
                     CompileTime = result.CompilationTime
                 });
-        }
-
-        private Assignment GetCurrentAssignment(Participant userid){
-            return _context.Participants.Find(userid).Progress.ContestAssignment.Assignment;
         }
     }
 

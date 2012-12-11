@@ -56,6 +56,12 @@
     <Compile Include="Runner\Java\JavaRunner.cs" />
     <Compile Include="Runner\Model\RunResult.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JavaProgrammingContest.Domain\JavaProgrammingContest.Domain.csproj">
+      <Project>{4AA3B70C-8D2B-41CF-A6E8-69D9C3B52AC0}</Project>
+      <Name>JavaProgrammingContest.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
