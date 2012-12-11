@@ -14,6 +14,7 @@ $(document).ready(function () {
         modelIndex: 0,
         current: null,
         started: false,
+        startTime: null,
 
         // Cache the template function for a single item.
         template: $('#assignment-template').html(),

@@ -122,6 +122,9 @@ $(document).ready(function () {
                 Id: this.assignments.current.id
             })).save();
 
+            // Show the timer
+            this.assignments.startTime = new Date();
+
             // Enable all the editor tabs
             this.$el.find('.tabbable.tabs-below li')
                 .removeClass('disabled');
