@@ -96,16 +96,16 @@
     <div class="pane editor">
         <div class="btn-toolbar">
             <div class="btn-group">
-                <a class="btn btn-small btn-success" href="#submit"><i class="icon-hdd"></i> <u>S</u>ubmit</a>
-                <a class="btn btn-small btn-danger" href="#reset"><i class="icon-repeat"></i> <u>R</u>eset</a>
+                <a class="btn btn-small btn-success" href="#submit"><i class="icon-hdd icon-white"></i> <u>S</u>ubmit</a>
+                <a class="btn btn-small btn-danger" href="#cancel"><i class="icon-remove icon-white"></i> Cancel</a>
             </div>
             <div class="btn-group">
-                <a class="btn btn-small btn-warning" href="#build"><i class="icon-fire"></i> <u>B</u>uild</a>
-                <a class="btn btn-small btn-success" href="#run"><i class="icon-fire"></i> <u>R</u>un</a>
+                <a class="btn btn-small" href="#build"><i class="icon-fire"></i> <u>B</u>uild</a>
+                <a class="btn btn-small btn-warning" href="#run"><i class="icon-fire"></i> <u>R</u>un</a>
             </div>
             <div class="btn-group">
                 <a class="btn btn-small" href="#settings-dialog" data-toggle="modal"><i class="icon-cog"></i> Sett<u>i</u>ngs</a>
-                <a class="btn btn-small btn-info dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-tint"></i> Theme <span class="caret"></span></a>
+                <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-tint"></i> Theme <span class="caret"></span></a>
                 <ul class="dropdown-menu pull-right">
                     <li><a href="#" data-theme="eclipse">Eclipse (Default)</a></li>
                     <li><a href="#" data-theme="monokai">Monokai</a></li>
@@ -119,14 +119,14 @@
                 <div class="properties">
                     <h2>Target solve time:</h2>
                     <span class="time"></span>
-                    <a href="" class="btn btn-large btn-success">Start the Time!</a>
+                    <a href="" class="btn btn-large btn-block btn-success">Start the Time!</a>
                 </div>
                 <div class="description">#DESCRIPTION</div>
             </div>
             <div id="SplitscreenPane"></div>
             <div id="EditorPane"></div>
             <div id="ConsolePane">
-                <div class="tabbable">
+                <div class="tabbable tabs-right">
                     <ul class="nav nav-tabs">
                         <li><a href="#buildStream" data-toggle="tab">Build</a></li>
                         <li class="active"><a href="#outputStream" data-toggle="tab">Output</a></li>

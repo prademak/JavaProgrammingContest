@@ -1,0 +1,22 @@
+﻿
+<div class="btn-toolbar">
+  <div class="btn-group">
+    <a class="btn" href="/Assignment/Index">List Assignments</a>
+    <a class="btn" href="/Assignment/Add">Add Assignment</a>
+  </div>
+</div>
+<table class="table">
+     @foreach (var assignment in ViewBag.Items)
+  {            
+      <tr>
+          
+          <td>@assignment.Id</td>    
+          <td> <a href="/Assignment/Edit/@assignment.Id">@assignment.Title  </a>   </td>
+          <td>@assignment.TargetSolveTime Sec</td>
+         
+          <td>   <i class="icon-remove"></i></td>
+       
+      </tr>   
+  }
+   
+</table>

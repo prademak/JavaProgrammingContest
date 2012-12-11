@@ -79,6 +79,7 @@ namespace JavaProgrammingContest.Web.App_Start {
                 "~/Scripts/noty/jquery.noty.js",
                 "~/Scripts/noty/layouts/top.js",
                 "~/Scripts/noty/layouts/topRight.js",
+                "~/Scripts/noty/layouts/topCenter.js",
                 "~/Scripts/noty/themes/default.js"));
 
             // QUnit
