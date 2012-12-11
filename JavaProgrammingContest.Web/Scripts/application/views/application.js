@@ -19,7 +19,7 @@ $(document).ready(function () {
             "click .tabbable.tabs-below li a": "changeViewEvent",
             
             "click .pane.editor .btn-toolbar .btn[href=#submit]": "submitAssignment",
-            "click .pane.editor .btn-toolbar .btn[href=#reset]": "resetAssignment",
+            "click .pane.editor .btn-toolbar .btn[href=#cancel]": "cancelAssignment",
             "click .pane.editor .btn-toolbar .btn[href=#build]": "buildCode",
             "click .pane.editor .btn-toolbar .btn[href=#run]": "runCode",
             
@@ -61,12 +61,19 @@ $(document).ready(function () {
 
                 this.$el.find('.activePane').removeClass('activePane');
                 this.$el.find('#EditorPane').addClass('activePane');
+                
+                // Remove splitscreen
+                this.$el.find('.splitscreen').removeClass('splitscreen');
+                this.editor.refresh();
             } else if (view == 'console') {
                 this.$el.find('.tabbable.tabs-below .active').removeClass('active');
                 this.$el.find('.tabbable.tabs-below a[href~=#console]').parent().addClass('active');
 
                 this.$el.find('.activePane').removeClass('activePane');
                 this.$el.find('#ConsolePane').addClass('activePane');
+                
+                // Remove splitscreen
+                this.$el.find('.splitscreen').removeClass('splitscreen');
             } else if(view == 'assignment'){
                 this.$el.find('.tabbable.tabs-below .active').removeClass('active');
                 this.$el.find('.tabbable.tabs-below a[href~=#assignment]').parent().addClass('active');
@@ -79,6 +86,10 @@ $(document).ready(function () {
 
                 this.$el.find('.activePane').removeClass('activePane');
                 this.$el.find('#SplitscreenPane').addClass('activePane');
+                
+                // Activate splitscreen
+                this.$el.find('#EditorPane, #ConsolePane').addClass('splitscreen');
+                this.editor.refresh();
             } else {
                 console.warn('Unknown view type "'+view+'".');
             }
@@ -106,50 +117,31 @@ $(document).ready(function () {
             return false;
         },
         
-        resetAssignment: function () {
-            this.setAssignment(this.assignments.current);
+        cancelAssignment: function () {
+            var ns = this;
+            noty({
+                text: 'Are you sure you want to stop this assignment?\nYou cannot reopen it when you give up!', type: 'confirm', layout: 'topCenter', modal: true, buttons: [
+                     {
+                         addClass: 'btn btn-danger', text: 'Ok', onClick: function ($noty) {
+                             $noty.close();
+                             ns.assignments.nextAssignment();
+                         }
+                     },
+                    {
+                        addClass: 'btn btn-primary', text: 'Cancel', onClick: function ($noty) {
+                            $noty.close();
+                            noty({ text: 'You clicked "Cancel" button', type: 'error' });
+                        }
+                    }
+                ]
+            });
+            //this.setAssignment(this.assignments.current);
             return false;
         },
 
         startAssignment: function() {
             // TODO STart the timer <Alexender>
             return false;
-        },
-
-
-
-
-        // Add a single todo item to the list by creating a view for it, and
-        // appending its element to the `<ul>`.
-        addOne: function(todo) {
-            var view = new TodoView({ model: todo });
-            this.$("#AssignmentList ul").append(view.render().el);
-        },
-
-        // Add all items in the **Todos** collection at once.
-        addAll: function() {
-            Todos.each(this.addOne);
-        },
-
-        // If you hit return in the main input field, create new **Todo** model,
-        // persisting it to *localStorage*.
-        createOnEnter: function(e) {
-            if (e.keyCode != 13) return;
-            if (!this.input.val()) return;
-
-            Todos.create({ title: this.input.val() });
-            this.input.val('');
-        },
-
-        // Clear all done todo items, destroying their models.
-        clearCompleted: function() {
-            _.each(Todos.done(), function(todo) { todo.clear(); });
-            return false;
-        },
-
-        toggleAllComplete: function() {
-            var done = this.allCheckbox.checked;
-            Todos.each(function(todo) { todo.save({ 'done': done }); });
         }
     });
 });

@@ -27,9 +27,6 @@ $(document).ready(function () {
         
         // CodeMirror Instance
         codeMirror: null,
-        
-        // 
-        currentAssignment: null,
 
         events: {
             //"keypress #new-todo": "createOnEnter"
@@ -53,6 +50,10 @@ $(document).ready(function () {
 
         setOption: function(option, value) {
             this.codeMirror.setOption(option, value);
+        },
+        
+        refresh: function() {
+            this.codeMirror.refresh();
         }
     });
 });

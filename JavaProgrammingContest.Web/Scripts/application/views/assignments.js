@@ -11,6 +11,7 @@ $(document).ready(function () {
         // List tag.
         tagName: "li",
         
+        modelIndex: 0,
         current: null,
 
         // Cache the template function for a single item.
@@ -34,12 +35,12 @@ $(document).ready(function () {
         render: function () {
             // Check for current
             if (this.current == null) {
-                console.log('Loaded frst assignmnt');
                 this.current = this.model.at(0);
-                app.setAssignment(this.current);
-                this.renderPane();
+                this.trigger('select', this.current);
             }
-
+            //app.setAssignment(this.current);
+            this.renderPane();
+            
             // Template
             var list = "";
             var ns = this;
@@ -51,9 +52,27 @@ $(document).ready(function () {
                 list += currTmpl;
             });
             this.$el.html(list);
+            
+            // Set selected
+            this.$el.find('.selected').removeClass('selected');
+            this.$el.find('li:eq('+this.modelIndex+')').addClass('selected');
+
             return this;
         },
         
+        nextAssignment: function () {
+            /*var cur = this.current;
+            var newkey = 0;
+            this.model.each(function (value, key) {
+                if (value == cur) {
+                    newkey = key + 1;
+                }
+            });*/
+            this.current = this.model.at(++this.modelIndex);
+            this.trigger('select', this.current);
+            this.render();
+        },
+
         renderPane: function() {
             var ass = $('#AssignmentPane');
             ass.find('h1').text(this.current.get('Title'));
@@ -61,7 +80,8 @@ $(document).ready(function () {
             ass.find('.time').text((this.current.get('TargetSolveTime')/60)+' minutes');
         },
 
-        select: function(e) {
+        select: function (e) {
+            this.$el.find('.selected').removeClass('selected');
             $(e.currentTarget).addClass('selected');
             this.setState($(e.currentTarget),'selected');
             //alert('selected'); //this.setActive();
@@ -72,6 +92,7 @@ $(document).ready(function () {
         // selected normal inactive(done)
         setState: function (el, state) {
             if (state == 'selected') {
+                this.$el.find('.selected').removeClass('selected');
                 el.addClass('selected');
                 var mdl = this.model.where({ Id: parseInt(el.attr('data-assignment')) })[0];
                 this.current = mdl;
