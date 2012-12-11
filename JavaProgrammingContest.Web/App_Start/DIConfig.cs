@@ -31,7 +31,7 @@ namespace JavaProgrammingContest.Web{
         }
 
         private static void RegisterDataContext(ContainerBuilder builder){
-            builder.RegisterType<JavaProgrammingContestContext>().As<IDbContext>();
+            builder.RegisterType<JavaProgrammingContestContext>().As<IDbContext>().SingleInstance();
         }
 
         private static void RegisterControllers(ContainerBuilder builder){
