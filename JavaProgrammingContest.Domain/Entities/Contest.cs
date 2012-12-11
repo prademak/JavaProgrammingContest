@@ -6,6 +6,6 @@ namespace JavaProgrammingContest.Domain.Entities{
         public string Name { get; set; }
         public bool IsActive { get; set; }
 
-        public ICollection<ContestAssignment> ContestAssignments { get; set; }
+        public virtual ICollection<Assignment> Assignments { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -15,7 +16,7 @@ namespace JavaProgrammingContest.Web.API{
         }
 
         public IEnumerable<Assignment> Get(){
-            return _context.Assignments;
+            return _context.Assignments.ToList();
         }
 
         public Assignment Get(int id){

@@ -10,11 +10,10 @@ namespace JavaProgrammingContest.Web.API{
     [Authorize]
     public class ProgressController : ApiController{
         private readonly IDbContext _context;
-        private readonly Participant _participant;
 
         public ProgressController(IDbContext context){
             _context = context;
-            _participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
+            
         }
 
         /// <summary>
@@ -24,8 +23,9 @@ namespace JavaProgrammingContest.Web.API{
         /// <returns>HttpStatusCode.Ok + the progress object when given assignment is in progress by the currently logged in user</returns>
         /// <returns>HttpStatusCode.NotFound when given assignment is not in progress by the currently logged in user</returns>
         public HttpResponseMessage Get(int assignmentId){
-            return _participant.Progress.ContestAssignment.Assignment.Id == assignmentId
-                       ? Request.CreateResponse(HttpStatusCode.OK, _participant.Progress)
+            var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
+            return participant.Progress.Assignment.Id == assignmentId
+                       ? Request.CreateResponse(HttpStatusCode.OK, participant.Progress)
                        : Request.CreateErrorResponse(HttpStatusCode.NotFound,
                            "Given assignment is not in progress by the currently logged in user.");
         }
@@ -33,19 +33,18 @@ namespace JavaProgrammingContest.Web.API{
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="assignmentId"></param>
+        /// <param name="id"></param>
         /// <param name="progress"></param>
         /// <returns></returns>
-        public HttpResponseMessage Put(int assignmentId, Progress progress){
-            if (!ModelState.IsValid)
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Paramters not valid.");
+        public HttpResponseMessage Put(int id, Progress progress){
+            var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
 
-            if (_participant.Progress != null)
+            if (participant.Progress != null)
                 return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Can't start another assignment.");
 
-            var assignment = _context.Assignments.Find(assignmentId);
-            progress.ContestAssignment = assignment.ContestAssignments.First();
-            progress.Participant = _participant;
+            var assignment = _context.Assignments.Find(id);
+            progress.Assignment = assignment;
+            progress.Participant = participant;
 
             try{
                 _context.Progresses.Add(progress);

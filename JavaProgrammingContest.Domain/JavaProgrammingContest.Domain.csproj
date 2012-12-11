@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Assignment.cs" />
-    <Compile Include="Entities\ContestAssignment.cs" />
     <Compile Include="Entities\Progress.cs" />
     <Compile Include="Entities\Score.cs" />
     <Compile Include="Entities\Participant.cs" />
