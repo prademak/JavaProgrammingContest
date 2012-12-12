@@ -6,40 +6,6 @@
   <name>DDOA JavaProgrammingContest</name>
   <packaging>netpack</packaging>
   
- <profiles> 
- <profile>
-      <id>sonar-dotnet</id>
-      <activation>
-        <!-- Optional activation by default -->
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <properties>
-        <!-- Location of the the .Net installations (pick the one you need) -->
-        <!-- <dotnet.2.0.sdk.directory>C:/WINDOWS/Microsoft.NET/Framework/v2.0.50727</dotnet.2.0.sdk.directory>-->
-       <!--  <dotnet.3.5.sdk.directory>C:/Windows/Microsoft.NET/Framework/v3.5</dotnet.3.5.sdk.directory>-->
-        <dotnet.4.0.sdk.directory>C:/Windows/Microsoft.NET/Framework/v4.0.30319</dotnet.4.0.sdk.directory>
-        <gallio.directory>D:/Software development/Gallio</gallio.directory>
-        <fxcop.directory>C:/Program Files (x86)/Microsoft Fxcop 10.0</fxcop.directory>
-      	<partcover.directory>D:\Software development\PartCover</partcover.directory>
-	    <!--<sourcemonitor.directory>C:/Program Files (x86)/SourceMonitor</sourcemonitor.directory>-->
-		<!--<stylecop.directory>C:/Program Files (x86)/Microsoft StyleCop 4.4.0.14</stylecop.directory>-->
-        
-         <!-- Location of Gendarme installation (optional) 
-        <gendarme.directory>C:/Program Files  (x86)/gendarme-2.6-bin</gendarme.directory>
-        -->
-        
-        <!-- sonar server details -->
-        <sonar.host.url>http://localhost:9000</sonar.host.url>
-        <sonar.jdbc.url>jdbc:derby://localhost/sonar</sonar.jdbc.url>
-        <sonar.jdbc.driver>org.apache.derby.jdbc.ClientDriver</sonar.jdbc.driver>
-        <sonar.jdbc.username>root</sonar.jdbc.username>
-        <sonar.jdbc.password></sonar.jdbc.password>
-        
-      </properties>
-   </profile>
-   
-   </profiles>
-
   <properties>
     
     <visual.studio.solution>JavaProgrammingContest.sln</visual.studio.solution>
