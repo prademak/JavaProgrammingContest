@@ -149,7 +149,7 @@ $(document).ready(function () {
         submitAssignment: function () {
             this.console.submit(this.editor.getContent());
             var ns = this; noty({
-                text: 'Thanks for submitting!', type: 'confirm', layout: 'topCenter', modal: true, buttons: [
+                text: 'Thanks for submitting! '+'', type: 'confirm', layout: 'topCenter', modal: true, buttons: [
                      {
                          addClass: 'btn btn-danger', text: 'Next Assignment', onClick: function ($noty) {
                              $noty.close();

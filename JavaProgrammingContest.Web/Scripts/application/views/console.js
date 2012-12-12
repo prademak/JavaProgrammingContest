@@ -38,7 +38,7 @@ $(document).ready(function () {
             this.factory.submit(code, function (result) {
                
                 
-           
+          
                 console.log(result, ns.current);
                 ns.render();
             });
