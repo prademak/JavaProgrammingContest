@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -45,11 +46,12 @@ namespace JavaProgrammingContest.Web.API{
             var assignment = _context.Assignments.Find(id);
             progress.Assignment = assignment;
             progress.Participant = participant;
+            progress.StartTime = DateTime.Now;
 
             try{
                 _context.Progresses.Add(progress);
                 _context.SaveChanges();
-            } catch (System.Exception){
+            } catch (System.Exception ex){
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error while saving to database.");
             }
 

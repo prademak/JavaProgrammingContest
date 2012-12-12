@@ -7,7 +7,7 @@ namespace JavaProgrammingContest.Process.Runner.Java.Helpers{
             StartInfo.UseShellExecute = false;
             StartInfo.RedirectStandardOutput = true;
             StartInfo.RedirectStandardError = true;
-            StartInfo.FileName = new AppSettingsReader().GetValue("javaRunner", typeof(System.String)).ToString();
+            StartInfo.FileName = new AppSettingsReader().GetValue("java_path", typeof(System.String)).ToString();
         }
 
         public RunResult Run(string arguments){

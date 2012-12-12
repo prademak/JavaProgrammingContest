@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Security.AccessControl;
 using System.Web;
 using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Process.Compiler.Model;
@@ -18,10 +19,8 @@ namespace JavaProgrammingContest.Process.Compiler.Java{
 
             var currentPath = HttpContext.Current.Server.MapPath("~/");
 
-            var subPath = string.Format("\\assignment-{0}\\user-{1}\\", participant.Progress.ContestAssignment.Assignment.Id, participant.Id);
-
             var fileName = appName + ".java";
-            return Path.Combine(currentPath, subPath, fileName);
+            return Path.Combine(currentPath, fileName);
         }
     }
 }
