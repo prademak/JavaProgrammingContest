@@ -6,6 +6,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Hosting;
 using System.Web.Http.Routing;
 using JavaProgrammingContest.DataAccess.Context;
+using JavaProgrammingContest.DataAccess.Context.TestSupport;
 using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Web.API;
 using Moq;

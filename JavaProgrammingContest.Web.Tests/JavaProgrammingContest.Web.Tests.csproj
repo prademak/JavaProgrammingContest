@@ -58,6 +58,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\AssignmentsControllerTests.cs" />
+    <Compile Include="Api\BuildControllerTests.cs" />
+    <Compile Include="Api\ProgressControllerTests.cs" />
+    <Compile Include="Api\RunControllerTests.cs" />
+    <Compile Include="Api\ScoresControllerTests.cs" />
+    <Compile Include="Api\UserSettingsControllerTests.cs" />
+    <Compile Include="Controllers\AccountControllerTests.cs" />
+    <Compile Include="Controllers\AssignmentControllerTests.cs" />
+    <Compile Include="Controllers\HomeControllerTests.cs" />
+    <Compile Include="Controllers\EditorControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

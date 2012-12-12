@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
-using JavaProgrammingContest.Domain.Entities;
 
-namespace JavaProgrammingContest.DataAccess.Context{
-    public class FakeDbSet<T> : IDbSet<T>
-        where T : class{
+namespace JavaProgrammingContest.DataAccess.Context.TestSupport{
+    public class FakeDbSet<T> : IDbSet<T> where T : class{
         private readonly ObservableCollection<T> _data;
         private readonly IQueryable _query;
 
@@ -62,12 +60,6 @@ namespace JavaProgrammingContest.DataAccess.Context{
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator(){
             return _data.GetEnumerator();
-        }
-    }
-
-    public class FakeAssignmentsSet : FakeDbSet<Assignment>{
-        public override Assignment Find(params object[] keyValues){
-            return Local.SingleOrDefault(a => a.Id == (int) keyValues[0]);
         }
     }
 }

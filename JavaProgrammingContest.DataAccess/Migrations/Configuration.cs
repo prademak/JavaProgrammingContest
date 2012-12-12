@@ -13,6 +13,11 @@ namespace JavaProgrammingContest.DataAccess.Migrations{
         }
 
         protected override void Seed(JavaProgrammingContestContext context){
+            SetupWebSercurity();
+            InsertSampleData(context);
+        }
+
+        private static void SetupWebSercurity() {
             WebSecurity.InitializeDatabaseConnection(
                 "JavaProgrammingContest",
                 "Participants",
@@ -26,11 +31,13 @@ namespace JavaProgrammingContest.DataAccess.Migrations{
                 WebSecurity.CreateUserAndAccount(
                     "johndoe@mail.com",
                     "testing",
-                    new{Interested = false});
+                    new { Interested = false });
 
             if (!Roles.GetRolesForUser("johndoe@mail.com").Contains("Administrator"))
-                Roles.AddUsersToRoles(new[]{"johndoe@mail.com"}, new[]{"Administrator"});
+                Roles.AddUsersToRoles(new[] { "johndoe@mail.com" }, new[] { "Administrator" });
+        }
 
+        private static void InsertSampleData(JavaProgrammingContestContext context){
             var ass1 = new Assignment{
                 CodeGiven =
                     "// Sample class\nclass HelloWorldApp {\n\tpublic static void main(String[] args){\n\t\tSystem.out.println(\"Hello World!\");\n\t}\n}\n",

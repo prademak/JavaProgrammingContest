@@ -52,7 +52,8 @@
     <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context\FakeDbSet.cs" />
+    <Compile Include="Context\TestSupport\FakeAssignmentsSet.cs" />
+    <Compile Include="Context\TestSupport\FakeDbSet.cs" />
     <Compile Include="Context\JavaProgrammingContestContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
