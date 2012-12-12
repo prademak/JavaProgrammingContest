@@ -5,7 +5,8 @@ namespace JavaProgrammingContest.DataAccess.Context{
     public class JavaProgrammingContestContext : DbContext, IDbContext{
         public JavaProgrammingContestContext()
             : base("JavaProgrammingContest"){
-            Configuration.ProxyCreationEnabled = false;
+            Configuration.ProxyCreationEnabled = true;
+            Configuration.LazyLoadingEnabled = true;
         }
 
         public IDbSet<Contest> Contests { get; set; }

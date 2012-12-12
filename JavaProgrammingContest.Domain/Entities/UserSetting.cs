@@ -11,6 +11,6 @@ namespace JavaProgrammingContest.Domain.Entities{
         public bool IntelliSense { get; set; }
 
         [Required]
-        public virtual Participant Participant { get; set; }
+        public Participant Participant { get; set; }
     }
 }

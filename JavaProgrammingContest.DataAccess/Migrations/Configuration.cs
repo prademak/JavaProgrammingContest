@@ -54,15 +54,15 @@ namespace JavaProgrammingContest.DataAccess.Migrations{
                 CodeGiven =
                     "// Sample class\nclass HelloWorldApp {\n\tpublic static void main(String[] args){\n\t\tSystem.out.println(\"Hello World!\");\n\t}\n}\n",
                 Description =
-                    "Print the following text: Hello World!",
-                Title = "Hello, Word!",
+                    "Print the following text: \"Hello World!\"",
+                Title = "Hello World!",
                 MaxSolveTime = 900,
                 RunCodeInput = "",
                 RunCodeOuput = "Hello World!"
             };
             var contest = new Contest{
                 IsActive = true,
-                Name = "Info Support Contest December",
+                Name = "Info Support Code Contest December",
                 Assignments = new Collection<Assignment>{ass1, ass2}
             };
 

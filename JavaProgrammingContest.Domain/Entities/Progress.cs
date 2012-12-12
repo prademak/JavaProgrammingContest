@@ -7,7 +7,7 @@ namespace JavaProgrammingContest.Domain.Entities{
         public DateTime StartTime { get; set; }
 
         [Required]
-        public virtual Participant Participant { get; set; }
-        public virtual Assignment Assignment { get; set; }
+        public Participant Participant { get; set; }
+        public Assignment Assignment { get; set; }
     }
 }

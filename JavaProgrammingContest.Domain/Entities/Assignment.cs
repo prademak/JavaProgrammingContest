@@ -27,6 +27,6 @@ namespace JavaProgrammingContest.Domain.Entities{
         [Display(Name = "Expected output when assignment runs.")]
         public string RunCodeOuput { get; set; }
 
-        public virtual Contest Contest { get; set; }
+        public Contest Contest { get; set; }
     }
 }

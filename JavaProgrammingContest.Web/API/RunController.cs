@@ -12,7 +12,7 @@ namespace JavaProgrammingContest.Web.API{
         private readonly ICompiler _compiler;
         private readonly IDbContext _context;
 
-        public RunController(IDbContext context, ICompiler compiler, IRunner runner) {
+        public RunController(IDbContext context, ICompiler compiler, IRunner runner){
             _context = context;
             _compiler = compiler;
             _runner = runner;
@@ -23,21 +23,21 @@ namespace JavaProgrammingContest.Web.API{
             var result = _compiler.CompileFromPlainText(participant, runJob.Code);
             var runResult = _runner.Run();
 
-            return Request.CreateResponse(HttpStatusCode.Created,
-                new RunResult{
-                    BuildResult = new BuildResult{
-                        Output = result.StandardOutput,
-                        Error = result.StandardError,
-                        CompileTime = result.CompilationTime
-                    },
-                    Output = runResult.Output,
-                    RunTime = runResult.RunTime
-                });
+            var response = new RunResult{
+                BuildResult = new BuildResult{
+                    Output = result.StandardOutput,
+                    Error = result.StandardError,
+                    CompileTime = result.CompilationTime
+                },
+                Output = result.StandardError != "" ? "Build failed. See build tab" : runResult.Output,
+                RunTime = runResult.RunTime
+            };
+
+            return Request.CreateResponse(HttpStatusCode.Created, response);
         }
     }
 
-    public class RunJob
-    {
+    public class RunJob{
         public string Code { get; set; }
         public int Id { get; set; }
     }

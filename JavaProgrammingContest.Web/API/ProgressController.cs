@@ -51,11 +51,11 @@ namespace JavaProgrammingContest.Web.API{
             try{
                 _context.Progresses.Add(progress);
                 _context.SaveChanges();
-            } catch (System.Exception ex){
+            } catch (Exception ex){
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error while saving to database.");
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, progress);
+            return Request.CreateResponse(HttpStatusCode.OK, new {progress.Id, progress.StartTime});
         }
     }
 }
