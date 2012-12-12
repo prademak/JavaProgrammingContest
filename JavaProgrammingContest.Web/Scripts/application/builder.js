@@ -16,6 +16,11 @@ $(window).ready(function() {
                 complete(data);
             });
         },
+        submit: function (code, complete) {
+            this._call('scores', JSON.stringify({ Code: code, Id: 1 }), function (data) {
+                complete(data);
+            });
+        },
 
         _call: function(controller, data, success) {
             return $.ajax({

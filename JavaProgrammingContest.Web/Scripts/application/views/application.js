@@ -146,38 +146,33 @@ $(document).ready(function () {
             return false;
         },
 
-        submitAssignment: function() {
-          /*  var newCodeSubmission = new CodeSubmitModel({
-                Id: this.assignments.current,
-                Code: this.editor.getContent()
-            });
-            newCodeSubmission.save(); */ var ns = this;
-            noty({
-                text: 'Are you sure you want to submit this assignment?\nYou cannot reopen it when you submit it!', type: 'confirm', layout: 'topCenter', modal: true, buttons: [
+        submitAssignment: function () {
+            this.console.submit(this.editor.getContent());
+            var ns = this; noty({
+                text: 'Thanks for submitting!', type: 'confirm', layout: 'topCenter', modal: true, buttons: [
                      {
-                         addClass: 'btn btn-danger', text: 'Ok', onClick: function ($noty) {
-                          
+                         addClass: 'btn btn-danger', text: 'Next Assignment', onClick: function ($noty) {
+                             $noty.close();
+                             ns.assignments.nextAssignment();
 
-                             this.console.run(this.editor.getContent());
-                             /*  ns.assignments.nextAssignment();
-                             ns.ass;ignments.started = false;
+                             // No assignment in progress anymore
+                             ns.assignments.started = false;
+
+                             // Disable all tabs
                              ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
                                 .addClass('disabled');
+
+                             // Change view to assignment
                              ns.changeView('assignment');
+
+                             // Enable the start time button
                              ns.$el.find('#AssignmentPane .properties a')
                                 .removeClass('disabled')
-                                .text('Start the Time!');*/
-                             $noty.close();
+                                .text('Start the Time!');
                          }
-                     },
-                    {
-                        addClass: 'btn btn-primary', text: 'Cancel', onClick: function ($noty) {
-                            $noty.close();
-                        }
-                    }
+                     }
                 ]
             });
-
             e.stopPropagation();
             e.preventDefault();
             return false;

@@ -36,8 +36,10 @@ namespace JavaProgrammingContest.Web.API{
         }
     }
 
-    public class RunJob{
+    public class RunJob
+    {
         public string Code { get; set; }
+        public int Id { get; set; }
     }
 
     public class RunResult{
