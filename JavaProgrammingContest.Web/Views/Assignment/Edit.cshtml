@@ -1,11 +1,6 @@
 ﻿@model JavaProgrammingContest.Domain.Entities.Assignment
 
-<div class="btn-toolbar">
-  <div class="btn-group">
-    <a class="btn" href="/Assignment/Index">List Assignments</a>
-    <a class="btn" href="/Assignment/Add">Add Assignment</a>
-  </div>
-</div> <section id="assignmentForm">
+@Html.Partial("_menuBalk") <section id="assignmentForm">
 @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -16,27 +11,27 @@
          <ol>
              <li>
                  @Html.LabelFor(m => m.Id)
-                 @Html.TextBoxFor(m => m.Id, new { @Value = @ViewBag.am.Id}))
+                 @Html.TextBoxFor(m => m.Id, new { @Value = @ViewBag.am.Id, @readonly = "readonly" })
                  @Html.ValidationMessageFor(m => m.Id)
              </li>
              <li>
                  @Html.LabelFor(m => m.Title)
-                 @Html.TextBoxFor(m => m.Title, new { @Value = @ViewBag.am.Title})) 
+                 @Html.TextBoxFor(m => m.Title, new { @Value = @ViewBag.am.Title})
                  @Html.ValidationMessageFor(m => m.Title)
              </li> 
              <li>
                  @Html.LabelFor(m => m.Description)
-                 @Html.TextBoxFor(m => m.Description, new { @Value = @ViewBag.am.Description}))
+                 @Html.TextBoxFor(m => m.Description, new { @Value = @ViewBag.am.Description})
                  @Html.ValidationMessageFor(m => m.Description)
              </li> 
              <li>
                  @Html.LabelFor(m => m.CodeGiven)
-                 @Html.TextBoxFor(m => m.CodeGiven, new { @Value = @ViewBag.am.CodeGiven}))
+                 @Html.TextBoxFor(m => m.CodeGiven, new { @Value = @ViewBag.am.CodeGiven})
                  @Html.ValidationMessageFor(m => m.CodeGiven)
-             </li>
+             </li>  
              <li>
                  @Html.LabelFor(m => m.MaxSolveTime)
-                 @Html.TextBoxFor(m => m.MaxSolveTime, new { @Value = @ViewBag.am.MaxSolveTime}))
+                 @Html.TextBoxFor(m => m.MaxSolveTime, new { @Value = @ViewBag.am.MaxSolveTime})
                  @Html.ValidationMessageFor(m => m.MaxSolveTime)
              </li> 
          </ol>

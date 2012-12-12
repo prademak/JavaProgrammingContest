@@ -21,7 +21,7 @@ namespace JavaProgrammingContest.Web.Controllers
         public ActionResult Index()
         {
             var items = new List<Assignment>();
-           var it = _context.Assignments.ToList();
+            var it = _context.Assignments;
 
            ViewBag.Items = it;
      

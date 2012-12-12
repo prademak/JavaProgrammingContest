@@ -1,10 +1,5 @@
 ﻿@model JavaProgrammingContest.Domain.Entities.Assignment
-<div class="btn-toolbar">
-  <div class="btn-group">
-    <a class="btn" href="/Assignment/Index">List Assignments</a>
-    <a class="btn" href="/Assignment/Add">Add Assignment</a>
-  </div>
-</div> <section id="assignmentForm">
+@Html.Partial("_menuBalk") <section id="assignmentForm"> <section id="assignmentForm">
 @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)

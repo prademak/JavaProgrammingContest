@@ -1,10 +1,5 @@
 ﻿
-<div class="btn-toolbar">
-  <div class="btn-group">
-    <a class="btn" href="/Assignment/Index">List Assignments</a>
-    <a class="btn" href="/Assignment/Add">Add Assignment</a>
-  </div>
-</div>
+@Html.Partial("_menuBalk") <section id="assignmentForm">
 <table class="table">
      @foreach (var assignment in ViewBag.Items)
   {            

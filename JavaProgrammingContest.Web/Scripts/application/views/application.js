@@ -147,12 +147,37 @@ $(document).ready(function () {
         },
 
         submitAssignment: function() {
-            var newCodeSubmission = new CodeSubmitModel({
+          /*  var newCodeSubmission = new CodeSubmitModel({
                 Id: this.assignments.current,
                 Code: this.editor.getContent()
             });
-            newCodeSubmission.save();
-            
+            newCodeSubmission.save(); */ var ns = this;
+            noty({
+                text: 'Are you sure you want to submit this assignment?\nYou cannot reopen it when you submit it!', type: 'confirm', layout: 'topCenter', modal: true, buttons: [
+                     {
+                         addClass: 'btn btn-danger', text: 'Ok', onClick: function ($noty) {
+                          
+
+                             this.console.run(this.editor.getContent());
+                             /*  ns.assignments.nextAssignment();
+                             ns.ass;ignments.started = false;
+                             ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
+                                .addClass('disabled');
+                             ns.changeView('assignment');
+                             ns.$el.find('#AssignmentPane .properties a')
+                                .removeClass('disabled')
+                                .text('Start the Time!');*/
+                             $noty.close();
+                         }
+                     },
+                    {
+                        addClass: 'btn btn-primary', text: 'Cancel', onClick: function ($noty) {
+                            $noty.close();
+                        }
+                    }
+                ]
+            });
+
             e.stopPropagation();
             e.preventDefault();
             return false;

@@ -42,9 +42,11 @@ namespace JavaProgrammingContest.DataAccess.Migrations{
                 CodeGiven =
                     "// Sample class\nclass HelloWorldApp {\n\tpublic static void main(String[] args){\n\t\tSystem.out.println(\"Hello World!\");\n\t}\n}\n",
                 Description =
-                    "Print the following text: Hello,World!",
+                    "Print the following text: Hello World!",
                 Title = "Hello, Word!",
-                MaxSolveTime = 900
+                MaxSolveTime = 900,
+                RunCodeInput = "",
+                RunCodeOuput = "Hello World!"
             };
             var ass2 = new Assignment{
                 CodeGiven =
@@ -52,7 +54,9 @@ namespace JavaProgrammingContest.DataAccess.Migrations{
                 Description =
                     "Print like: '2 3 5 7 11'",
                 Title = "Print 30 primenumbers",
-                MaxSolveTime = 900
+                MaxSolveTime = 900,
+                RunCodeInput = "",
+                RunCodeOuput = "Hello World!"
             };
 
             var contest = new Contest{

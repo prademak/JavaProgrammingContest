@@ -20,6 +20,13 @@ namespace JavaProgrammingContest.Domain.Entities{
         [Display(Name = "Max Solve Time")]
         public double MaxSolveTime { get; set; }
 
+        [Display(Name = "Input text when assignments runs.")]
+        public string RunCodeInput { get; set; }
+
+        [Required]
+        [Display(Name = "Expected output when assignment runs.")]
+        public string RunCodeOuput { get; set; }
+
         public virtual Contest Contest { get; set; }
     }
 }
