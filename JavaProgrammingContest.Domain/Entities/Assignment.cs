@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace JavaProgrammingContest.Domain.Entities{
     public class Assignment{
@@ -27,6 +28,7 @@ namespace JavaProgrammingContest.Domain.Entities{
         [Display(Name = "Expected output when assignment runs.")]
         public string RunCodeOuput { get; set; }
 
-        public Contest Contest { get; set; }
+        public virtual Contest Contest { get; set; }
+        public virtual ICollection<Score> Scores { get; set; }
     }
 }

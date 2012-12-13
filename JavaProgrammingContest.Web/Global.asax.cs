@@ -9,6 +9,7 @@ namespace JavaProgrammingContest.Web{
         protected void Application_Start(){
             AreaRegistration.RegisterAllAreas();
 
+            MapperConfig.Configure();
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

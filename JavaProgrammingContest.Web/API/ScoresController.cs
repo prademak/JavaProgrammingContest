@@ -19,11 +19,13 @@ namespace JavaProgrammingContest.Web.API{
             _runner = runner;
         }
 
-        public HttpResponseMessage Scores(RunJob runJob){
+        public HttpResponseMessage Post(RunJob runJob){
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
-            var result = _compiler.CompileFromPlainText(participant, runJob.Code);
+            _compiler.CompileFromPlainText(participant, runJob.Code);
             var runResult = _runner.Run();
+
             var correctOutput = (runResult.Output.Trim().Equals(participant.Progress.Assignment.RunCodeOuput));
+
             var score = new Score{
                 Assignment = participant.Progress.Assignment,
                 IsCorrectOutput = correctOutput,
@@ -32,18 +34,10 @@ namespace JavaProgrammingContest.Web.API{
             };
 
             _context.Scores.Add(score);
+            _context.Progresses.Remove(participant.Progress);
             _context.SaveChanges();
 
-            return Request.CreateResponse(HttpStatusCode.Created,
-                new RunResult{
-                    BuildResult = new BuildResult{
-                        Output = result.StandardOutput,
-                        Error = (runResult.Output.Trim().Equals(participant.Progress.Assignment.RunCodeOuput)).ToString(),
-                        CompileTime = result.CompilationTime
-                    },
-                    Output = runResult.Output,
-                    RunTime = runResult.RunTime
-                });
+            return Request.CreateResponse(HttpStatusCode.Created);
         }
     }
 }

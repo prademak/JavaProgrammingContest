@@ -1,7 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace JavaProgrammingContest.Domain.Entities{
-    public class UserSetting{
+﻿namespace JavaProgrammingContest.Web.DTO{
+    public class UserSettingDTO{
         public int Id { get; set; }
         public string Theme { get; set; }
         public bool MatchBrackets { get; set; }
@@ -9,8 +7,6 @@ namespace JavaProgrammingContest.Domain.Entities{
         public int TabSize { get; set; }
         public bool LineWrapping { get; set; }
         public bool IntelliSense { get; set; }
-
-        [Required]
-        public virtual Participant Participant { get; set; }
+        public int ParticipantId { get; set; }
     }
 }

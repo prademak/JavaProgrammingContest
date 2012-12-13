@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using AutoMapper;
 using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
+using JavaProgrammingContest.Web.DTO;
 
 namespace JavaProgrammingContest.Web.API{
     public class AssignmentsController : ApiController{
@@ -15,17 +16,17 @@ namespace JavaProgrammingContest.Web.API{
             _context = context;
         }
 
-        public IEnumerable<Assignment> Get(){
-            return _context.Assignments.ToList();
+        public IEnumerable<AssignmentDTO> Get(){
+            return Mapper.Map<IEnumerable<Assignment>, IEnumerable<AssignmentDTO>>(_context.Assignments);
         }
 
-        public Assignment Get(int id){
+        public AssignmentDTO Get(int id){
             var assignment = _context.Assignments.Find(id);
 
             if (assignment == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return assignment;
+            return Mapper.Map<Assignment, AssignmentDTO>(assignment);
         }
 
         public HttpResponseMessage Post(Assignment assignment){
@@ -35,16 +36,11 @@ namespace JavaProgrammingContest.Web.API{
             try{
                 _context.Assignments.Add(assignment);
                 _context.SaveChanges();
-                return CreatePostResponse(assignment);
             } catch (Exception){
                 throw new HttpResponseException(HttpStatusCode.InternalServerError);
             }
-        }
 
-        private HttpResponseMessage CreatePostResponse(Assignment assignment){
-            var response = Request.CreateResponse(HttpStatusCode.Created, assignment);
-            //TODO set header.location
-            return response;
+            return Request.CreateResponse(HttpStatusCode.Created);
         }
 
         public void Put(int id, Assignment assignment){

@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using AutoMapper;
 using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
+using JavaProgrammingContest.Web.DTO;
 using WebMatrix.WebData;
 
 namespace JavaProgrammingContest.Web.API{
@@ -14,7 +15,6 @@ namespace JavaProgrammingContest.Web.API{
 
         public ProgressController(IDbContext context){
             _context = context;
-            
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace JavaProgrammingContest.Web.API{
         public HttpResponseMessage Get(int assignmentId){
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             return participant.Progress.Assignment.Id == assignmentId
-                       ? Request.CreateResponse(HttpStatusCode.OK, participant.Progress)
+                       ? Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Progress, ProgressDTO>(participant.Progress))
                        : Request.CreateErrorResponse(HttpStatusCode.NotFound,
                            "Given assignment is not in progress by the currently logged in user.");
         }
@@ -55,7 +55,7 @@ namespace JavaProgrammingContest.Web.API{
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error while saving to database.");
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, new {progress.Id, progress.StartTime});
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Progress, ProgressDTO>(progress));
         }
     }
 }

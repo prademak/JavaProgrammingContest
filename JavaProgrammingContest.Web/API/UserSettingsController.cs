@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Web.Http;
+using AutoMapper;
 using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
+using JavaProgrammingContest.Web.DTO;
 
 namespace JavaProgrammingContest.Web.API{
     public class UserSettingsController : ApiController{
@@ -12,15 +13,11 @@ namespace JavaProgrammingContest.Web.API{
             _context = context;
         }
 
-        public IEnumerable<UserSetting> Get(){
-            throw new HttpResponseException(HttpStatusCode.NotImplemented);
-        }
-
-        public UserSetting Get(int id){
+        public UserSettingDTO Get(int id){
             var userSetting = _context.UserSettings.Find(id);
             if (userSetting == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
-            return userSetting;
+            return Mapper.Map<UserSetting, UserSettingDTO>(userSetting);
         }
     }
 }

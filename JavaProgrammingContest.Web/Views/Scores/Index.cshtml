@@ -1,0 +1,39 @@
+﻿@model IQueryable<JavaProgrammingContest.Domain.Entities.Assignment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@foreach (var assignment in Model){
+    <h1>@assignment.Title</h1>
+
+    <table class="table table-bordered table-bordered">
+        <thead>
+            <tr>
+                <th>Email participant</th>
+                <th>Correct output</th>
+                <th>Time spent</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var score in assignment.Scores.OrderByDescending(s => s.IsCorrectOutput).ThenBy(s => s.TimeSpent)){
+                <tr>
+                    <td>
+                        @score.Participant.Email
+                    </td>
+                    <td>
+                        @if (score.IsCorrectOutput){
+                            <i class="icon-ok"></i>
+                        } else{
+                            <i class="icon-remove"></i>
+                        }
+                    </td>
+                    <td>
+                        @score.TimeSpent
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
