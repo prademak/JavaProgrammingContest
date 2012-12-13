@@ -9,7 +9,7 @@ $(document).ready(function () {
         start: null,
         time: 0,
 
-        initialize: function(){
+        initialize: function () {
             this.start = new Date();
             this.render();
         },
@@ -32,10 +32,6 @@ $(document).ready(function () {
                 difference -= 60;
                 minutes++;
             }
-
-            var strHours = hours.toString();
-            var strMinutes = minutes.toString();
-            var strSeconds = difference.toString();
 
             this.$el.find('.hours').text((hours < 10) ? '0' + hours : hours);
             this.$el.find('.minutes').text((minutes < 10) ? '0' + minutes : minutes);
