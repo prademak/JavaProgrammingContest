@@ -61,6 +61,7 @@ namespace JavaProgrammingContest.Web.App_Start {
             // Backbone Application
             bundles.Add(new ScriptBundle("~/Script/Application").Include(
                 "~/Scripts/application/models/assignment.js",
+                "~/Scripts/application/models/codesubmit.js",
                 "~/Scripts/application/models/participant.js",
                 "~/Scripts/application/models/scoreboard.js",
                 "~/Scripts/application/models/settings.js",

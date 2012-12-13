@@ -115,64 +115,82 @@ $(document).ready(function () {
         },
         
         startAssignment: function (e) {
-            // Check and set the application state
-            if (this.assignments.started == true) return false;
-            else this.assignments.started = true;
+            var ns = this;
 
             // Start progress of assignment on the server
             (new ProgressModel({
                 Id: this.assignments.current.id
-            })).save();
+            })).save(null, {
+                success: function() {
+                    (function() {
+                        // Check and set the application state
+                        if (this.assignments.started == true) return false;
+                        else this.assignments.started = true;
 
-            // Show the timer
-            this.timer = new TimerView();
+                        // Show the timer
+                        this.timer = new TimerView();
 
-            // Enable all the editor tabs
-            this.$el.find('.tabbable.tabs-below li')
-                .removeClass('disabled');
+                        // Enable all the editor tabs
+                        this.$el.find('.tabbable.tabs-below li')
+                            .removeClass('disabled');
 
-            // Change the view to splitscreen mode
-            this.changeView('splitscreen');
+                        // Change the view to splitscreen mode
+                        this.changeView('splitscreen');
 
-            // Disable the start time button
-            this.$el.find('#AssignmentPane .properties a')
-                .addClass('disabled')
-                .text('...in progress.');
+                        // Disable the start time button
+                        this.$el.find('#AssignmentPane .properties a')
+                            .addClass('disabled')
+                            .text('...in progress.');
 
-            console.log('Started Assignment with id: ' + this.assignments.current.id);
+                        console.log('Started Assignment with id: ' + this.assignments.current.id);
+                    }).call(ns);
+                },
+                error: function () {
+                    noty({
+                        text: 'Failed to start the assignment, another one is already in progress.',
+                        type: 'error', layout: 'topRight'
+                    });
+                }
+            });
 
             e.stopPropagation();
             e.preventDefault();
             return false;
         },
 
-        submitAssignment: function () {
-            this.console.submit(this.editor.getContent());
-            var ns = this; noty({
-                text: 'Thanks for submitting! '+'', type: 'confirm', layout: 'topCenter', modal: true, buttons: [
-                     {
-                         addClass: 'btn btn-danger', text: 'Next Assignment', onClick: function ($noty) {
-                             $noty.close();
-                             ns.assignments.nextAssignment();
+        submitAssignment: function (e) {
+            // Stop the timer
+            this.timer.stop();
+            this.timer = null;
 
-                             // No assignment in progress anymore
-                             ns.assignments.started = false;
+            // Submit the assignment using the model
+            (new CodeSubmitModel({Id: this.assignments.current.get('Id'), Code: this.editor.getContent() })).save();
 
-                             // Disable all tabs
-                             ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
-                                .addClass('disabled');
-
-                             // Change view to assignment
-                             ns.changeView('assignment');
-
-                             // Enable the start time button
-                             ns.$el.find('#AssignmentPane .properties a')
-                                .removeClass('disabled')
-                                .text('Start the Time!');
-                         }
-                     }
-                ]
+            // Notify the user
+            var ns = this;
+            noty({
+                text: 'Thank you for submitting!\nYour submission of "' + this.assignments.current.get('Title') + '" has been received and will be automatically reviewed, and will appear on the toplist as soon as this process has finished.',
+                type: 'success', layout: 'topCenter'
             });
+            
+            // Load next assignment
+            ns.assignments.nextAssignment();
+
+            // No assignment in progress anymore
+            ns.assignments.started = false;
+
+            // Disable all tabs
+            ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
+               .addClass('disabled');
+
+            // Change view to assignment
+            ns.changeView('assignment');
+
+            // Enable the start time button
+            ns.$el.find('#AssignmentPane .properties a')
+               .removeClass('disabled')
+               .text('Start the Time!');
+
             e.stopPropagation();
             e.preventDefault();
             return false;

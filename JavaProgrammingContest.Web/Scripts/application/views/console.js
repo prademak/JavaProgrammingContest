@@ -32,17 +32,7 @@ $(document).ready(function () {
                 }
             }
         },
-        submit: function (code) {
-            this.current = null;
-            var ns = this;
-            this.factory.submit(code, function (result) {
-               
-                
-          
-                console.log(result, ns.current);
-                ns.render();
-            });
-        },
+        
         run: function (code) {
             this.current = null;
             var ns = this;
