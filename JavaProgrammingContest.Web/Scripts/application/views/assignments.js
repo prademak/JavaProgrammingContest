@@ -41,6 +41,21 @@ $(document).ready(function () {
             // Check for current
             if (this.current == null) {
                 this.current = this.model.at(0);
+                
+                API.Progress.inProgress(this.current.id, function(data) {
+                    if (data.StartTime) {
+                        var modalProgress = $('#assignmentInProgressModal');
+                        modalProgress.find('.moment').text(moment(data.StartTime).fromNow());
+                        modalProgress.find('#stopProgress').click(function() {
+                            API.Progress.stop();
+                        });
+                        modalProgress.modal({
+                            backdrop: true,
+                            keyboard: false,
+                            show: true
+                        });
+                    }
+                }); // Check if the assignment is already in progress
                 this.trigger('select', this.current);
             }
             this.renderPane();
@@ -66,9 +81,10 @@ $(document).ready(function () {
         },
         
         nextAssignment: function () {
-            this.current = this.model.at(++this.modelIndex);
-            this.trigger('select', this.current);
-            this.render();
+            if (this.modelIndex < this.model.length) {
+                this.setAssignment(++this.modelIndex);
+                return false;
+            } else return false;
         },
         
         setAssignment: function (id) {
@@ -76,8 +92,7 @@ $(document).ready(function () {
             this.modelIndex = id;
 
             // Set current element
-            var mdl = this.model.at(id);
-            this.current = mdl;
+            this.current = this.model.at(id);
             
             // Fire event
             this.trigger('select', this.current);

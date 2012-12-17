@@ -37,6 +37,12 @@ $(document).ready(function () {
             this.assignments = new AssignmentView({ model: new AssignmentCollection() });
             var ns = this;
             this.assignments.on('select', function (mdl) { ns.changeAssignment.call(ns, mdl); });
+            
+            // Ask if user really wants to leave when assignment is in progress
+            $(document).unload(function() {
+                if (ns.assignments.started == true)
+                    return confirm('Do you really want to cancel your assignment?');
+            });
         },
 
         // Re-rendering the App just means refreshing the statistics -- the rest

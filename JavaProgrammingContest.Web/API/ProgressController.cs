@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -56,6 +57,29 @@ namespace JavaProgrammingContest.Web.API{
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Progress, ProgressDTO>(progress));
+        }
+
+        // Tried to fixx the "not being able to start an assignment if you reloaded the page during one" problem.
+        public HttpResponseMessage Delete(int id)
+        {
+            var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
+
+            if (participant.Progress == null)
+                return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "No assignment was started.");
+
+            try{
+                var curProgress = from progress in _context.Progresses
+                                    where progress.Participant == participant
+                                    where progress.Assignment.Id == id
+                                    select progress;
+
+                _context.Progresses.Remove(curProgress.First());
+                _context.SaveChanges();
+            }catch (Exception ex){
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error while saving to database.");
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
     }
 }
