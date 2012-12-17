@@ -1,0 +1,26 @@
+﻿@model JavaProgrammingContest.Domain.Entities.Contest
+@Html.Partial("../Assignment/_menuBalk") 
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Contest</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IsActive)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IsActive)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

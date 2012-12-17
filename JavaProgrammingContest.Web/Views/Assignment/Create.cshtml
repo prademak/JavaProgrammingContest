@@ -1,14 +1,12 @@
 ﻿@model JavaProgrammingContest.Domain.Entities.Assignment
 @Html.Partial("../Assignment/_menuBalk") 
-<h2>Edit</h2>
+
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Assignment</legend>
-
-        @Html.HiddenFor(model => model.Id)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Title)
@@ -59,7 +57,7 @@
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Create" />
         </p>
     </fieldset>
 }

@@ -1,1 +1,43 @@
-﻿@Html.Partial("_menuBalk") <section id="assignmentForm">
+﻿@model JavaProgrammingContest.Domain.Entities.Assignment
+@Html.Partial("_menuBalk")
+<fieldset>
+    <legend> @Html.DisplayFor(model => model.Title)</legend>
+        <div class="display-label">
+         @Html.DisplayNameFor(model => model.Description)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CodeGiven)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CodeGiven)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MaxSolveTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MaxSolveTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RunCodeInput)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RunCodeInput)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.RunCodeOuput)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.RunCodeOuput)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

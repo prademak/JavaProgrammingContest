@@ -10,38 +10,38 @@ using JavaProgrammingContest.Domain.Entities;
 
 namespace JavaProgrammingContest.Web.Controllers
 {
-    public class AssignmentController : Controller
+    public class ContestController : Controller
     {
+      
         private readonly IDbContext db;
 
-        public AssignmentController(IDbContext context)
+        public ContestController(IDbContext context)
         {
             db = context;
         }
-
         //
-        // GET: /Assignment/
+        // GET: /Contest/
 
         public ActionResult Index()
         {
-            return View(db.Assignments.ToList());
+            return View(db.Contests.ToList());
         }
 
         //
-        // GET: /Assignment/Details/5
+        // GET: /Contest/Details/5
 
         public ActionResult Details(int id = 0)
         {
-            Assignment assignment = db.Assignments.Find(id);
-            if (assignment == null)
+            Contest contest = db.Contests.Find(id);
+            if (contest == null)
             {
                 return HttpNotFound();
             }
-            return View(assignment);
+            return View(contest);
         }
 
         //
-        // GET: /Assignment/Create
+        // GET: /Contest/Create
 
         public ActionResult Create()
         {
@@ -49,76 +49,75 @@ namespace JavaProgrammingContest.Web.Controllers
         }
 
         //
-        // POST: /Assignment/Create
+        // POST: /Contest/Create
 
         [HttpPost]
-        public ActionResult Create(Assignment assignment)
+        public ActionResult Create(Contest contest)
         {
             if (ModelState.IsValid)
             {
-                db.Assignments.Add(assignment);
+                db.Contests.Add(contest);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(assignment);
+            return View(contest);
         }
 
         //
-        // GET: /Assignment/Edit/5
+        // GET: /Contest/Edit/5
 
         public ActionResult Edit(int id = 0)
         {
-            Assignment assignment = db.Assignments.Find(id);
-            if (assignment == null)
+            Contest contest = db.Contests.Find(id);
+            if (contest == null)
             {
                 return HttpNotFound();
             }
-            return View(assignment);
+            return View(contest);
         }
 
         //
-        // POST: /Assignment/Edit/5
+        // POST: /Contest/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Assignment assignment)
+        public ActionResult Edit(Contest contest)
         {
             if (ModelState.IsValid)
             {
-              
-                Assignment assignmentdel = db.Assignments.Find(assignment.Id);
-             
-                db.Assignments.Remove(assignmentdel);
-                 db.Assignments.Add(assignment); 
+                Contest contestdel = db.Contests.Find(contest.Id);
+                db.Contests.Remove(contestdel);
+                db.Contests.Add(contest);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(assignment);
+            return View(contest);
         }
 
         //
-        // GET: /Assignment/Delete/5
+        // GET: /Contest/Delete/5
 
         public ActionResult Delete(int id = 0)
         {
-            Assignment assignment = db.Assignments.Find(id);
-            if (assignment == null)
+            Contest contest = db.Contests.Find(id);
+            if (contest == null)
             {
                 return HttpNotFound();
             }
-            return View(assignment);
+            return View(contest);
         }
 
         //
-        // POST: /Assignment/Delete/5
+        // POST: /Contest/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Assignment assignment = db.Assignments.Find(id);
-            db.Assignments.Remove(assignment);
+            Contest contest = db.Contests.Find(id);
+            db.Contests.Remove(contest);
             db.SaveChanges();
             return RedirectToAction("Index");
-        } 
+        }
+         
     }
 }
