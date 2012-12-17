@@ -53,6 +53,9 @@ namespace JavaProgrammingContest.Web.API{
     ///     Defines the data-structure for a Build Job
     /// </summary>
     public class BuildJob{
+        /// <summary>
+        ///     Code to build.
+        /// </summary>
         public string Code { get; set; }
     }
 
@@ -60,8 +63,19 @@ namespace JavaProgrammingContest.Web.API{
     ///     Result of a Build-Job.
     /// </summary>
     public class BuildResult{
+        /// <summary>
+        ///     Time it took to build the code.
+        /// </summary>
         public int CompileTime { get; set; }
+
+        /// <summary>
+        ///     Text that was read from the error stream.
+        /// </summary>
         public string Error { get; set; }
+
+        /// <summary>
+        ///     Text that was read from the output stream.
+        /// </summary>
         public string Output { get; set; }
     }
 }

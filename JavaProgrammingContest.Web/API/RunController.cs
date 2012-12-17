@@ -66,7 +66,14 @@ namespace JavaProgrammingContest.Web.API{
     ///     Defines the datastructure for a run job.
     /// </summary>
     public class RunJob{
+        /// <summary>
+        ///     Code to run.
+        /// </summary>
         public string Code { get; set; }
+
+        /// <summary>
+        ///     Assignment Identifier where code is submitted for.
+        /// </summary>
         public int Id { get; set; }
     }
 
@@ -74,8 +81,19 @@ namespace JavaProgrammingContest.Web.API{
     ///     Defined the Result of a run job.
     /// </summary>
     public class RunResult{
+        /// <summary>
+        ///     Result of the Build Job.
+        /// </summary>
         public BuildResult BuildResult { get; set; }
+
+        /// <summary>
+        ///     Time it took to run the code.
+        /// </summary>
         public int RunTime { get; set; }
+
+        /// <summary>
+        ///     Output that was given by the code.
+        /// </summary>
         public string Output { get; set; }
     }
 }

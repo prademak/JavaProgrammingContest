@@ -1,29 +1,31 @@
 ﻿using System.Web.Mvc;
 
 namespace JavaProgrammingContest.Web.Controllers{
+    /// <summary>
+    ///     Controller for the homepage.
+    /// </summary>
     public class HomeController : Controller{
+        /// <summary>
+        ///     Creates view for the indexpage.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index(){
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
             return View();
         }
 
+        /// <summary>
+        ///     Creates view for the about page.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult About(){
-            ViewBag.Message = "Your app description page.";
             return View();
         }
 
+        /// <summary>
+        ///     Creates view for the contacts page.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Contact(){
-            ViewBag.Message = "Your contact page.";
-            return View();
-        }
-
-        public ActionResult Asignments(){
-            ViewBag.Message = "Your asignments page.";
-            return View();
-        }
-
-        public ActionResult Leaderboard(){
-            ViewBag.Message = "Your Leaderboard page.";
             return View();
         }
     }

@@ -10,20 +10,41 @@ using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 
 namespace JavaProgrammingContest.Web.Controllers{
+    /// <summary>
+    ///     Authorization Controller
+    /// </summary>
     [Authorize]
     public class AccountController : Controller{
+        /// <summary>
+        ///     Database Context
+        /// </summary>
         private readonly IDbContext _context;
 
+        /// <summary>
+        ///     Controller Constructor
+        /// </summary>
+        /// <param name="context">Database Context to use.</param>
         public AccountController(IDbContext context){
             _context = context;
         }
 
+        /// <summary>
+        ///     When a user is logged in and visits login page
+        /// </summary>
+        /// <param name="returnUrl">Url to redirect to.</param>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult Login(string returnUrl){
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
+        /// <summary>
+        ///     
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -35,6 +56,10 @@ namespace JavaProgrammingContest.Web.Controllers{
             return View(model);
         }
 
+        /// <summary>
+        ///     
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff(){
@@ -42,11 +67,20 @@ namespace JavaProgrammingContest.Web.Controllers{
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult Register(){
             return View();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -55,7 +89,7 @@ namespace JavaProgrammingContest.Web.Controllers{
                 try{
                     WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new{Interested = model.CanContact});
                     WebSecurity.Login(model.UserName, model.Password);
-                    return RedirectToAction("Asignments", "Home");
+                    return RedirectToAction("Index", "Editor");
                 } catch (MembershipCreateUserException e){
                     ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
                 }
@@ -63,6 +97,12 @@ namespace JavaProgrammingContest.Web.Controllers{
             return View(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <param name="providerUserId"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Disassociate(string provider, string providerUserId){
@@ -84,6 +124,11 @@ namespace JavaProgrammingContest.Web.Controllers{
             return RedirectToAction("Manage", new{Message = message});
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public ActionResult Manage(ManageMessageId? message){
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess
@@ -99,6 +144,11 @@ namespace JavaProgrammingContest.Web.Controllers{
             return View();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Manage(LocalPasswordModel model){
@@ -135,6 +185,12 @@ namespace JavaProgrammingContest.Web.Controllers{
             return View(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="provider"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -142,6 +198,11 @@ namespace JavaProgrammingContest.Web.Controllers{
             return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new{ReturnUrl = returnUrl}));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult ExternalLoginCallback(string returnUrl){
             var result =
@@ -164,6 +225,12 @@ namespace JavaProgrammingContest.Web.Controllers{
                 new RegisterExternalLoginModel{UserName = result.UserName, ExternalLoginData = loginData});
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -194,6 +261,10 @@ namespace JavaProgrammingContest.Web.Controllers{
             return View(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure(){
             return View();
@@ -206,6 +277,10 @@ namespace JavaProgrammingContest.Web.Controllers{
             return PartialView("_ExternalLoginsListPartial", OAuthWebSecurity.RegisteredClientData);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [ChildActionOnly]
         public ActionResult RemoveExternalLogins(){
             var accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
@@ -224,32 +299,64 @@ namespace JavaProgrammingContest.Web.Controllers{
         }
 
         #region Helpers
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="returnUrl"></param>
+        /// <returns></returns>
         private ActionResult RedirectToLocal(string returnUrl){
             if (Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public enum ManageMessageId{
             ChangePasswordSuccess,
             SetPasswordSuccess,
             RemoveLoginSuccess,
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         internal class ExternalLoginResult : ActionResult{
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="provider"></param>
+            /// <param name="returnUrl"></param>
             public ExternalLoginResult(string provider, string returnUrl){
                 Provider = provider;
                 ReturnUrl = returnUrl;
             }
 
+            /// <summary>
+            /// 
+            /// </summary>
             public string Provider { get; private set; }
+
+            /// <summary>
+            /// 
+            /// </summary>
             public string ReturnUrl { get; private set; }
 
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="context"></param>
             public override void ExecuteResult(ControllerContext context){
                 OAuthWebSecurity.RequestAuthentication(Provider, ReturnUrl);
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="createStatus"></param>
+        /// <returns></returns>
         private static string ErrorCodeToString(MembershipCreateStatus createStatus){
             switch (createStatus){
                 case MembershipCreateStatus.DuplicateUserName:

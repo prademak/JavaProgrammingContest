@@ -10,26 +10,39 @@ using JavaProgrammingContest.Domain.Entities;
 
 namespace JavaProgrammingContest.Web.Controllers
 {
+    /// <summary>
+    ///     Contest Controller
+    /// </summary>
     public class ContestController : Controller
     {
-      
+        /// <summary>
+        ///     Database Context.
+        /// </summary>
         private readonly IDbContext db;
 
+        /// <summary>
+        ///     Contest Controller Constructor.
+        /// </summary>
+        /// <param name="context">Dtabase Context to use.</param>
         public ContestController(IDbContext context)
         {
             db = context;
         }
-        //
-        // GET: /Contest/
-
+        
+        /// <summary>
+        ///     /Contest/
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             return View(db.Contests.ToList());
         }
 
-        //
-        // GET: /Contest/Details/5
-
+        /// <summary>
+        ///     GET: /Contest/Details/5
+        /// </summary>
+        /// <param name="id">Contest id</param>
+        /// <returns></returns>
         public ActionResult Details(int id = 0)
         {
             Contest contest = db.Contests.Find(id);
@@ -40,17 +53,20 @@ namespace JavaProgrammingContest.Web.Controllers
             return View(contest);
         }
 
-        //
-        // GET: /Contest/Create
-
+        /// <summary>
+        ///     GET: /Contest/Create
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Create()
         {
             return View();
         }
 
-        //
-        // POST: /Contest/Create
-
+        /// <summary>
+        ///     POST: /Contest/Create
+        /// </summary>
+        /// <param name="contest"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Create(Contest contest)
         {
@@ -64,9 +80,11 @@ namespace JavaProgrammingContest.Web.Controllers
             return View(contest);
         }
 
-        //
-        // GET: /Contest/Edit/5
-
+        /// <summary>
+        ///     GET: /Contest/Edit/5
+        /// </summary>
+        /// <param name="id">Contest id</param>
+        /// <returns></returns>
         public ActionResult Edit(int id = 0)
         {
             Contest contest = db.Contests.Find(id);
@@ -77,9 +95,11 @@ namespace JavaProgrammingContest.Web.Controllers
             return View(contest);
         }
 
-        //
-        // POST: /Contest/Edit/5
-
+        /// <summary>
+        ///     POST: /Contest/Edit/5
+        /// </summary>
+        /// <param name="contest">Contest db entry.</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Edit(Contest contest)
         {
@@ -94,9 +114,11 @@ namespace JavaProgrammingContest.Web.Controllers
             return View(contest);
         }
 
-        //
-        // GET: /Contest/Delete/5
-
+        /// <summary>
+        ///     GET: /Contest/Delete/5
+        /// </summary>
+        /// <param name="id">Contest identifier</param>
+        /// <returns></returns>
         public ActionResult Delete(int id = 0)
         {
             Contest contest = db.Contests.Find(id);
@@ -107,9 +129,11 @@ namespace JavaProgrammingContest.Web.Controllers
             return View(contest);
         }
 
-        //
-        // POST: /Contest/Delete/5
-
+        /// <summary>
+        ///     GET: /Contest/Delete/5
+        /// </summary>
+        /// <param name="id">Contest identifier.</param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
