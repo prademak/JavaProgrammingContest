@@ -18,16 +18,6 @@ $(window).ready(function () {
                 CodeGiven: '',
                 MaxTimeSpent: 0,
             };
-        },
-
-        
-        // Initialize the model
-        //initialize: function () {
-            
-        //},
-
-        solve: function (code) {
-            
         }
     });
 
@@ -37,21 +27,6 @@ $(window).ready(function () {
     AssignmentCollection = Backbone.Collection.extend({
 
         // Reference to this collection's model.
-        model: AssignmentModel,
-
-        initialize: function() {
-            /*console.log(this.fetch({url: '/api/Assignments', success: function() {
-                console.log(this);
-            }
-            }), this.length);*/
-            console.log(this.length);
-            //console.log(Backbone.sync('read', this, { url: '/api/assignments' }));
-
-        },
-
-        // Todos are sorted by their original insertion order.
-        //comparator: function (assignment) {
-        //    return assignment.get('sort');
-        //}
+        model: AssignmentModel
     });
 });

@@ -11,6 +11,7 @@ $(document).ready(function () {
         // List tag.
         tagName: "li",
         
+        // Keeps track of the current assignment
         modelIndex: 0,
         current: null,
         started: false,
@@ -24,16 +25,12 @@ $(document).ready(function () {
             "click li": "select"
         },
 
-        // The TodoView listens for changes to its model, re-rendering. Since there's
-        // a one-to-one correspondence between a **Todo** and a **TodoView** in this
-        // app, we set a direct reference on the model for convenience.
         initialize: function () {
             this.model.bind('reset', this.render, this);
             this.model.bind('change', this.render, this);
             this.model.bind('destroy', this.remove, this);
         },
 
-        // Re-render the titles of the todo item.
         render: function () {
             // Check if model is empty
             if (this.model.length == 0) {
@@ -46,14 +43,14 @@ $(document).ready(function () {
                 this.current = this.model.at(0);
                 this.trigger('select', this.current);
             }
-            //app.setAssignment(this.current);
             this.renderPane();
             
             // Template
             var list = "";
             var ns = this;
-            this.model.each(function (model) {
-                var currTmpl = ""+ns.template;
+            this.model.each(function (model, key) {
+                var currTmpl = "" + ns.template;
+                currTmpl = currTmpl.replace('{dataKey}', key); // Replace the data-attr value
                 $.each(model.attributes, function (k, v) {
                     currTmpl = currTmpl.replace('{'+k+'}', v);
                 });
@@ -69,49 +66,38 @@ $(document).ready(function () {
         },
         
         nextAssignment: function () {
-            /*var cur = this.current;
-            var newkey = 0;
-            this.model.each(function (value, key) {
-                if (value == cur) {
-                    newkey = key + 1;
-                }
-            });*/
             this.current = this.model.at(++this.modelIndex);
             this.trigger('select', this.current);
             this.render();
         },
+        
+        setAssignment: function (id) {
+            // Set the current model id
+            this.modelIndex = id;
 
-        renderPane: function() {
+            // Set current element
+            var mdl = this.model.at(id);
+            this.current = mdl;
+            
+            // Fire event
+            this.trigger('select', this.current);
+            
+            // Render the new list
+            this.render();
+        },
+
+        renderPane: function () {
             var ass = $('#AssignmentPane');
             ass.find('h1').text(this.current.get('Title'));
             ass.find('.description').text(this.current.get('Description'));
             ass.find('.time').text((this.current.get('MaxSolveTime')/60)+' minutes');
         },
 
+        // Click Event
         select: function (e) {
             // Check if an assignment is in progress
             if (this.started == true) return false;
-            
-            this.$el.find('.selected').removeClass('selected');
-            $(e.currentTarget).addClass('selected');
-            this.setState($(e.currentTarget), 'selected');
-            
-            //alert('selected'); //this.setActive();
-            //window.app.loadAssignment(this);
-        },
-        
-        // Toggle the `"done"` state of the model.
-        // selected normal inactive(done)
-        setState: function (el, state) {
-            if (state == 'selected') {
-                this.$el.find('.selected').removeClass('selected');
-                el.addClass('selected');
-                var mdl = this.model.where({ Id: parseInt(el.attr('data-assignment')) })[0];
-                this.current = mdl;
-                
-                // Fire event
-                this.trigger('select', mdl);
-            }
+            this.setAssignment(parseInt($(e.currentTarget).attr('data-assignment')));
         }
     });
 });

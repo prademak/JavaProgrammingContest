@@ -36,9 +36,7 @@ $(document).ready(function () {
             this.editor = new EditorView();
             this.assignments = new AssignmentView({ model: new AssignmentCollection() });
             var ns = this;
-            this.assignments.on('select', function (mdl) { ns.setAssignment.call(ns, mdl); });
-            
-            
+            this.assignments.on('select', function (mdl) { ns.changeAssignment.call(ns, mdl); });
         },
 
         // Re-rendering the App just means refreshing the statistics -- the rest
@@ -46,10 +44,6 @@ $(document).ready(function () {
         render: function () {
             // Firstly check the assignments
             this.assignments.model.fetch({ url: '/api/assignments' });
-        },
-        
-        setAssignment: function(mdl) {
-            this.editor.setContent(mdl.get('CodeGiven'));
         },
 
         changeTheme: function(e) {
@@ -112,6 +106,10 @@ $(document).ready(function () {
             e.stopPropagation();
             e.preventDefault();
             return false;
+        },
+        
+        changeAssignment: function (mdl) {
+            this.editor.setContent(mdl.get('CodeGiven'));
         },
         
         startAssignment: function (e) {
