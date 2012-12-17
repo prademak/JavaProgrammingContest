@@ -26,10 +26,12 @@ namespace JavaProgrammingContest.Web.API{
         /// <returns>HttpStatusCode.NotFound when given assignment is not in progress by the currently logged in user</returns>
         public HttpResponseMessage Get(int assignmentId){
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
-            return participant.Progress.Assignment.Id == assignmentId
-                       ? Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Progress, ProgressDTO>(participant.Progress))
-                       : Request.CreateErrorResponse(HttpStatusCode.NotFound,
-                           "Given assignment is not in progress by the currently logged in user.");
+            return participant.Progress == null
+                        ? Request.CreateErrorResponse(HttpStatusCode.NotFound, "No assignments in progress for current user.")
+                        : participant.Progress.Assignment.Id == assignmentId
+                             ? Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Progress, ProgressDTO>(participant.Progress))
+                             : Request.CreateErrorResponse(HttpStatusCode.NotFound,
+                                 "Given assignment is not in progress by the currently logged in user.");
         }
 
         /// <summary>
