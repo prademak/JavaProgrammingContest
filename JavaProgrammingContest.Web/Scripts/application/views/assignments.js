@@ -105,7 +105,7 @@ $(document).ready(function () {
             var ass = $('#AssignmentPane');
             ass.find('h1').text(this.current.get('Title'));
             ass.find('.description').text(this.current.get('Description'));
-            ass.find('.time').text((this.current.get('MaxSolveTime')/60)+' minutes');
+            ass.find('.time').text(Math.round(this.current.get('MaxSolveTime')/60)+' minutes');
         },
 
         // Click Event

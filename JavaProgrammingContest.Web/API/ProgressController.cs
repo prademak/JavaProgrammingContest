@@ -10,18 +10,29 @@ using JavaProgrammingContest.Web.DTO;
 using WebMatrix.WebData;
 
 namespace JavaProgrammingContest.Web.API{
+    /// <summary>
+    ///     Controller for interface interraction with the Progress of assignments within the competition system.
+    /// </summary>
     [Authorize]
     public class ProgressController : ApiController{
+        /// <summary>
+        ///     Stores the Database Context
+        /// </summary>
         private readonly IDbContext _context;
 
+        /// <summary>
+        ///     Constructs the Progress WebAPI Controller.
+        /// </summary>
+        /// <param name="context">Database Context</param>
         public ProgressController(IDbContext context){
             _context = context;
         }
 
         /// <summary>
-        /// 
+        ///     Used to check if the assignment with assignmentId is in progress, and if so, retrieves the data.
+        ///     Usage: /api/progress/?assignmentId={ID}
         /// </summary>
-        /// <param name="assignmentId"></param>
+        /// <param name="assignmentId">The identifier of the assignment to chck progress for.</param>
         /// <returns>HttpStatusCode.Ok + the progress object when given assignment is in progress by the currently logged in user</returns>
         /// <returns>HttpStatusCode.NotFound when given assignment is not in progress by the currently logged in user</returns>
         public HttpResponseMessage Get(int assignmentId){
@@ -35,10 +46,10 @@ namespace JavaProgrammingContest.Web.API{
         }
 
         /// <summary>
-        /// 
+        ///     Create a new progress item for the currently logged in user and the given assignment.
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="progress"></param>
+        /// <param name="id">Identifier of the assignment to create a progress item for.</param>
+        /// <param name="progress">May be empty, or contain at least the StartTime (Which is currently ignored)</param>
         /// <returns></returns>
         public HttpResponseMessage Put(int id, Progress progress){
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
@@ -61,9 +72,13 @@ namespace JavaProgrammingContest.Web.API{
             return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Progress, ProgressDTO>(progress));
         }
 
-        // Tried to fixx the "not being able to start an assignment if you reloaded the page during one" problem.
-        public HttpResponseMessage Delete(int id)
-        {
+        /// <summary>
+        ///     Delete the progress for a specific assignment and the currently logged in user.
+        /// </summary>
+        /// <param name="id">Assignment id to look for.</param>
+        /// <returns></returns>
+        public HttpResponseMessage Delete(int id){
+            // Tried to fixx the "not being able to start an assignment if you reloaded the page during one" problem.
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
 
             if (participant.Progress == null)

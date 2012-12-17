@@ -8,17 +8,42 @@ using JavaProgrammingContest.Process.Runner;
 using WebMatrix.WebData;
 
 namespace JavaProgrammingContest.Web.API{
+    /// <summary>
+    ///     Controller for interface interaction with the database object Score.
+    /// </summary>
     public class ScoresController : ApiController{
+        /// <summary>
+        ///     Stores a Runner instance.
+        /// </summary>
         private readonly IRunner _runner;
+
+        /// <summary>
+        ///     Stores a Compiler instance.
+        /// </summary>
         private readonly ICompiler _compiler;
+
+        /// <summary>
+        ///     Stores the Database Context
+        /// </summary>
         private readonly IDbContext _context;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="compiler"></param>
+        /// <param name="runner"></param>
         public ScoresController(IDbContext context, ICompiler compiler, IRunner runner){
             _context = context;
             _compiler = compiler;
             _runner = runner;
         }
 
+        /// <summary>
+        ///     Build and runs an assignment and checks the scores for the user submitted code.
+        /// </summary>
+        /// <param name="runJob">See RunController.</param>
+        /// <returns></returns>
         public HttpResponseMessage Post(RunJob runJob){
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             _compiler.CompileFromPlainText(participant, runJob.Code);

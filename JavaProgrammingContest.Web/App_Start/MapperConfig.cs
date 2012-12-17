@@ -3,7 +3,13 @@ using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Web.DTO;
 
 namespace JavaProgrammingContest.Web.App_Start{
+    /// <summary>
+    ///     Maps Database Objects
+    /// </summary>
     public class MapperConfig{
+        /// <summary>
+        ///     Maps Database Objects
+        /// </summary>
         public static void Configure(){
             Mapper.CreateMap<Assignment, AssignmentDTO>();
             Mapper.CreateMap<Contest, ContestDTO>();

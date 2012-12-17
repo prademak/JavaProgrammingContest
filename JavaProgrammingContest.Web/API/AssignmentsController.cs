@@ -9,17 +9,36 @@ using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Web.DTO;
 
 namespace JavaProgrammingContest.Web.API{
+    /// <summary>
+    ///     Controller for interface interaction with the database object Assignments.
+    /// </summary>
     public class AssignmentsController : ApiController{
+        /// <summary>
+        ///     Stores the Database Context
+        /// </summary>
         private readonly IDbContext _context;
 
+        /// <summary>
+        ///     API Interface Assignment Controller Constructor
+        /// </summary>
+        /// <param name="context"></param>
         public AssignmentsController(IDbContext context){
             _context = context;
         }
 
+        /// <summary>
+        ///     Get all current assignments for this user and the currently active contest.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<AssignmentDTO> Get(){
             return Mapper.Map<IEnumerable<Assignment>, IEnumerable<AssignmentDTO>>(_context.Assignments);
         }
 
+        /// <summary>
+        ///     Get all the info of the given Assignment
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public AssignmentDTO Get(int id){
             var assignment = _context.Assignments.Find(id);
 
@@ -29,6 +48,11 @@ namespace JavaProgrammingContest.Web.API{
             return Mapper.Map<Assignment, AssignmentDTO>(assignment);
         }
 
+        /// <summary>
+        ///     Add an assignment to the database (REDUNDANT)
+        /// </summary>
+        /// <param name="assignment"></param>
+        /// <returns></returns>
         public HttpResponseMessage Post(Assignment assignment){
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -43,6 +67,11 @@ namespace JavaProgrammingContest.Web.API{
             return Request.CreateResponse(HttpStatusCode.Created);
         }
 
+        /// <summary>
+        ///     Change an assignment. (REDUNDANT)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="assignment"></param>
         public void Put(int id, Assignment assignment){
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -58,6 +87,10 @@ namespace JavaProgrammingContest.Web.API{
             }
         }
 
+        /// <summary>
+        ///     Delete an Assignment (REDUNDANT)
+        /// </summary>
+        /// <param name="id"></param>
         public void Delete(int id){
             try{
                 var assignment = _context.Assignments.Find(id);
