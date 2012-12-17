@@ -415,12 +415,6 @@
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Views\Editor\Index.cshtml" />
-    <Content Include="Views\AssignmentOud\Add.cshtml" />
-    <Content Include="Views\AssignmentOud\Details.cshtml" />
-    <Content Include="Views\AssignmentOud\Edit.cshtml" />
-    <Content Include="Views\AssignmentOud\Index.cshtml" />
-    <Content Include="Views\AssignmentOud\Delete.cshtml" />
-    <Content Include="Views\AssignmentOud\_menuBalk.cshtml" />
     <Content Include="Views\Scores\Index.cshtml" />
     <Content Include="Views\Assignment\Index.cshtml" />
     <Content Include="Views\Assignment\Details.cshtml" />
