@@ -26,11 +26,16 @@ namespace JavaProgrammingContest.Web.API{
 
             var correctOutput = (runResult.Output.Trim().Equals(participant.Progress.Assignment.RunCodeOuput));
 
+            System.TimeSpan elapsed = System.DateTime.Now - participant.Progress.StartTime;
+            double timeDifference = elapsed.TotalSeconds;
+
+            timeDifference = System.Math.Floor(timeDifference * 100) / 100;
+
             var score = new Score{
                 Assignment = participant.Progress.Assignment,
                 IsCorrectOutput = correctOutput,
                 Participant = participant,
-                TimeSpent = 100
+                TimeSpent = timeDifference
             };
 
             _context.Scores.Add(score);
