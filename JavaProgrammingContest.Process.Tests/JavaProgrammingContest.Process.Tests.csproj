@@ -46,6 +46,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JavaProgrammingContest.Domain\JavaProgrammingContest.Domain.csproj">
+      <Project>{4AA3B70C-8D2B-41CF-A6E8-69D9C3B52AC0}</Project>
+      <Name>JavaProgrammingContest.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JavaProgrammingContest.Process\JavaProgrammingContest.Process.csproj">
       <Project>{E9B7E0DF-073C-4305-A379-44966F127781}</Project>
       <Name>JavaProgrammingContest.Process</Name>
