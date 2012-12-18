@@ -41,7 +41,7 @@ namespace JavaProgrammingContest.DataAccess.Migrations{
         
             var ass1 = new Assignment{
                 CodeGiven =
-                    "// Sample class\nclass HelloWorldApp {\n\tpublic static void main(String[] args){\n\t\tSystem.out.println(\"Hello World!\");\n\t}\n}\n",
+                    "// Sample class\nclass Solution {\n\tpublic static void main(String[] args){\n\t\tSystem.out.println(\"Hello World!\");\n\t}\n}\n",
                 Description =
                     "Print like: '2 3 5 7 11'",
                 Title = "Print 30 primenumbers",
@@ -52,13 +52,13 @@ namespace JavaProgrammingContest.DataAccess.Migrations{
             var ass2 = new Assignment
             {
                 CodeGiven =
-                    "// Sample class\nclass HelloWorldApp {\n\tpublic static void main(String[] args){\n\t\tSystem.out.println(\"Hello World!\");\n\t}\n}\n",
+                    "// Sample class\nimport java.io.BufferedReader;\nimport java.io.IOException;\nimport java.io.InputStreamReader; \n\nclass Solution {\n\tpublic static void main(String[] args) throws IOException{\n\t\t BufferedReader br = new BufferedReader(new InputStreamReader(System.in));\n\t\tSystem.out.println(br.readLine());\n\t}\n}\n",
                 Description =
-                    "Print the following text: \"Hello World!\"",
-                Title = "Hello World!",
+                    "In this assignment you have to sort a row of numbers. \n\n Example: \n Input: 1 3 2 6 9 6 7 \n Output: 1 2 3 6 6 7 9 ",
+                Title = "Sort",
                 MaxSolveTime = 900,
-                RunCodeInput = "",
-                RunCodeOuput = "Hello World!"
+                RunCodeInput = "1 3 2 6 9 6 7",
+                RunCodeOuput = "1 2 3 6 6 7 9"
             };
             var contest = new Contest{
                 IsActive = true,

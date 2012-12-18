@@ -51,11 +51,11 @@ namespace JavaProgrammingContest.Web.API{
         {
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             _compiler.CompileFromPlainText(participant, runJob.Code);
-            var runResult = _runner.Run();
+            var runResult = _runner.RunAndCheckInput(participant);
             var correctOutput = (runResult.Output.Trim().Equals(participant.Progress.Assignment.RunCodeOuput));
-            double timeDifference = getTimeDifference(participant.Progress.StartTime);
+            double timeDifference = GetTimeDifference(participant.Progress.StartTime);
 
-            var score = createScore(participant, correctOutput, timeDifference);
+            var score = CreateScore(participant, correctOutput, timeDifference);
 
             _context.Scores.Add(score);
             _context.Progresses.Remove(participant.Progress);
@@ -64,7 +64,7 @@ namespace JavaProgrammingContest.Web.API{
             return Request.CreateResponse(HttpStatusCode.Created);
         }
 
-        public double getTimeDifference(DateTime startTime)
+        public static double GetTimeDifference(DateTime startTime)
         {
             TimeSpan elapsed = System.DateTime.Now - startTime;
             double timeDifference = elapsed.TotalSeconds;
@@ -73,7 +73,7 @@ namespace JavaProgrammingContest.Web.API{
             return timeDifference;
         }
 
-        public Score createScore(Participant participant, bool correctOutput, double timeDifference)
+        public static Score CreateScore(Participant participant, bool correctOutput, double timeDifference)
         {
             var score = new Score
             {

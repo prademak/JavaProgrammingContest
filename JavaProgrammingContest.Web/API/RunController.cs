@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Web.Http;
 using JavaProgrammingContest.DataAccess.Context;
+using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Process.Compiler;
 using JavaProgrammingContest.Process.Runner;
 using WebMatrix.WebData;
@@ -46,7 +47,7 @@ namespace JavaProgrammingContest.Web.API{
         public HttpResponseMessage Run(RunJob runJob){
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             var result = _compiler.CompileFromPlainText(participant, runJob.Code);
-            var runResult = _runner.Run();
+            var runResult = _runner.Run(participant);
 
             var response = new RunResult{
                 BuildResult = new BuildResult{
