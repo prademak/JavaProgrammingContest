@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -60,7 +61,7 @@ namespace JavaProgrammingContest.Web.API{
             try{
                 _context.Assignments.Add(assignment);
                 _context.SaveChanges();
-            } catch (Exception){
+            } catch (SqlException){
                 throw new HttpResponseException(HttpStatusCode.InternalServerError);
             }
 
@@ -82,7 +83,7 @@ namespace JavaProgrammingContest.Web.API{
                 //TODO set properties
 
                 _context.SaveChanges();
-            } catch (Exception){
+            } catch (SqlException){
                 throw new HttpResponseException(HttpStatusCode.InternalServerError);
             }
         }
@@ -98,7 +99,7 @@ namespace JavaProgrammingContest.Web.API{
                     throw new HttpResponseException(HttpStatusCode.NotFound);
 
                 _context.Assignments.Remove(assignment);
-            } catch (Exception){
+            } catch (SqlException){
                 throw new HttpResponseException(HttpStatusCode.InternalServerError);
             }
         }

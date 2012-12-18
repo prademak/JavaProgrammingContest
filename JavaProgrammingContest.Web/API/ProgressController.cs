@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -65,7 +66,7 @@ namespace JavaProgrammingContest.Web.API{
             try{
                 _context.Progresses.Add(progress);
                 _context.SaveChanges();
-            } catch (Exception ex){
+            } catch (SqlException ex){
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error while saving to database.");
             }
 
@@ -92,7 +93,7 @@ namespace JavaProgrammingContest.Web.API{
 
                 _context.Progresses.Remove(curProgress.First());
                 _context.SaveChanges();
-            }catch (Exception ex){
+            }catch (SqlException ex){
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error while saving to database.");
             }
 
