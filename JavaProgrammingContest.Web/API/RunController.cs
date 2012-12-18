@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using JavaProgrammingContest.DataAccess.Context;
@@ -54,7 +55,7 @@ namespace JavaProgrammingContest.Web.API{
                     Error = result.StandardError,
                     CompileTime = result.CompilationTime
                 },
-                Output = result.StandardError != "" ? "Build failed. See build tab" : runResult.Output,
+                Output = result.StandardError != String.Empty ? "Build failed. See build tab" : runResult.Output,
                 RunTime = runResult.RunTime
             };
 
