@@ -1,4 +1,4 @@
-﻿@model JavaProgrammingContest.Web.Models.RegisterExternalLoginModel
+﻿@model JavaProgrammingContest.Web.Models.RegisterExternalLogonModel
 @{
     ViewBag.Title = "Register";
 }
@@ -8,7 +8,7 @@
     <h2>Associate your @ViewBag.ProviderDisplayName account.</h2>
 </hgroup>
 
-@using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl })) {
+@using (Html.BeginForm("ExternalLogonConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl })) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
@@ -26,7 +26,7 @@
                 @Html.ValidationMessageFor(m => m.UserName)
             </li>
         </ol>
-        @Html.HiddenFor(m => m.ExternalLoginData)
+        @Html.HiddenFor(m => m.ExternalLogonData)
         <input type="submit" value="Register" />
     </fieldset>
 }

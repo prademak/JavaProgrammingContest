@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace JavaProgrammingContest.Web.Models{
-    public class RegisterExternalLoginModel{
+    public class RegisterExternalLogonModel{
         [Required]
         [Display(Name = "Email address")]
         public string UserName { get; set; }
@@ -10,7 +10,7 @@ namespace JavaProgrammingContest.Web.Models{
         [UIHint("SwitchedBoolean")]
         public bool CanContact { get; set; }
 
-        public string ExternalLoginData { get; set; }
+        public string ExternalLogonData { get; set; }
     }
 
     public class LocalPasswordModel{
@@ -31,7 +31,7 @@ namespace JavaProgrammingContest.Web.Models{
         public string ConfirmPassword { get; set; }
     }
 
-    public class LoginModel{
+    public class LogonModel{
         [Required]
         [Display(Name = "Email address")]
         public string UserName { get; set; }
@@ -72,7 +72,7 @@ namespace JavaProgrammingContest.Web.Models{
         public bool CanContact { get; set; }
     }
 
-    public class ExternalLogin{
+    public class ExternalLogon{
         public string Provider { get; set; }
         public string ProviderDisplayName { get; set; }
         public string ProviderUserId { get; set; }

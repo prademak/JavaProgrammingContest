@@ -29,12 +29,12 @@ namespace JavaProgrammingContest.Web.Controllers{
         }
 
         /// <summary>
-        ///     When a user is logged in and visits login page
+        ///     When a user is logged in and visits Logon page
         /// </summary>
         /// <param name="returnUrl">Url to redirect to.</param>
         /// <returns></returns>
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl){
+        public ActionResult Logon(string returnUrl){
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -48,7 +48,7 @@ namespace JavaProgrammingContest.Web.Controllers{
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(LoginModel model, string returnUrl){
+        public ActionResult Logon(LogonModel model, string returnUrl){
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, model.RememberMe))
                 return RedirectToLocal(returnUrl);
 
@@ -117,7 +117,7 @@ namespace JavaProgrammingContest.Web.Controllers{
                     if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1){
                         OAuthWebSecurity.DeleteAccount(provider, providerUserId);
                         scope.Complete();
-                        message = ManageMessageId.RemoveLoginSuccess;
+                        message = ManageMessageId.RemoveLogonSuccess;
                     }
                 }
 
@@ -135,8 +135,8 @@ namespace JavaProgrammingContest.Web.Controllers{
                     ? "Your password has been changed."
                     : message == ManageMessageId.SetPasswordSuccess
                           ? "Your password has been set."
-                          : message == ManageMessageId.RemoveLoginSuccess
-                                ? "The external login was removed."
+                          : message == ManageMessageId.RemoveLogonSuccess
+                                ? "The external Logon was removed."
                                 : string.Empty;
 
             ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
@@ -194,8 +194,8 @@ namespace JavaProgrammingContest.Web.Controllers{
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider, string returnUrl){
-            return new ExternalLoginResult(provider, Url.Action("ExternalLoginCallback", new{ReturnUrl = returnUrl}));
+        public ActionResult ExternalLogon(string provider, string returnUrl){
+            return new ExternalLogonResult(provider, Url.Action("ExternalLogonCallback", new{ReturnUrl = returnUrl}));
         }
 
         /// <summary>
@@ -204,11 +204,11 @@ namespace JavaProgrammingContest.Web.Controllers{
         /// <param name="returnUrl"></param>
         /// <returns></returns>
         [AllowAnonymous]
-        public ActionResult ExternalLoginCallback(string returnUrl){
+        public ActionResult ExternalLogonCallback(string returnUrl){
             var result =
-                OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLoginCallback", new{ReturnUrl = returnUrl}));
+                OAuthWebSecurity.VerifyAuthentication(Url.Action("ExternalLogonCallback", new{ReturnUrl = returnUrl}));
             if (!result.IsSuccessful)
-                return RedirectToAction("ExternalLoginFailure");
+                return RedirectToAction("ExternalLogonFailure");
 
             if (OAuthWebSecurity.Login(result.Provider, result.ProviderUserId, createPersistentCookie: false))
                 return RedirectToLocal(returnUrl);
@@ -218,11 +218,11 @@ namespace JavaProgrammingContest.Web.Controllers{
                 return RedirectToLocal(returnUrl);
             }
 
-            var loginData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
+            var logonData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
             ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
             ViewBag.ReturnUrl = returnUrl;
-            return View("ExternalLoginConfirmation",
-                new RegisterExternalLoginModel{UserName = result.UserName, ExternalLoginData = loginData});
+            return View("ExternalLogonConfirmation",
+                new RegisterExternalLogonModel{UserName = result.UserName, ExternalLogonData = logonData});
         }
 
         /// <summary>
@@ -234,12 +234,12 @@ namespace JavaProgrammingContest.Web.Controllers{
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ExternalLoginConfirmation(RegisterExternalLoginModel model, string returnUrl){
+        public ActionResult ExternalLogonConfirmation(RegisterExternalLogonModel model, string returnUrl){
             string provider;
             string providerUserId;
 
             if (User.Identity.IsAuthenticated ||
-                !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLoginData, out provider, out providerUserId))
+                !OAuthWebSecurity.TryDeserializeProviderUserId(model.ExternalLogonData, out provider, out providerUserId))
                 return RedirectToAction("Manage");
 
             if (ModelState.IsValid){
@@ -266,15 +266,15 @@ namespace JavaProgrammingContest.Web.Controllers{
         /// </summary>
         /// <returns></returns>
         [AllowAnonymous]
-        public ActionResult ExternalLoginFailure(){
+        public ActionResult ExternalLogonFailure(){
             return View();
         }
 
         [AllowAnonymous]
         [ChildActionOnly]
-        public ActionResult ExternalLoginsList(string returnUrl){
+        public ActionResult ExternalLogonsList(string returnUrl){
             ViewBag.ReturnUrl = returnUrl;
-            return PartialView("_ExternalLoginsListPartial", OAuthWebSecurity.RegisteredClientData);
+            return PartialView("_ExternalLogonsListPartial", OAuthWebSecurity.RegisteredClientData);
         }
 
         /// <summary>
@@ -282,20 +282,20 @@ namespace JavaProgrammingContest.Web.Controllers{
         /// </summary>
         /// <returns></returns>
         [ChildActionOnly]
-        public ActionResult RemoveExternalLogins(){
+        public ActionResult RemoveExternalLogons(){
             var accounts = OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name);
 
-            var externalLogins = (from account in accounts
+            var externalLogons = (from account in accounts
                 let clientData = OAuthWebSecurity.GetOAuthClientData(account.Provider)
-                select new ExternalLogin{
+                select new ExternalLogon{
                     Provider = account.Provider,
                     ProviderDisplayName = clientData.DisplayName,
                     ProviderUserId = account.ProviderUserId,
                 }).ToList();
 
-            ViewBag.ShowRemoveButton = externalLogins.Count > 1 ||
+            ViewBag.ShowRemoveButton = externalLogons.Count > 1 ||
                                        OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
-            return PartialView("_RemoveExternalLoginsPartial", externalLogins);
+            return PartialView("_RemoveExternalLogonsPartial", externalLogons);
         }
 
         #region Helpers
@@ -316,19 +316,19 @@ namespace JavaProgrammingContest.Web.Controllers{
         public enum ManageMessageId{
             ChangePasswordSuccess,
             SetPasswordSuccess,
-            RemoveLoginSuccess,
+            RemoveLogonSuccess,
         }
 
         /// <summary>
         /// 
         /// </summary>
-        internal class ExternalLoginResult : ActionResult{
+        internal class ExternalLogonResult : ActionResult{
             /// <summary>
             /// 
             /// </summary>
             /// <param name="provider"></param>
             /// <param name="returnUrl"></param>
-            public ExternalLoginResult(string provider, string returnUrl){
+            public ExternalLogonResult(string provider, string returnUrl){
                 Provider = provider;
                 ReturnUrl = returnUrl;
             }
