@@ -55,8 +55,10 @@ namespace JavaProgrammingContest.Web.API{
         /// <param name="assignment"></param>
         /// <returns></returns>
         public HttpResponseMessage Post(Assignment assignment){
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || assignment == null)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
+            if (_context.Assignments == null)
+                throw new HttpResponseException(HttpStatusCode.InternalServerError);
 
             try{
                 _context.Assignments.Add(assignment);
