@@ -9,7 +9,7 @@ namespace JavaProgrammingContest.Process.Compiler.Java{
         public ICompilerProcess CompilerProcess { get; set; }
 
         public CompilerResult CompileFromPlainText(Participant participant, string code){
-            var javaFile = CreateFilePath(participant.Id, "HelloWorldApp");
+            var javaFile = CreateFilePath(participant.Id, "Solution");
             File.WriteAllText(javaFile, code);
             return CompilerProcess.Compile(string.Format("\"{0}\"", javaFile));
         }

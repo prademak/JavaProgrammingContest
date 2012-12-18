@@ -20,7 +20,7 @@ namespace JavaProgrammingContest.Process.Tests.Compiler.Java
         public void CreateFilePathGivesNullReferenceException()
         {
             jc = new JavaCompiler();
-            String result = jc.CreateFilePath(1, "HelloWorldApp");
+            String result = jc.CreateFilePath(1, "Solution");
         }
     }
 }
