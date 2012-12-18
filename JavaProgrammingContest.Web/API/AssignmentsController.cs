@@ -76,7 +76,7 @@ namespace JavaProgrammingContest.Web.API{
         /// <param name="id"></param>
         /// <param name="assignment"></param>
         public void Put(int id, Assignment assignment){
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || assignment == null)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
             try{

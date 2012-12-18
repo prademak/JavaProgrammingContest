@@ -55,7 +55,7 @@ namespace JavaProgrammingContest.Web.API{
                     Error = result.StandardError,
                     CompileTime = result.CompilationTime
                 },
-                Output = result.StandardError != String.Empty ? "Build failed. See build tab" : runResult.Output,
+                Output = result.StandardError.Length > 0 ? "Build failed. See build tab" : runResult.Output,
                 RunTime = runResult.RunTime
             };
 

@@ -47,7 +47,7 @@ namespace JavaProgrammingContest.DataAccess.Migrations{
                     "Print like: '2 3 5 7 11'",
                 Title = "Print 30 primenumbers",
                 MaxSolveTime = 900,
-                RunCodeInput = String.Empty,
+                RunCodeInput = string.Empty,
                 RunCodeOuput = "2 3 5 7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97 101 103 107 109 113"
             };
             var ass2 = new Assignment
@@ -58,7 +58,7 @@ namespace JavaProgrammingContest.DataAccess.Migrations{
                     "Print the following text: \"Hello World!\"",
                 Title = "Hello World!",
                 MaxSolveTime = 900,
-                RunCodeInput = String.Empty,
+                RunCodeInput = string.Empty,
                 RunCodeOuput = "Hello World!"
             };
             var contest = new Contest{

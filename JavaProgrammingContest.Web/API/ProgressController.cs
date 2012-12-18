@@ -31,7 +31,7 @@ namespace JavaProgrammingContest.Web.API{
 
         /// <summary>
         ///     Used to check if the assignment with assignmentId is in progress, and if so, retrieves the data.
-        ///     Usage: /api/progress/?assignmentId={ID}
+        ///     Usage is /api/progress/?assignmentId=id, where id is the identifier you'd like to use.
         /// </summary>
         /// <param name="assignmentId">The identifier of the assignment to chck progress for.</param>
         /// <returns>HttpStatusCode.Ok + the progress object when given assignment is in progress by the currently logged in user</returns>
