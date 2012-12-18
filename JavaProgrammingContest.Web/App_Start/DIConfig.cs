@@ -45,17 +45,17 @@ namespace JavaProgrammingContest.Web{
             builder.RegisterType<JavaRunner>().As<IRunner>().PropertiesAutowired();
             builder.RegisterType<JavaRunnerProcess>().As<IRunnerProcess>();
             builder.RegisterType<SettingsReader>().As<ISettingsReader>();
-            
         }
 
         private static void SetMvcResolver(ILifetimeScope container){
-            var mvcResolver = new AutofacDependencyResolver(container);
-            DependencyResolver.SetResolver(mvcResolver);
+            DependencyResolver.SetResolver(
+                new AutofacDependencyResolver(container)
+            );
         }
 
         private static void SetApiResolver(ILifetimeScope container){
-            var webApiResolver = new AutofacWebApiDependencyResolver(container);
-            GlobalConfiguration.Configuration.DependencyResolver = webApiResolver;
+            GlobalConfiguration.Configuration.DependencyResolver =
+                new AutofacWebApiDependencyResolver(container);
         }
     }
 }
