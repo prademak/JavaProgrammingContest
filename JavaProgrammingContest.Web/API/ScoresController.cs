@@ -6,12 +6,14 @@ using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Process.Compiler;
 using JavaProgrammingContest.Process.Runner;
 using WebMatrix.WebData;
+using System;
 
 namespace JavaProgrammingContest.Web.API{
     /// <summary>
     ///     Controller for interface interaction with the database object Score.
     /// </summary>
-    public class ScoresController : ApiController{
+    public class ScoresController : ApiController
+    {
         /// <summary>
         ///     Stores a Runner instance.
         /// </summary>
@@ -33,7 +35,8 @@ namespace JavaProgrammingContest.Web.API{
         /// <param name="context"></param>
         /// <param name="compiler"></param>
         /// <param name="runner"></param>
-        public ScoresController(IDbContext context, ICompiler compiler, IRunner runner){
+        public ScoresController(IDbContext context, ICompiler compiler, IRunner runner)
+        {
             _context = context;
             _compiler = compiler;
             _runner = runner;
@@ -44,30 +47,43 @@ namespace JavaProgrammingContest.Web.API{
         /// </summary>
         /// <param name="runJob">See RunController.</param>
         /// <returns></returns>
-        public HttpResponseMessage Post(RunJob runJob){
+        public HttpResponseMessage Post(RunJob runJob)
+        {
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             _compiler.CompileFromPlainText(participant, runJob.Code);
             var runResult = _runner.Run();
-
             var correctOutput = (runResult.Output.Trim().Equals(participant.Progress.Assignment.RunCodeOuput));
+            double timeDifference = getTimeDifference(participant.Progress.StartTime);
 
-            System.TimeSpan elapsed = System.DateTime.Now - participant.Progress.StartTime;
-            double timeDifference = elapsed.TotalSeconds;
-
-            timeDifference = System.Math.Floor(timeDifference * 100) / 100;
-
-            var score = new Score{
-                Assignment = participant.Progress.Assignment,
-                IsCorrectOutput = correctOutput,
-                Participant = participant,
-                TimeSpent = timeDifference
-            };
+            var score = createScore(participant, correctOutput, timeDifference);
 
             _context.Scores.Add(score);
             _context.Progresses.Remove(participant.Progress);
             _context.SaveChanges();
 
             return Request.CreateResponse(HttpStatusCode.Created);
+        }
+
+        public double getTimeDifference(DateTime startTime)
+        {
+            TimeSpan elapsed = System.DateTime.Now - startTime;
+            double timeDifference = elapsed.TotalSeconds;
+            timeDifference = System.Math.Floor(timeDifference * 100) / 100;
+
+            return timeDifference;
+        }
+
+        public Score createScore(Participant participant, bool correctOutput, double timeDifference)
+        {
+            var score = new Score
+            {
+                Assignment = participant.Progress.Assignment,
+                IsCorrectOutput = correctOutput,
+                Participant = participant,
+                TimeSpent = timeDifference
+            };
+
+            return score;
         }
     }
 }
