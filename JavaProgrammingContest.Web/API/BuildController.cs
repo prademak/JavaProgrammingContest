@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using JavaProgrammingContest.DataAccess.Context;
@@ -42,7 +43,7 @@ namespace JavaProgrammingContest.Web.API{
             //TODO use CompilerResult class as response
             return Request.CreateResponse(HttpStatusCode.Created,
                 new BuildResult{
-                    Output = result.StandardOutput == "" && result.StandardError == "" ? "Build succeeded" : "",
+                    Output = result.StandardOutput.Length == 0 && result.StandardError.Length == 0 ? "Build succeeded" : string.Empty,
                     Error = result.StandardError,
                     CompileTime = result.CompilationTime
                 });

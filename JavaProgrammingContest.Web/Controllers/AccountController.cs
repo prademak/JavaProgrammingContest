@@ -52,7 +52,7 @@ namespace JavaProgrammingContest.Web.Controllers{
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, model.RememberMe))
                 return RedirectToLocal(returnUrl);
 
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            ModelState.AddModelError(string.Empty, "The user name or password provided is incorrect.");
             return View(model);
         }
 
@@ -91,7 +91,7 @@ namespace JavaProgrammingContest.Web.Controllers{
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Editor");
                 } catch (MembershipCreateUserException e){
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    ModelState.AddModelError(string.Empty, ErrorCodeToString(e.StatusCode));
                 }
 
             return View(model);
@@ -137,7 +137,7 @@ namespace JavaProgrammingContest.Web.Controllers{
                           ? "Your password has been set."
                           : message == ManageMessageId.RemoveLoginSuccess
                                 ? "The external login was removed."
-                                : "";
+                                : string.Empty;
 
             ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.ReturnUrl = Url.Action("Manage");
@@ -166,7 +166,7 @@ namespace JavaProgrammingContest.Web.Controllers{
 
                     if (changePasswordSucceeded)
                         return RedirectToAction("Manage", new{Message = ManageMessageId.ChangePasswordSuccess});
-                    ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
+                    ModelState.AddModelError(String.Empty, "The current password is incorrect or the new password is invalid.");
                 }
             } else{
                 var state = ModelState["OldPassword"];
@@ -178,7 +178,7 @@ namespace JavaProgrammingContest.Web.Controllers{
                         WebSecurity.CreateAccount(User.Identity.Name, model.NewPassword);
                         return RedirectToAction("Manage", new{Message = ManageMessageId.SetPasswordSuccess});
                     } catch (Exception e){
-                        ModelState.AddModelError("", e);
+                        ModelState.AddModelError(string.Empty, e);
                     }
             }
 

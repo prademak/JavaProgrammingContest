@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -30,7 +31,7 @@ namespace JavaProgrammingContest.Web.API{
 
         /// <summary>
         ///     Used to check if the assignment with assignmentId is in progress, and if so, retrieves the data.
-        ///     Usage: /api/progress/?assignmentId={ID}
+        ///     Usage is /api/progress/?assignmentId=id, where id is the identifier you'd like to use.
         /// </summary>
         /// <param name="assignmentId">The identifier of the assignment to chck progress for.</param>
         /// <returns>HttpStatusCode.Ok + the progress object when given assignment is in progress by the currently logged in user</returns>
@@ -65,7 +66,7 @@ namespace JavaProgrammingContest.Web.API{
             try{
                 _context.Progresses.Add(progress);
                 _context.SaveChanges();
-            } catch (Exception ex){
+            } catch (SqlException ex){
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error while saving to database.");
             }
 
@@ -92,7 +93,7 @@ namespace JavaProgrammingContest.Web.API{
 
                 _context.Progresses.Remove(curProgress.First());
                 _context.SaveChanges();
-            }catch (Exception ex){
+            }catch (SqlException ex){
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error while saving to database.");
             }
 
