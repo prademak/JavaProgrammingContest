@@ -1,12 +1,8 @@
-﻿<hr>
-    @if (Request.IsAuthenticated) {
-  @Html.Partial("IndexUser")
-      } else {
-              
+﻿              
  <div class="jumbotron">
         <h1>Ready for a challenge?</h1>
         <p class="lead">Interested to work for info support? Prove yourself as the programmer we need!</p>
-        <a class="btn btn-large btn-success" href="@Url.Action("Register", "Account")">Sign up today</a>
+        <a class="btn btn-large btn-success" href="@Url.Action("Index", "Editor")">Start programming!</a>
       </div>
 
       <hr>
@@ -35,5 +31,4 @@
         </div>
       </div>
 
-      <hr>   
-    }
+      <hr>
