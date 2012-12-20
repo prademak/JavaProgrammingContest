@@ -48,7 +48,7 @@ namespace JavaProgrammingContest.Web.API{
         /// </summary>
         /// <param name="runJob">See RunController.</param>
         /// <returns></returns>
-        public HttpResponseMessage Post(RunJob runJob)
+        public HttpResponseMessage Post(RunController.RunJob runJob)
         {
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             _compiler.CompileFromPlainText(participant, runJob.Code);
