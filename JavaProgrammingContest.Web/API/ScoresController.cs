@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using JavaProgrammingContest.DataAccess.Context;
@@ -6,7 +7,7 @@ using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Process.Compiler;
 using JavaProgrammingContest.Process.Runner;
 using WebMatrix.WebData;
-using System;
+
 
 namespace JavaProgrammingContest.Web.API{
     /// <summary>
@@ -53,9 +54,9 @@ namespace JavaProgrammingContest.Web.API{
             _compiler.CompileFromPlainText(participant, runJob.Code);
             var runResult = _runner.RunAndCheckInput(participant);
             var correctOutput = (runResult.Output.Trim().Equals(participant.Progress.Assignment.RunCodeOuput));
-            double timeDifference = GetTimeDifference(participant.Progress.StartTime);
+            var timeDifference = GetTimeDifference(participant.Progress.StartTime);
 
-            var score = CreateScore(participant, correctOutput, timeDifference);
+            var score = CreateScore(participant.Progress.Assignment, participant, correctOutput, timeDifference);
 
             _context.Scores.Add(score);
             _context.Progresses.Remove(participant.Progress);
@@ -66,18 +67,18 @@ namespace JavaProgrammingContest.Web.API{
 
         public static double GetTimeDifference(DateTime startTime)
         {
-            TimeSpan elapsed = System.DateTime.Now - startTime;
-            double timeDifference = elapsed.TotalSeconds;
-            timeDifference = System.Math.Floor(timeDifference * 100) / 100;
+            var elapsed = DateTime.Now - startTime;
+            var timeDifference = elapsed.TotalSeconds;
+            timeDifference = Math.Floor(timeDifference * 100) / 100;
 
             return timeDifference;
         }
 
-        public static Score CreateScore(Participant participant, bool correctOutput, double timeDifference)
+        public static Score CreateScore(Assignment assignment, Participant participant, bool correctOutput, double timeDifference)
         {
             var score = new Score
             {
-                Assignment = participant.Progress.Assignment,
+                Assignment = assignment,
                 IsCorrectOutput = correctOutput,
                 Participant = participant,
                 TimeSpent = timeDifference

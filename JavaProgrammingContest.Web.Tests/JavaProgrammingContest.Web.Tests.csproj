@@ -82,6 +82,10 @@
       <Project>{4AA3B70C-8D2B-41CF-A6E8-69D9C3B52AC0}</Project>
       <Name>JavaProgrammingContest.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JavaProgrammingContest.Process\JavaProgrammingContest.Process.csproj">
+      <Project>{e9b7e0df-073c-4305-a379-44966f127781}</Project>
+      <Name>JavaProgrammingContest.Process</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JavaProgrammingContest.Web\JavaProgrammingContest.Web.csproj">
       <Project>{0CC29C47-AF8A-4701-92C6-51E9B761E668}</Project>
       <Name>JavaProgrammingContest.Web</Name>
