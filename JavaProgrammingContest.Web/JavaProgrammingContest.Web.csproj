@@ -209,7 +209,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.8.3.intellisense.js" />
     <Content Include="Content\editor.dark.css" />
     <Content Include="Content\images\is_logo.png" />
