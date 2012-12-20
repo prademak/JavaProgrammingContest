@@ -29,6 +29,7 @@ namespace JavaProgrammingContest.Web.Tests.Api{
         [Test]
         public void TestIfTimeDifferenceIsLessThanThirty()
         {
+            //Deze test kan weg.
             Assert.IsTrue(ScoresController.GetTimeDifference(DateTime.Now) < 30);
         }
 
