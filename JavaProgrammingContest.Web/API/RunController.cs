@@ -8,11 +8,13 @@ using JavaProgrammingContest.Process.Compiler;
 using JavaProgrammingContest.Process.Runner;
 using WebMatrix.WebData;
 
-namespace JavaProgrammingContest.Web.API{
+namespace JavaProgrammingContest.Web.API
+{
     /// <summary>
     ///     Controller for interface interaction with the processing objects.
     /// </summary>
-    public class RunController : ApiController{
+    public class RunController : ApiController
+    {
         /// <summary>
         ///     Stores a runner instance.
         /// </summary>
@@ -34,7 +36,8 @@ namespace JavaProgrammingContest.Web.API{
         /// <param name="context">Database Context</param>
         /// <param name="compiler">Compiler to use.</param>
         /// <param name="runner">Runner to use.</param>
-        public RunController(IDbContext context, ICompiler compiler, IRunner runner){
+        public RunController(IDbContext context, ICompiler compiler, IRunner runner)
+        {
             _context = context;
             _compiler = compiler;
             _runner = runner;
@@ -45,12 +48,13 @@ namespace JavaProgrammingContest.Web.API{
         /// </summary>
         /// <param name="runJob"></param>
         /// <returns></returns>
-        public HttpResponseMessage Run(RunJob runJob){
+        public HttpResponseMessage Run(RunJob runJob)
+        {
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             var result = _compiler.CompileFromPlainText(participant, runJob.Code);
             var runResult = _runner.Run(participant);
 
-            var response = new RunResult{
+     var response = new RunResult{
                 BuildResult = new BuildController.BuildResult{
                     Output = result.StandardOutput,
                     Error = result.StandardError,
@@ -78,6 +82,7 @@ namespace JavaProgrammingContest.Web.API{
             /// </summary>
             public int Id { get; set; }
         }
+
 
         /// <summary>
         ///     Defined the Result of a run job.
