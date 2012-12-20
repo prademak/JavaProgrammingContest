@@ -13,4 +13,4 @@ namespace JavaProgrammingContest.Domain.Entities{
         [Required]
         public virtual Participant Participant { get; set; }
     }
-}
+} 

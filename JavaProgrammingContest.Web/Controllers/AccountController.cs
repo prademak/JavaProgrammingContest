@@ -166,7 +166,7 @@ namespace JavaProgrammingContest.Web.Controllers{
 
                     if (changePasswordSucceeded)
                         return RedirectToAction("Manage", new{Message = ManageMessageId.ChangePasswordSuccess});
-                    ModelState.AddModelError(String.Empty, "The current password is incorrect or the new password is invalid.");
+                    ModelState.AddModelError(string.Empty, "The current password is incorrect or the new password is invalid.");
                 }
             } else{
                 var state = ModelState["OldPassword"];
