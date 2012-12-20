@@ -5,7 +5,7 @@ namespace JavaProgrammingContest.Web.App_Start{
     /// <summary>
     ///     Configures Application Routes
     /// </summary>
-    public class RouteConfig{
+    public static class RouteConfig{
         /// <summary>
         ///     Specifies the routes that route to their controllers.
         /// </summary>

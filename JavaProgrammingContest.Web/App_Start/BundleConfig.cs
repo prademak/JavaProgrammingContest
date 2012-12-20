@@ -4,7 +4,7 @@ namespace JavaProgrammingContest.Web.App_Start {
     /// <summary>
     ///     Internal Class.
     /// </summary>
-    public class BundleConfig {
+    public static class BundleConfig {
         /// <summary>
         ///     Bundles all Javascript etc in one file and compresses them.
         ///     For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725

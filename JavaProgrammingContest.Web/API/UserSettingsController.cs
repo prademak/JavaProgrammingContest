@@ -29,9 +29,25 @@ namespace JavaProgrammingContest.Web.API{
         /// <param name="id"></param>
         /// <returns></returns>
         public UserSettingDTO Get(int id){
-            var userSetting = _context.UserSettings.Find(id);
-            if (userSetting == null)
+            var participant = _context.Participants.Find(id);
+            if (participant == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            var userSetting = participant.UserSetting;
+            if (userSetting == null){
+                participant.UserSetting = new UserSetting()
+                    {
+                        AutoIndent = true,
+                        IntelliSense = true,
+                        LineWrapping = true,
+                        MatchBrackets = true,
+                        TabSize = 6,
+                        Theme = "eclipse",
+                        Participant = participant
+                    };
+                userSetting = participant.UserSetting;
+            }
+
             return Mapper.Map<UserSetting, UserSettingDTO>(userSetting);
         }
     }

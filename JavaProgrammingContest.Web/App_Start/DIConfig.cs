@@ -16,7 +16,7 @@ using JavaProgrammingContest.Process.Runner.Java.Helpers;
 // ReSharper disable CheckNamespace
 
 namespace JavaProgrammingContest.Web{
-    public class DIConfig{
+    public static class DIConfig{
         public static void RegisterTypes(){
             var builder = new ContainerBuilder();
 

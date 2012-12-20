@@ -48,35 +48,37 @@ namespace JavaProgrammingContest.Web.API{
                     CompileTime = result.CompilationTime
                 });
         }
-    }
-
-    /// <summary>
-    ///     Defines the data-structure for a Build Job
-    /// </summary>
-    public class BuildJob{
-        /// <summary>
-        ///     Code to build.
-        /// </summary>
-        public string Code { get; set; }
-    }
-
-    /// <summary>
-    ///     Result of a Build-Job.
-    /// </summary>
-    public class BuildResult{
-        /// <summary>
-        ///     Time it took to build the code.
-        /// </summary>
-        public int CompileTime { get; set; }
 
         /// <summary>
-        ///     Text that was read from the error stream.
+        ///     Defines the data-structure for a Build Job
         /// </summary>
-        public string Error { get; set; }
+        public class BuildJob
+        {
+            /// <summary>
+            ///     Code to build.
+            /// </summary>
+            public string Code { get; set; }
+        }
 
         /// <summary>
-        ///     Text that was read from the output stream.
+        ///     Result of a Build-Job.
         /// </summary>
-        public string Output { get; set; }
+        public class BuildResult
+        {
+            /// <summary>
+            ///     Time it took to build the code.
+            /// </summary>
+            public int CompileTime { get; set; }
+
+            /// <summary>
+            ///     Text that was read from the error stream.
+            /// </summary>
+            public string Error { get; set; }
+
+            /// <summary>
+            ///     Text that was read from the output stream.
+            /// </summary>
+            public string Output { get; set; }
+        }
     }
 }

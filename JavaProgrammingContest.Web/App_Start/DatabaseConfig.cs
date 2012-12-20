@@ -4,7 +4,7 @@ namespace JavaProgrammingContest.Web.App_Start{
     /// <summary>
     ///     Database configuration.
     /// </summary>
-    public class DatabaseConfig{
+    public static class DatabaseConfig{
         /// <summary>
         ///     Initializes the database.
         /// </summary>

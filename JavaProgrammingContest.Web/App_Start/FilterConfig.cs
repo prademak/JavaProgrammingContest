@@ -4,7 +4,7 @@ namespace JavaProgrammingContest.Web.App_Start {
     /// <summary>
     ///     Configures Filters
     /// </summary>
-    public class FilterConfig {
+    public static class FilterConfig {
         /// <summary>
         ///     Registers Instance specific filters.
         /// </summary>
