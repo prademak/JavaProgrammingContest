@@ -132,7 +132,7 @@ $(document).ready(function () {
                         else this.assignments.started = true;
 
                         // Show the timer
-                        this.timer = new TimerView();
+                        this.timer = new TimerView(this.assignments.current.get('MaxSolveTime'));
 
                         // Enable all the editor tabs
                         this.$el.find('.tabbable.tabs-below li')
