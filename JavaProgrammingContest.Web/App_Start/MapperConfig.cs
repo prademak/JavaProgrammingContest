@@ -6,7 +6,7 @@ namespace JavaProgrammingContest.Web.App_Start{
     /// <summary>
     ///     Maps Database Objects
     /// </summary>
-    public class MapperConfig{
+    public static class MapperConfig{
         /// <summary>
         ///     Maps Database Objects
         /// </summary>
