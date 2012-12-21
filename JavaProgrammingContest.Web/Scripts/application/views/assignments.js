@@ -46,9 +46,15 @@ $(document).ready(function () {
                     if (data.StartTime) {
                         var modalProgress = $('#assignmentInProgressModal');
                         modalProgress.find('.moment').text(moment(data.StartTime).fromNow());
-                        modalProgress.find('#stopProgress').click(function() {
+                        modalProgress.find('#stopProgress').click(function () {
+                            modalProgress.modal('hide')
                             API.Progress.stop();
                         });
+                        modalProgress.find('#continueProgress').click(function () {
+                            this.setAssignment(this.current.get("id"));
+                        });
+
+                   
                         modalProgress.modal({
                             backdrop: true,
                             keyboard: false,
