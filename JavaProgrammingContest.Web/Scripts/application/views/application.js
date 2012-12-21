@@ -24,7 +24,7 @@ $(document).ready(function () {
             "click .pane.editor .btn-toolbar .btn[href=#cancel]": "cancelAssignment",
             "click .pane.editor .btn-toolbar .btn[href=#build]": "buildCode",
             "click .pane.editor .btn-toolbar .btn[href=#run]": "runCode",
-            
+         
             "click .pane.editor #AssignmentPane .properties .btn": "startAssignment"
             //"keypress #new-todo": "createOnEnter",
             //"click #clear-completed": "clearCompleted",
@@ -44,12 +44,13 @@ $(document).ready(function () {
                     return confirm('Do you really want to cancel your assignment?');
             });
         },
-
+        
         // Re-rendering the App just means refreshing the statistics -- the rest
         // of the app doesn't change.
         render: function () {
             // Firstly check the assignments
             this.assignments.model.fetch({ url: '/api/assignments' });
+            
         },
 
         changeTheme: function(e) {
@@ -161,7 +162,7 @@ $(document).ready(function () {
             e.preventDefault();
             return false;
         },
-
+        
         submitAssignment: function (e) {
             // Stop the timer
             this.timer.stop();
@@ -238,4 +239,4 @@ $(document).ready(function () {
             return false;
         }
     });
-});
+}); 

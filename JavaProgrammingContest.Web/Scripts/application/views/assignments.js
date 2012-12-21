@@ -30,7 +30,6 @@ $(document).ready(function () {
             this.model.bind('change', this.render, this);
             this.model.bind('destroy', this.remove, this);
         },
-
         render: function () {
             // Check if model is empty
             if (this.model.length == 0) {
@@ -49,12 +48,7 @@ $(document).ready(function () {
                         modalProgress.find('#stopProgress').click(function () {
                             modalProgress.modal('hide')
                             API.Progress.stop();
-                        });
-                        modalProgress.find('#continueProgress').click(function () {
-                            this.setAssignment(this.current.get("id"));
-                        });
-
-                   
+                        });  
                         modalProgress.modal({
                             backdrop: true,
                             keyboard: false,
@@ -107,6 +101,9 @@ $(document).ready(function () {
             this.render();
         },
 
+       
+
+      
         renderPane: function () {
             var ass = $('#AssignmentPane');
             ass.find('h1').text(this.current.get('Title'));
