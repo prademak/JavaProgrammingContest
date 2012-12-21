@@ -24,8 +24,10 @@ $(document).ready(function () {
             "click .pane.editor .btn-toolbar .btn[href=#cancel]": "cancelAssignment",
             "click .pane.editor .btn-toolbar .btn[href=#build]": "buildCode",
             "click .pane.editor .btn-toolbar .btn[href=#run]": "runCode",
-         
-            "click .pane.editor #AssignmentPane .properties .btn": "startAssignment"
+
+            "click .pane.editor #AssignmentPane .properties .btn": "startAssignment",
+
+            "click .pane.editor #StartPane .properties .btn": "startAssignment"
             //"keypress #new-todo": "createOnEnter",
             //"click #clear-completed": "clearCompleted",
             //"click #toggle-all": "toggleAllComplete"
@@ -139,9 +141,11 @@ $(document).ready(function () {
                         // Enable all the editor tabs
                         this.$el.find('.tabbable.tabs-below li')
                             .removeClass('disabled');
-
+                        // Enable all the editor tabs
+                        this.$el.find('li#startTab').addClass('hide');
+                      
                         // Change the view to splitscreen mode
-                        this.changeView('splitscreen');
+                        this.changeView('assignment');
 
                         // Disable the start time button
                         this.$el.find('#AssignmentPane .properties a')
@@ -197,6 +201,11 @@ $(document).ready(function () {
                .removeClass('disabled')
                .text('Start the Time!');
 
+            // Enable the start time button
+            ns.$el.find('#StartPane .properties a')
+               .removeClass('disabled')
+               .text('Start the Time!');
+
             e.stopPropagation();
             e.preventDefault();
             return false;
@@ -223,6 +232,10 @@ $(document).ready(function () {
                              
                              // Enable the start time button
                              ns.$el.find('#AssignmentPane .properties a')
+                                .removeClass('disabled')
+                                .text('Start the Time!');
+                             // Enable the start time button
+                             ns.$el.find('#StartPane .properties a')
                                 .removeClass('disabled')
                                 .text('Start the Time!');
                          }

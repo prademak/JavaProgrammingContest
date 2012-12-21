@@ -56,7 +56,7 @@ body {
 }
 
 /***-------- Editor/Content Pane Tab Markup ---------***/
-#EditorPane, #ConsolePane, #AssignmentPane, #SplitviewPane {
+#EditorPane, #ConsolePane, #AssignmentPane,#StartPane, #SplitviewPane {
     position: absolute;
     top: 40px;
     left: 0;
@@ -64,7 +64,7 @@ body {
     bottom: 37px;
     background-color: #f9f9f9;
 }
-#EditorPane, #ConsolePane, #SplitviewPane, #AssignmentPane {
+#EditorPane, #ConsolePane, #SplitviewPane, #AssignmentPane,#StartPane {
     z-index: 10;
 }
 
@@ -139,6 +139,31 @@ body {
     text-align: center;
 }
 #AssignmentPane .properties span {
+    display: block;
+    font-family: monospace;
+    font-weight: 200;
+    font-size: 36px;
+    padding-top: 6px;
+    padding-bottom: 16px;
+}
+/*** Start Pane/Tab ***/
+#StartPane {
+    top: 0;
+    padding: 10px 14px;
+    display: none;
+}
+#StartPane .properties {
+    float:right;
+    min-width: 200px;
+    width: 300px;
+    margin-left: 8px;
+    margin-right: 20px;
+    min-height: 50px;
+    border-left: 2px solid #ccc;
+    padding: 6px 10px 28px 10px;
+    text-align: center;
+}
+#StartPane .properties span {
     display: block;
     font-family: monospace;
     font-weight: 200;

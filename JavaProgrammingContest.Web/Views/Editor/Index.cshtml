@@ -10,7 +10,7 @@
 
 <script type="text/template" id="assignment-template">
     <li data-assignment="{dataKey}">
-        <h3>{Title}</h3>
+        <h3>Assignment {Id}</h3>
     </li>
 </script>
 
@@ -133,7 +133,16 @@
             </div>
         </div>
         <div id="EditorViewport">
-            <div id="AssignmentPane" class="activePane">
+              <div id="StartPane" class="activePane">
+                <h1>#TITLE</h1>
+                <div class="properties">
+                    <h2>Target solve time:</h2>
+                    <span class="time"></span>
+                    <a class="btn btn-large btn-block btn-success">Start the Time!</a>
+                </div>
+                <div class="description">#DESCRIPTION</div>
+            </div>
+            <div id="AssignmentPane">
                 <h1>#TITLE</h1>
                 <div class="properties">
                     <h2>Target solve time:</h2>
@@ -161,7 +170,7 @@
         </div>
         <div class="tabbable tabs-below">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#start">Start</a></li>
+                <li id="startTab" class="active"><a href="#start">Start</a></li>
                 <li class="disabled"><a href="#assignment">Assignment</a></li>
                 <li class="disabled"><a href="#splitscreen">Splitscreen</a></li>
                 <li class="disabled"><a href="#editor">Editor</a></li>
