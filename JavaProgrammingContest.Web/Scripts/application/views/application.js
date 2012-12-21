@@ -59,7 +59,7 @@ $(document).ready(function () {
 
         changeView: function (view) {
             // Check validity
-            if (_.indexOf(['editor', 'console', 'assignment', 'splitscreen'], view) == -1) {
+            if (_.indexOf(['start', 'editor', 'console', 'assignment', 'splitscreen'], view) == -1) {
                 console.warn('Unknown view type "' + view + '".');
                 return false;
             }
@@ -74,10 +74,11 @@ $(document).ready(function () {
             this.$el.find('.activePane').removeClass('activePane');
             this.$el.find('#'+view.charAt(0).toUpperCase()+view.substr(1)+'Pane').addClass('activePane');
 
-            if (view == 'editor') {
+            if (view == 'start') {
+               
+            } else if (view == 'editor') {
                 // Remove splitscreen
                 this.$el.find('.splitscreen').removeClass('splitscreen');
-                this.editor.refresh();
             } else if (view == 'console') {
                 // Remove splitscreen
                 this.$el.find('.splitscreen').removeClass('splitscreen');
