@@ -193,8 +193,9 @@ $(document).ready(function () {
             ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
                .addClass('disabled');
 
+            this.$el.find('li#startTab').removeClass('hide');
             // Change view to assignment
-            ns.changeView('assignment');
+            ns.changeView('start');
 
             // Enable the start time button
             ns.$el.find('#AssignmentPane .properties a')
@@ -227,8 +228,11 @@ $(document).ready(function () {
                              ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
                                 .addClass('disabled');
                              
+
+                             ns.$el.find('li#startTab').removeClass('hide');
+                             ns.$el.find('li#startTab').removeClass('disabled');
                              // Change view to assignment
-                             ns.changeView('assignment');
+                             ns.changeView('start');
                              
                              // Enable the start time button
                              ns.$el.find('#AssignmentPane .properties a')
