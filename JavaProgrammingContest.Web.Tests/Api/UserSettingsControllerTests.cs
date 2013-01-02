@@ -3,9 +3,9 @@ using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.DataAccess.Context.TestSupport;
 using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Web.API;
+using JavaProgrammingContest.Web.App_Start;
 using Moq;
 using NUnit.Framework;
-using JavaProgrammingContest.Web.DTO;
 
 namespace JavaProgrammingContest.Web.Tests.Api{
     [TestFixture]
@@ -17,18 +17,19 @@ namespace JavaProgrammingContest.Web.Tests.Api{
         public void SetUp(){
             _contextMock = new Mock<IDbContext>();
             _controller = new UserSettingsController(_contextMock.Object);
+            MapperConfig.Configure();
         }
 
-        //[Test]
+        [Test]
         public void GetUserSettingsWithValidId(){
             var testId = 1;
             var sampleData = CreateSampleData(1);
             _contextMock.Setup(m => m.Participants).Returns(sampleData);
-            Assert.AreEqual(sampleData.Find(testId), _controller.Get(testId));
+            Assert.AreEqual(sampleData.Find(testId).UserSetting.Id, _controller.Get(testId).Id);
         }
 
-        //[Test]
-        //[ExpectedException(typeof(HttpResponseException))]
+        [Test]
+        [ExpectedException(typeof(HttpResponseException))]
         public void GetUserSettingsWithInvalidId(){
             var testId = 100;
             var sampleData = CreateSampleData(1);

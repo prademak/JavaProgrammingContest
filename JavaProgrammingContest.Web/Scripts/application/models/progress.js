@@ -27,8 +27,8 @@ API.Progress = {
         return APIHelper.put('progress/' + id, { Id: id, StartTime: 0 }, success);
     },
 
-    stop: function (id, success) {
-        return APIHelper.delete('progress/' + id, { Id: id }, success);
+    stop: function (success) {
+        return APIHelper.delete('progress/', success);
     },
 
     inProgress: function (id, success) {

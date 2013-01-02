@@ -61,11 +61,11 @@ namespace JavaProgrammingContest.Web.App_Start {
                 "~/Scripts/application/models/settings.js",
                 "~/Scripts/application/models/progress.js",
 
+                "~/Scripts/application/views/application.js",
                 "~/Scripts/application/views/assignments.js",
                 "~/Scripts/application/views/editor.js",
                 "~/Scripts/application/views/console.js",
                 "~/Scripts/application/views/timer.js",
-                "~/Scripts/application/views/application.js",
 
                 "~/Scripts/application/helper.js",
                 "~/Scripts/application/builder.js",

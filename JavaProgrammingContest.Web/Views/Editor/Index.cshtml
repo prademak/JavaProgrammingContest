@@ -10,7 +10,7 @@
 
 <script type="text/template" id="assignment-template">
     <li data-assignment="{dataKey}">
-        <h3>{Title}</h3>
+        <h3>Assignment {Id}</h3>
     </li>
 </script>
 
@@ -52,7 +52,7 @@
     </div>
     <div class="modal-footer">
         <a href="#" class="btn btn-warning" id="stopProgress">Stop</a>
-        <a href="#" class="btn btn-primary" data-dismiss="modal">Continue</a>
+        <a href="#" class="btn btn-primary" id="continueProgress" data-dismiss="modal">Continue</a>
     </div>
 </div>
 
@@ -110,7 +110,7 @@
         <div class="btn-toolbar">
             <div class="btn-group">
                 <a class="btn btn-small btn-success" href="#submit"><i class="icon-hdd icon-white"></i> <u>S</u>ubmit</a>
-                <a class="btn btn-small btn-danger" href="#cancel"><i class="icon-remove icon-white"></i> Cancel</a>
+                <a class="btn btn-small btn-danger" href="#cancel"><i class="icon-remove icon-white"></i> Resign</a>
             </div>
             <div class="btn-group">
                 <a class="btn btn-small" href="#build"><i class="icon-fire"></i> <u>B</u>uild</a>
@@ -133,7 +133,16 @@
             </div>
         </div>
         <div id="EditorViewport">
-            <div id="AssignmentPane" class="activePane">
+              <div id="StartPane" class="activePane">
+                <h1>#TITLE</h1>
+                <div class="properties">
+                    <h2>Target solve time:</h2>
+                    <span class="time"></span>
+                    <a class="btn btn-large btn-block btn-success">Start the Time!</a>
+                </div>
+                <div class="description">#DESCRIPTION</div>
+            </div>
+            <div id="AssignmentPane">
                 <h1>#TITLE</h1>
                 <div class="properties">
                     <h2>Target solve time:</h2>
@@ -161,7 +170,8 @@
         </div>
         <div class="tabbable tabs-below">
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#assignment">Assignment</a></li>
+                <li id="startTab" class="active"><a href="#start">Start</a></li>
+                <li class="disabled"><a href="#assignment">Assignment</a></li>
                 <li class="disabled"><a href="#splitscreen">Splitscreen</a></li>
                 <li class="disabled"><a href="#editor">Editor</a></li>
                 <li class="disabled"><a href="#console">Console</a></li>

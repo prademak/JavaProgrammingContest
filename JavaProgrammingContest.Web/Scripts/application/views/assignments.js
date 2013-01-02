@@ -30,7 +30,6 @@ $(document).ready(function () {
             this.model.bind('change', this.render, this);
             this.model.bind('destroy', this.remove, this);
         },
-
         render: function () {
             // Check if model is empty
             if (this.model.length == 0) {
@@ -46,9 +45,10 @@ $(document).ready(function () {
                     if (data.StartTime) {
                         var modalProgress = $('#assignmentInProgressModal');
                         modalProgress.find('.moment').text(moment(data.StartTime).fromNow());
-                        modalProgress.find('#stopProgress').click(function() {
+                        modalProgress.find('#stopProgress').click(function () {
+                            modalProgress.modal('hide')
                             API.Progress.stop();
-                        });
+                        });  
                         modalProgress.modal({
                             backdrop: true,
                             keyboard: false,
@@ -101,11 +101,18 @@ $(document).ready(function () {
             this.render();
         },
 
+       
+
+      
         renderPane: function () {
             var ass = $('#AssignmentPane');
             ass.find('h1').text(this.current.get('Title'));
             ass.find('.description').text(this.current.get('Description'));
-            ass.find('.time').text(Math.round(this.current.get('MaxSolveTime')/60)+' minutes');
+            ass.find('.time').text(Math.round(this.current.get('MaxSolveTime') / 60) + ' minutes');
+            ass = $('#StartPane');
+            ass.find('h1').text("Assignment " + this.current.get('Id'));
+            ass.find('.description').text("When you start the time the description of the assignment comes available");
+            ass.find('.time').text(Math.round(this.current.get('MaxSolveTime') / 60) + ' minutes');
         },
 
         // Click Event

@@ -24,8 +24,10 @@ $(document).ready(function () {
             "click .pane.editor .btn-toolbar .btn[href=#cancel]": "cancelAssignment",
             "click .pane.editor .btn-toolbar .btn[href=#build]": "buildCode",
             "click .pane.editor .btn-toolbar .btn[href=#run]": "runCode",
-            
-            "click .pane.editor #AssignmentPane .properties .btn": "startAssignment"
+
+            "click .pane.editor #AssignmentPane .properties .btn": "startAssignment",
+
+            "click .pane.editor #StartPane .properties .btn": "startAssignment"
             //"keypress #new-todo": "createOnEnter",
             //"click #clear-completed": "clearCompleted",
             //"click #toggle-all": "toggleAllComplete"
@@ -44,12 +46,13 @@ $(document).ready(function () {
                     return confirm('Do you really want to cancel your assignment?');
             });
         },
-
+        
         // Re-rendering the App just means refreshing the statistics -- the rest
         // of the app doesn't change.
         render: function () {
             // Firstly check the assignments
             this.assignments.model.fetch({ url: '/api/assignments' });
+            
         },
 
         changeTheme: function(e) {
@@ -58,7 +61,7 @@ $(document).ready(function () {
 
         changeView: function (view) {
             // Check validity
-            if (_.indexOf(['editor', 'console', 'assignment', 'splitscreen'], view) == -1) {
+            if (_.indexOf(['start', 'editor', 'console', 'assignment', 'splitscreen'], view) == -1) {
                 console.warn('Unknown view type "' + view + '".');
                 return false;
             }
@@ -73,10 +76,11 @@ $(document).ready(function () {
             this.$el.find('.activePane').removeClass('activePane');
             this.$el.find('#'+view.charAt(0).toUpperCase()+view.substr(1)+'Pane').addClass('activePane');
 
-            if (view == 'editor') {
+            if (view == 'start') {
+               
+            } else if (view == 'editor') {
                 // Remove splitscreen
                 this.$el.find('.splitscreen').removeClass('splitscreen');
-                this.editor.refresh();
             } else if (view == 'console') {
                 // Remove splitscreen
                 this.$el.find('.splitscreen').removeClass('splitscreen');
@@ -132,14 +136,16 @@ $(document).ready(function () {
                         else this.assignments.started = true;
 
                         // Show the timer
-                        this.timer = new TimerView();
+                        this.timer = new TimerView(this.assignments.current.get('MaxSolveTime'));
 
                         // Enable all the editor tabs
                         this.$el.find('.tabbable.tabs-below li')
                             .removeClass('disabled');
-
+                        // Enable all the editor tabs
+                        this.$el.find('li#startTab').addClass('hide');
+                      
                         // Change the view to splitscreen mode
-                        this.changeView('splitscreen');
+                        this.changeView('assignment');
 
                         // Disable the start time button
                         this.$el.find('#AssignmentPane .properties a')
@@ -161,7 +167,7 @@ $(document).ready(function () {
             e.preventDefault();
             return false;
         },
-
+        
         submitAssignment: function (e) {
             // Stop the timer
             this.timer.stop();
@@ -187,11 +193,17 @@ $(document).ready(function () {
             ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
                .addClass('disabled');
 
+            this.$el.find('li#startTab').removeClass('hide');
             // Change view to assignment
-            ns.changeView('assignment');
+            ns.changeView('start');
 
             // Enable the start time button
             ns.$el.find('#AssignmentPane .properties a')
+               .removeClass('disabled')
+               .text('Start the Time!');
+
+            // Enable the start time button
+            ns.$el.find('#StartPane .properties a')
                .removeClass('disabled')
                .text('Start the Time!');
 
@@ -216,11 +228,18 @@ $(document).ready(function () {
                              ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
                                 .addClass('disabled');
                              
+
+                             ns.$el.find('li#startTab').removeClass('hide');
+                             ns.$el.find('li#startTab').removeClass('disabled');
                              // Change view to assignment
-                             ns.changeView('assignment');
+                             ns.changeView('start');
                              
                              // Enable the start time button
                              ns.$el.find('#AssignmentPane .properties a')
+                                .removeClass('disabled')
+                                .text('Start the Time!');
+                             // Enable the start time button
+                             ns.$el.find('#StartPane .properties a')
                                 .removeClass('disabled')
                                 .text('Start the Time!');
                          }
@@ -238,4 +257,4 @@ $(document).ready(function () {
             return false;
         }
     });
-});
+}); 

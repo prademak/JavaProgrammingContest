@@ -50,7 +50,20 @@ namespace JavaProgrammingContest.Web.API
         /// <returns></returns>
         public HttpResponseMessage Run(RunJob runJob)
         {
+
+            if (runJob == null)
+            {
+                runJob = new RunJob { Code = "// Sample class\nclass Solution {\n\tpublic static void main(String[] args){\n\t\tSystem.out.println(\"Hello World!\");\n\t}\n}\n" };
+            }
+          
+
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
+            if (participant == null)
+            {
+                Random random = new Random();
+                var id = random.Next(9000000);
+                participant = new Participant { Email = "vincent@mail.nl", Id = id, Interested = true };
+            }
             var result = _compiler.CompileFromPlainText(participant, runJob.Code);
             var runResult = _runner.Run(participant);
 

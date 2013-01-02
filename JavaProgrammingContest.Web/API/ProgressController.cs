@@ -78,7 +78,7 @@ namespace JavaProgrammingContest.Web.API{
         /// </summary>
         /// <param name="id">Assignment id to look for.</param>
         /// <returns></returns>
-        public HttpResponseMessage Delete(int id){
+        public HttpResponseMessage Delete(){
             // Tried to fixx the "not being able to start an assignment if you reloaded the page during one" problem.
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
 
@@ -86,12 +86,14 @@ namespace JavaProgrammingContest.Web.API{
                 return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "No assignment was started.");
 
             try{
-                var curProgress = from progress in _context.Progresses
+
+                var curProgress = (from progress in _context.Progresses.ToList()
                                     where progress.Participant == participant
-                                    where progress.Assignment.Id == id
-                                    select progress;
+                                    select progress);
+
 
                 _context.Progresses.Remove(curProgress.First());
+                
                 _context.SaveChanges();
             }catch (SqlException ex){
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error while saving to database.");

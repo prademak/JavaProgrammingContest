@@ -39,6 +39,10 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=2.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\JavaProgrammingContest.Web\bin\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -64,6 +68,7 @@
     <Compile Include="Api\RunControllerTests.cs" />
     <Compile Include="Api\ScoresControllerTests.cs" />
     <Compile Include="Api\UserSettingsControllerTests.cs" />
+    <Compile Include="App_Start\ConfigTests.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />
     <Compile Include="Controllers\AssignmentControllerTests.cs" />
     <Compile Include="Controllers\HomeControllerTests.cs" />
