@@ -103,15 +103,21 @@ $(document).ready(function () {
             return false;
         },
 
-        buildCode: function() {
-            this.console.build(this.editor.getContent());
-            
+        buildCode: function (e) {
+            this.console.build(this.editor.getContent()); // Build on server
+            this.console.switchView('build'); // Switch console tab
+
             e.stopPropagation();
             e.preventDefault();
             return false;
         },
-        runCode: function () {
-            this.console.run(this.editor.getContent());
+        runCode: function (e) {
+            this.console.run(this.editor.getContent()); // Build on server
+
+            // Switch console tab
+            if (this.console.current != null && this.console.current.run.error.length > 0)
+                this.console.switchView('error');
+            else this.console.switchView('output');
             
             e.stopPropagation();
             e.preventDefault();

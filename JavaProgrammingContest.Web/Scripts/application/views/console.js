@@ -33,6 +33,16 @@ $(document).ready(function () {
             }
         },
         
+        switchView: function(what){
+            if (what == 'build') {
+                $('#ConsolePane .nav-tabs a[href=#buildStream]').tab('show');
+            }else if (what == 'output') {
+                $('#ConsolePane .nav-tabs a[href=#outputStream]').tab('show');
+            } else if (what == 'error') {
+                $('#ConsolePane .nav-tabs a[href=#errorStream]').tab('show');
+            } else throw new RangeException('Invalid console view type.');
+        },
+
         run: function (code) {
             this.current = null;
             var ns = this;
