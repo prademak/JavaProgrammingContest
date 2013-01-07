@@ -73,6 +73,7 @@ namespace JavaProgrammingContest.Web.API
                     Error = result.StandardError,
                     CompileTime = result.CompilationTime
                 },
+                Error = runResult.Error,
                 Output = result.StandardError.Length > 0 ? "Build failed. See build tab" : runResult.Output,
                 RunTime = runResult.RunTime
             };
@@ -112,6 +113,7 @@ namespace JavaProgrammingContest.Web.API
             /// </summary>
             public int RunTime { get; set; }
 
+            public string Error { get; set; }
             /// <summary>
             ///     Output that was given by the code.
             /// </summary>
