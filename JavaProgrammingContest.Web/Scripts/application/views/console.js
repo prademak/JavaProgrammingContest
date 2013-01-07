@@ -43,7 +43,7 @@ $(document).ready(function () {
             } else throw new RangeException('Invalid console view type.');
         },
 
-        run: function (code) {
+        run: function (code, success) {
             this.current = null;
             var ns = this;
             this.factory.run(code, function(result) {
@@ -61,6 +61,9 @@ $(document).ready(function () {
                 };
                 console.log(result, ns.current);
                 ns.render();
+
+                if (typeof success == 'function')
+                    success(ns.current);
             });
         },
         

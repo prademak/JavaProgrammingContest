@@ -112,17 +112,18 @@ $(document).ready(function () {
             return false;
         },
         runCode: function (e) {
-            this.console.run(this.editor.getContent()); // Build on server
+            var ns = this;
 
-            // Switch console tab
-            if (this.console.current != null) {
-                if (this.console.current.build.error > 0)
-                    this.console.switchView('build');
-                else if (this.console.current.run.error.length > 0)
-                    this.console.switchView('error');
-                else this.console.switchView('output');
-            }
-            
+            // Build on server
+            this.console.run(this.editor.getContent(), function (result) {
+                // Switch console tab
+                if (result.build.error > 0)
+                    ns.console.switchView('build');
+                else if (result.run.error.length > 0)
+                    ns.console.switchView('error');
+                else ns.console.switchView('output');
+            });
+
             e.stopPropagation();
             e.preventDefault();
             return false;
