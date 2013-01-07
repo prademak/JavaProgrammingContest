@@ -54,8 +54,7 @@ $(document).ready(function () {
             });
         },
         
-        build: function (code) {
-            alert('message');
+        build: function (code) { 
             this.current = null;
             var ns = this;
             this.factory.build(code, function (result) {
