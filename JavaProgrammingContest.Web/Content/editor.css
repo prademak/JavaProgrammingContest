@@ -253,6 +253,31 @@ body {
     width: 100%;
 }
 
+/******************************* Timer View markup *******************************/
+.pane.timer {
+    left: 0;
+    right: 80%;
+
+    border-top: 4px solid #ccc;
+    border-right: 4px solid #ccc;
+    background-color: #f9f9f9;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    top: 80%;
+}
+
+.pane.timer h2 {
+    color: #333;
+    margin: 0;
+    margin-top: 10%;
+    padding: 0;
+    font-size: 40px;
+    text-align: center;
+    padding: 1px 9px;
+}
+
 /*------------------- BUTTON MARKUP ----------------------*/
 .btn,
 .btn:hover {
