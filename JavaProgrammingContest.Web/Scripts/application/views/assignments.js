@@ -111,7 +111,7 @@ $(document).ready(function () {
             ass.find('.time').text(Math.round(this.current.get('MaxSolveTime') / 60) + ' minutes');
             ass = $('#StartPane');
             ass.find('h1').text("Assignment " + this.current.get('Id'));
-            ass.find('.description').text("This assignment has and estimated maximal timespan of "+Math.round(this.current.get('MaxSolveTime') / 60) + ' minutes. Start the time, to see the assignment and write code.');
+            ass.find('.description').text("When you start the time the description of the assignment comes available");
             ass.find('.time').text(Math.round(this.current.get('MaxSolveTime') / 60) + ' minutes');
         },
 
