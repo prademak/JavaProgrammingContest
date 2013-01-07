@@ -115,9 +115,13 @@ $(document).ready(function () {
             this.console.run(this.editor.getContent()); // Build on server
 
             // Switch console tab
-            if (this.console.current != null && this.console.current.run.error.length > 0)
-                this.console.switchView('error');
-            else this.console.switchView('output');
+            if (this.console.current != null) {
+                if (this.console.current.build.error > 0)
+                    this.console.switchView('build');
+                else if (this.console.current.run.error.length > 0)
+                    this.console.switchView('error');
+                else this.console.switchView('output');
+            }
             
             e.stopPropagation();
             e.preventDefault();
