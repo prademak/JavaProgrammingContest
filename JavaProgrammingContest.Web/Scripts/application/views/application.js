@@ -117,7 +117,7 @@ $(document).ready(function () {
             // Build on server
             this.console.run(this.editor.getContent(), function (result) {
                 // Switch console tab
-                if (result.build.error > 0)
+                if (result.build.error.length > 0)
                     ns.console.switchView('build');
                 else if (result.run.error.length > 0)
                     ns.console.switchView('error');
