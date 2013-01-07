@@ -56,10 +56,12 @@ $(document).ready(function () {
             var countSeconds = maxSeconds - difference;
 
             if (countSeconds < 0) {
-                countSeconds += 60;
-
                 if (countMinutes > 0) {
                     countMinutes--;
+                    countSeconds += 60;
+                } else {
+                    countSeconds = 0;
+                    this.stop();
                 }
             }
 
@@ -68,6 +70,9 @@ $(document).ready(function () {
 
                 if (countHours > 0) {
                     countHours--;
+                    countMinutes += 60;
+                } else {
+                    countMinutes = 0;
                 }
             }
 
