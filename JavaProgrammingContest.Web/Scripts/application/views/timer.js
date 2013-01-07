@@ -9,8 +9,10 @@ $(document).ready(function () {
         start: null,
         time: 0,
         maxSolveTime: 0,
+        app: null,
 
-        initialize: function (maxSolveTime) {
+        initialize: function (maxSolveTime, application) {
+            this.app = application;
             this.maxSolveTime = maxSolveTime;
             this.start = new Date();
             this.render();
@@ -81,10 +83,21 @@ $(document).ready(function () {
             this.$el.find('.seconds').text((countSeconds < 10) ? '0' + countSeconds : countSeconds);
 
             if (this.running) setTimeout(function () { ns.render.call(ns); }, 1000);
+            
+            if (countHours == 0 && countMinutes == 0 && countSeconds == 0 && this.running) {
+                //this.timeRunOut();
+                this.stop();
+            }
         },
 
         stop: function() {
             this.running = false;
+        },
+        
+        timeRunOut: function () {
+            var ns = app;
+
+            //ToDo application cancelAssignment
         }
     });
 });
