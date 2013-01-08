@@ -205,6 +205,9 @@ $(document).ready(function () {
                     });
                 }
 
+                // Find current list-item and mark it as done
+                ns.$el.find('li[data-assignment=' + ns.assignments.modelIndex + ']').addClass('done');
+
                 // Load next assignment
                 ns.assignments.nextAssignment();
 
@@ -243,6 +246,10 @@ $(document).ready(function () {
                      {
                          addClass: 'btn btn-danger', text: 'Ok', onClick: function ($noty) {
                              $noty.close();
+
+                             this.timer.stop();
+                             this.timer = null;
+
                              ns.showNextAssignment();
                          }
                      },

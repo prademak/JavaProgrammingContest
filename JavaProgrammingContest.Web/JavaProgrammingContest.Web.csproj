@@ -212,6 +212,7 @@
   <ItemGroup>
     <None Include="Scripts\jquery-1.8.3.intellisense.js" />
     <Content Include="Content\editor.dark.css" />
+    <Content Include="Content\images\tick.png" />
     <Content Include="Content\images\is_logo.png" />
     <Content Include="Content\style.css" />
     <Content Include="Scripts\application\helper.js" />

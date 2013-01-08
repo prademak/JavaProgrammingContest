@@ -50,13 +50,15 @@ $(document).ready(function () {
                     noty({ text: '<h3>You have completed all assignments!</h3>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
                 }
 
+                var ns = this;
                 API.Progress.inProgress(this.current.id, function(data) {
                     if (data.StartTime) {
                         var modalProgress = $('#assignmentInProgressModal');
                         modalProgress.find('.moment').text(moment(data.StartTime).fromNow());
                         modalProgress.find('#stopProgress').click(function () {
-                            modalProgress.modal('hide')
+                            modalProgress.modal('hide');
                             API.Progress.stop();
+                            ns.$el.find('li[data-assignment=' + ns.assignments.modelIndex + ']').addClass('done');
                         });  
                         modalProgress.modal({
                             backdrop: true,
@@ -116,7 +118,7 @@ $(document).ready(function () {
                     var modalProgress = $('#assignmentInProgressModal');
                     modalProgress.find('.moment').text(moment(data.StartTime).fromNow());
                     modalProgress.find('#stopProgress').click(function () {
-                        modalProgress.modal('hide')
+                        modalProgress.modal('hide');
                         API.Progress.stop();
                     });
                     modalProgress.modal({
