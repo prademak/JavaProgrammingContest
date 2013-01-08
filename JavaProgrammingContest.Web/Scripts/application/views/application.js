@@ -230,6 +230,7 @@ $(document).ready(function () {
                      {
                          addClass: 'btn btn-danger', text: 'Ok', onClick: function ($noty) {
                              $noty.close();
+                             API.Progress.stop();
                              ns.assignments.nextAssignment();
                              
                              // No assignment in progress anymore
