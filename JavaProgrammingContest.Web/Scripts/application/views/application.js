@@ -189,13 +189,21 @@ $(document).ready(function () {
             // Notify the user
             $('#assignmentSubmitModal').modal({ backdrop: true, keyboard: false, show: true });
             $('#assignmentSubmitModal .btn-success').click(function () {
-                /*noty({
-                    text: 'Thank you for submitting!\nYour submission of "' + this.assignments.current.get('Title') + '" has been received and will be automatically reviewed, and will appear on the toplist as soon as this process has finished.',
-                    type: 'success', layout: 'topCenter'
-                });*/
-
                 // Submit the assignment using the model
                 var succ = (new CodeSubmitModel({ Id: ns.assignments.current.get('Id'), Code: ns.editor.getContent() })).save();
+
+                if (succ == true) {
+                    noty({
+                        text: 'Thank you for submitting!\nYour submission of "' + ns.assignments.current.get('Title') + '" has been received and will be automatically reviewed, and will appear on the toplist as soon as this process has finished.',
+                        type: 'success', layout: 'topRight'
+                    });
+                } else {
+                    console.log('FAILED TO SUBMIT THE ASSIGNMENT!');
+                    noty({
+                        text: 'Sorry I failed to submit the assignment "' + ns.assignments.current.get('Title') + '"! Probably the compiler/runner was not properly setup on the server side.',
+                        type: 'error', layout: 'topRight'
+                    });
+                }
 
                 // Load next assignment
                 ns.assignments.nextAssignment();
@@ -252,30 +260,30 @@ $(document).ready(function () {
         },
         showNextAssignment: function () {
             var ns = this;
-                             API.Progress.stop();
-                             ns.assignments.nextAssignment();
 
-                             // No assignment in progress anymore
-                             ns.assignments.started = false;
+            API.Progress.stop();
+            ns.assignments.nextAssignment();
 
-                             // Disable all tabs
-                             ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
-                                .addClass('disabled');
+            // No assignment in progress anymore
+            ns.assignments.started = false;
 
+            // Disable all tabs
+            ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
+                .addClass('disabled');
+            ns.$el.find('li#startTab').removeClass('hide disabled');
 
-                             ns.$el.find('li#startTab').removeClass('hide');
-                             ns.$el.find('li#startTab').removeClass('disabled');
-                             // Change view to assignment
-                             ns.changeView('start');
+            // Change view to assignment
+            ns.changeView('start');
 
-                             // Enable the start time button
-                             ns.$el.find('#AssignmentPane .properties a')
-                                .removeClass('disabled')
-                                .text('Start the Time!');
-                             // Enable the start time button
-                             ns.$el.find('#StartPane .properties a')
-                                .removeClass('disabled')
-                                .text('Start the Time!');
-                             }
+            // Enable the start time button
+            ns.$el.find('#AssignmentPane .properties a')
+                .removeClass('disabled')
+                .text('Start the Time!');
+
+            // Enable the start time button
+            ns.$el.find('#StartPane .properties a')
+                .removeClass('disabled')
+                .text('Start the Time!');
+        }
     });
 }); 

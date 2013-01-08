@@ -99,11 +99,25 @@ $(document).ready(function () {
             
             // Render the new list
             this.render();
+
+            // Check if the assignment is already in progress
+            API.Progress.inProgress(this.current.id, function (data) {
+                if (data.StartTime) {
+                    var modalProgress = $('#assignmentInProgressModal');
+                    modalProgress.find('.moment').text(moment(data.StartTime).fromNow());
+                    modalProgress.find('#stopProgress').click(function () {
+                        modalProgress.modal('hide')
+                        API.Progress.stop();
+                    });
+                    modalProgress.modal({
+                        backdrop: true,
+                        keyboard: false,
+                        show: true
+                    });
+                }
+            });
         },
 
-       
-
-      
         renderPane: function () {
             var ass = $('#AssignmentPane');
             ass.find('h1').text(this.current.get('Title'));
