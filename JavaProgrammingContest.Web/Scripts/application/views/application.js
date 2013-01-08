@@ -195,7 +195,7 @@ $(document).ready(function () {
                 });*/
 
                 // Submit the assignment using the model
-                var succ = (new CodeSubmitModel({ Id: this.assignments.current.get('Id'), Code: this.editor.getContent() })).save();
+                var succ = (new CodeSubmitModel({ Id: ns.assignments.current.get('Id'), Code: ns.editor.getContent() })).save();
 
                 // Load next assignment
                 ns.assignments.nextAssignment();
