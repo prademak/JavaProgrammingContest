@@ -1,6 +1,6 @@
 ﻿using System.Web.Http;
 using JavaProgrammingContest.DataAccess.Context;
-using JavaProgrammingContest.DataAccess.Context.TestSupport;
+using JavaProgrammingContest.DataAccess.TestSupport;
 using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Web.API;
 using JavaProgrammingContest.Web.App_Start;

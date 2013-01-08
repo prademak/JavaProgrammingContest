@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 
-namespace JavaProgrammingContest.DataAccess.Context.TestSupport{
+namespace JavaProgrammingContest.DataAccess.TestSupport{
     public class FakeDbSet<T> : IDbSet<T> where T : class{
         private readonly ObservableCollection<T> _data;
         private readonly IQueryable _query;
