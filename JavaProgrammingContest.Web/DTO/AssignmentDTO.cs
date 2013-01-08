@@ -5,8 +5,7 @@
         public string Description { get; set; }
         public string CodeGiven { get; set; }
         public double MaxSolveTime { get; set; }
-        public string RunCodeInput { get; set; }
-        public string RunCodeOuput { get; set; }
+        public bool HasBeenSubmitted { get; set; }
         public int ContestId { get; set; }
     }
 }
