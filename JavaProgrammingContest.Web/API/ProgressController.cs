@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Data.SqlClient;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
-using JavaProgrammingContest.Web.API;
 using JavaProgrammingContest.Web.DTO;
+using JavaProgrammingContest.Web.Helpers;
 using WebMatrix.WebData;
 
 namespace JavaProgrammingContest.Web.API{
@@ -40,8 +38,8 @@ namespace JavaProgrammingContest.Web.API{
         public HttpResponseMessage Get(int assignmentId){
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             return participant.Progress == null
-                        ? Request.CreateErrorResponse(HttpStatusCode.NotFound, "No assignments in progress for current user.")
-                        : participant.Progress.Assignment.Id == assignmentId
+                       ? Request.CreateErrorResponse(HttpStatusCode.NotFound, "No assignments in progress for current user.")
+                       : participant.Progress.Assignment.Id == assignmentId
                              ? Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Progress, ProgressDTO>(participant.Progress))
                              : Request.CreateErrorResponse(HttpStatusCode.NotFound,
                                  "Given assignment is not in progress by the currently logged in user.");
@@ -67,7 +65,7 @@ namespace JavaProgrammingContest.Web.API{
             try{
                 _context.Progresses.Add(progress);
                 _context.SaveChanges();
-            } catch (SqlException ex){
+            } catch (Exception){
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error while saving to database.");
             }
 
@@ -77,8 +75,6 @@ namespace JavaProgrammingContest.Web.API{
         /// <summary>
         ///     Delete the progress for a specific assignment and the currently logged in user.
         /// </summary>
-        /// <param name="id">Assignment id to look for.</param>
-        /// <returns></returns>
         public HttpResponseMessage Delete(){
             // Tried to fixx the "not being able to start an assignment if you reloaded the page during one" problem.
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
@@ -87,45 +83,20 @@ namespace JavaProgrammingContest.Web.API{
                 return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "No assignment was started.");
 
             try{
-
-                var curProgress = (from progress in _context.Progresses.ToList()
-                                    where progress.Participant == participant
-                                    select progress);
-                var timeDifference = GetTimeDifference(curProgress.First().StartTime);
-                if (timeDifference > curProgress.First().Assignment.MaxSolveTime) timeDifference = curProgress.First().Assignment.MaxSolveTime;
-                var score = CreateScore(curProgress.First().Assignment, participant, false, timeDifference);
+                var timeDifference = TimeDifferenceHelper.GetTimeDifference(participant.Progress.StartTime);
+                if (timeDifference > participant.Progress.Assignment.MaxSolveTime)
+                    timeDifference = participant.Progress.Assignment.MaxSolveTime;
+                var score = ScoreHelper.CreateScore(participant.Progress.Assignment, participant, false, timeDifference);
 
                 _context.Scores.Add(score);
-                _context.Progresses.Remove(curProgress.First());
-                
+                _context.Progresses.Remove(participant.Progress);
+
                 _context.SaveChanges();
-            }catch (SqlException ex){
+            } catch (Exception){
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error while saving to database.");
             }
 
             return Request.CreateResponse(HttpStatusCode.OK);
-        }
-
-        public static double GetTimeDifference(DateTime startTime)
-        {
-            var elapsed = DateTime.Now - startTime;
-            var timeDifference = elapsed.TotalSeconds;
-            timeDifference = Math.Floor(timeDifference * 100) / 100;
-
-            return timeDifference;
-        }
-
-        public static Score CreateScore(Assignment assignment, Participant participant, bool correctOutput, double timeDifference)
-        {
-            var score = new Score
-            {
-                Assignment = assignment,
-                IsCorrectOutput = correctOutput,
-                Participant = participant,
-                TimeSpent = timeDifference
-            };
-
-            return score;
         }
     }
 }
