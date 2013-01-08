@@ -185,38 +185,42 @@ $(document).ready(function () {
             this.timer = null;
 
             // Submit the assignment using the model
-            (new CodeSubmitModel({Id: this.assignments.current.get('Id'), Code: this.editor.getContent() })).save();
+            var succ = (new CodeSubmitModel({Id: this.assignments.current.get('Id'), Code: this.editor.getContent() })).save();
+            var ns = this;
 
             // Notify the user
-            var ns = this;
-            noty({
-                text: 'Thank you for submitting!\nYour submission of "' + this.assignments.current.get('Title') + '" has been received and will be automatically reviewed, and will appear on the toplist as soon as this process has finished.',
-                type: 'success', layout: 'topCenter'
+            $('#assignmentSubmitModal').modal({ backdrop: true, keyboard: false, show: true });
+            $('#assignmentSubmitModal .btn-success').click(function () {
+                /*noty({
+                    text: 'Thank you for submitting!\nYour submission of "' + this.assignments.current.get('Title') + '" has been received and will be automatically reviewed, and will appear on the toplist as soon as this process has finished.',
+                    type: 'success', layout: 'topCenter'
+                });*/
+
+                // Load next assignment
+                ns.assignments.nextAssignment();
+
+                // No assignment in progress anymore
+                ns.assignments.started = false;
+
+                // Disable all tabs
+                ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
+                   .addClass('disabled');
+
+                ns.$el.find('li#startTab').removeClass('hide');
+
+                // Change view to assignment
+                ns.changeView('start');
+
+                // Enable the start time button
+                ns.$el.find('#AssignmentPane .properties a')
+                   .removeClass('disabled')
+                   .text('Start the Time!');
+
+                // Enable the start time button
+                ns.$el.find('#StartPane .properties a')
+                   .removeClass('disabled')
+                   .text('Start the Time!');
             });
-            
-            // Load next assignment
-            ns.assignments.nextAssignment();
-
-            // No assignment in progress anymore
-            ns.assignments.started = false;
-
-            // Disable all tabs
-            ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
-               .addClass('disabled');
-
-            this.$el.find('li#startTab').removeClass('hide');
-            // Change view to assignment
-            ns.changeView('start');
-
-            // Enable the start time button
-            ns.$el.find('#AssignmentPane .properties a')
-               .removeClass('disabled')
-               .text('Start the Time!');
-
-            // Enable the start time button
-            ns.$el.find('#StartPane .properties a')
-               .removeClass('disabled')
-               .text('Start the Time!');
 
             e.stopPropagation();
             e.preventDefault();
