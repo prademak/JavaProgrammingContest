@@ -102,34 +102,13 @@ $(document).ready(function () {
                      {
                          addClass: 'btn btn-danger', text: 'Ok', onClick: function ($noty) {
                              $noty.close();
-                             API.Progress.stop();
-                             ns.assignments.nextAssignment();
 
-                             // No assignment in progress anymore
-                             ns.assignments.started = false;
-
-                             // Disable all tabs
-                             ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
-                                .addClass('disabled');
-
-
-                             ns.$el.find('li#startTab').removeClass('hide');
-                             ns.$el.find('li#startTab').removeClass('disabled');
-                             // Change view to assignment
-                             ns.changeView('start');
-
-                             // Enable the start time button
-                             ns.$el.find('#AssignmentPane .properties a')
-                                .removeClass('disabled')
-                                .text('Start the Time!');
-                             // Enable the start time button
-                             ns.$el.find('#StartPane .properties a')
-                                .removeClass('disabled')
-                                .text('Start the Time!');
-                 
+                         }
+                        
                      }
                 ]
             });
+            ns.showNextAssignment();
 
         }
     });
