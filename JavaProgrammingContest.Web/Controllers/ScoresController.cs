@@ -38,16 +38,19 @@ namespace JavaProgrammingContest.Web.Controllers{
 
             foreach (var contest in _context.Contests)
             {
-                List<ParticipantScore> listP = new List<ParticipantScore>();
+                if (contest.Assignments != null)
+                {
+                    List<ParticipantScore> listP = new List<ParticipantScore>();
 
-                ContestScore cs = new ContestScore();
-                cs.ContestName = contest.Name;
+                    ContestScore cs = new ContestScore();
+                    cs.ContestName = contest.Name;
 
 
-                listP.Add(new ParticipantScore());
+                    listP.Add(new ParticipantScore());
 
-                cs.Participants = AddParticipantScores(contest);
-                listC.Add(cs);
+                    cs.Participants = AddParticipantScores(contest);
+                    listC.Add(cs);
+                }
             }
 
             lb.Contest = listC;
@@ -58,20 +61,22 @@ namespace JavaProgrammingContest.Web.Controllers{
         private List<ParticipantScore> AddParticipantScores(Contest contest)
         {
             List<ParticipantScore> pList = new List<ParticipantScore>();
-            List<int> IDList = new List<int>();
+            List<int> IdList = new List<int>();
 
-            IDList = GetUniqueIdList(contest);
+            IdList = GetUniqueIdList(contest);
 
-            foreach (var ID in IDList)
-            {
-                foreach (var participant in _context.Participants)
+            if(IdList != null){
+                foreach (var ID in IdList)
                 {
-                    if (ID == participant.Id)
+                    foreach (var participant in _context.Participants)
                     {
-                        ParticipantScore ps = CreateParticipantScore(contest, ID);
-                        ps.Email = participant.Email;
+                        if (ID == participant.Id)
+                        {
+                            ParticipantScore ps = CreateParticipantScore(contest, ID);
+                            ps.Email = participant.Email;
 
-                        pList.Add(ps);
+                            pList.Add(ps);
+                        }
                     }
                 }
             }
