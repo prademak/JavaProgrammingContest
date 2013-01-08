@@ -226,6 +226,11 @@ body {
     border-right: 0;
 }
 
+.pane.assignments li.done {
+    opacity: 0.9;
+    color: #dfdfdf;
+}
+
 .pane.assignments li:first-child {
     margin: 0;
 }

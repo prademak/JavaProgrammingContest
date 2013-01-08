@@ -65,6 +65,7 @@ $(document).ready(function () {
             var ns = this;
             this.model.each(function (model, key) {
                 var currTmpl = "" + ns.template;
+                currTmpl = currTmpl.replace('{Class}', model.attributes.HasBeenSubmitted==true?'done':'');
                 currTmpl = currTmpl.replace('{dataKey}', key); // Replace the data-attr value
                 $.each(model.attributes, function (k, v) {
                     currTmpl = currTmpl.replace('{'+k+'}', v);
