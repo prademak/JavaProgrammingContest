@@ -65,16 +65,18 @@ namespace JavaProgrammingContest.Web.Controllers{
 
             IdList = GetUniqueIdList(contest);
 
-            foreach (var ID in IdList)
-            {
-                foreach (var participant in _context.Participants)
+            if(IdList != null){
+                foreach (var ID in IdList)
                 {
-                    if (ID == participant.Id)
+                    foreach (var participant in _context.Participants)
                     {
-                        ParticipantScore ps = CreateParticipantScore(contest, ID);
-                        ps.Email = participant.Email;
+                        if (ID == participant.Id)
+                        {
+                            ParticipantScore ps = CreateParticipantScore(contest, ID);
+                            ps.Email = participant.Email;
 
-                        pList.Add(ps);
+                            pList.Add(ps);
+                        }
                     }
                 }
             }
