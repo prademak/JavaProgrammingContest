@@ -66,10 +66,6 @@ namespace JavaProgrammingContest.Web.Models{
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
-        [Display(Name = "Info support can contact me")]
-        [UIHint("SwitchedBoolean")]
-        public bool CanContact { get; set; }
     }
 
     public class ExternalLogon{
