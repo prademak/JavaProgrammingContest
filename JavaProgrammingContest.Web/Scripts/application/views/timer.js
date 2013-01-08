@@ -85,7 +85,7 @@ $(document).ready(function () {
             if (this.running) setTimeout(function () { ns.render.call(ns); }, 1000);
             
             if (countHours == 0 && countMinutes == 0 && countSeconds == 0 && this.running) {
-                //this.timeRunOut();
+               this.timeRunOut();
                 this.stop();
             }
         },
@@ -97,7 +97,19 @@ $(document).ready(function () {
         timeRunOut: function () {
             var ns = app;
 
-            //ToDo application cancelAssignment
+            noty({
+                text: 'Sorry, you ran out of time!', type: 'confirm', layout: 'topCenter', modal: true, buttons: [
+                     {
+                         addClass: 'btn btn-danger', text: 'Ok', onClick: function ($noty) {
+                             $noty.close();
+
+                         }
+                        
+                     }
+                ]
+            });
+            ns.showNextAssignment();
+
         }
     });
 });

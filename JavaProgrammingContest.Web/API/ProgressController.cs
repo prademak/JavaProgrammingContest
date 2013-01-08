@@ -7,6 +7,7 @@ using System.Web.Http;
 using AutoMapper;
 using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
+using JavaProgrammingContest.Web.API;
 using JavaProgrammingContest.Web.DTO;
 using WebMatrix.WebData;
 
@@ -90,8 +91,11 @@ namespace JavaProgrammingContest.Web.API{
                 var curProgress = (from progress in _context.Progresses.ToList()
                                     where progress.Participant == participant
                                     select progress);
+                var timeDifference = GetTimeDifference(curProgress.First().StartTime);
+                if (timeDifference > curProgress.First().Assignment.MaxSolveTime) timeDifference = curProgress.First().Assignment.MaxSolveTime;
+                var score = CreateScore(curProgress.First().Assignment, participant, false, timeDifference);
 
-
+                _context.Scores.Add(score);
                 _context.Progresses.Remove(curProgress.First());
                 
                 _context.SaveChanges();
@@ -100,6 +104,28 @@ namespace JavaProgrammingContest.Web.API{
             }
 
             return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        public static double GetTimeDifference(DateTime startTime)
+        {
+            var elapsed = DateTime.Now - startTime;
+            var timeDifference = elapsed.TotalSeconds;
+            timeDifference = Math.Floor(timeDifference * 100) / 100;
+
+            return timeDifference;
+        }
+
+        public static Score CreateScore(Assignment assignment, Participant participant, bool correctOutput, double timeDifference)
+        {
+            var score = new Score
+            {
+                Assignment = assignment,
+                IsCorrectOutput = correctOutput,
+                Participant = participant,
+                TimeSpent = timeDifference
+            };
+
+            return score;
         }
     }
 }
