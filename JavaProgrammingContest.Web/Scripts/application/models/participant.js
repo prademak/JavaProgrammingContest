@@ -14,9 +14,7 @@
                 Lastname: "Doe",
                 
                 Password: "",
-                Email: "",
-                
-                Interested: true
+                Email: ""
             };
         },
 
