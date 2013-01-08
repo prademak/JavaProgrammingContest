@@ -39,8 +39,17 @@ $(document).ready(function () {
 
             // Check for current
             if (this.current == null) {
-                this.current = this.model.at(0);
-                
+                for (var i = 0; i < this.model.length; i++) {
+                    this.modelIndex = i;
+                    this.current = this.model.at(i);
+                    if (this.current.attributes.HasBeenSubmitted == false)
+                        break;
+                }
+
+                if (this.current.attributes.HasBeenSubmitted == true) {
+                    noty({ text: '<h3>You have completed all assignments!</h3>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
+                }
+
                 API.Progress.inProgress(this.current.id, function(data) {
                     if (data.StartTime) {
                         var modalProgress = $('#assignmentInProgressModal');
@@ -135,6 +144,8 @@ $(document).ready(function () {
         select: function (e) {
             // Check if an assignment is in progress
             if (this.started == true) return false;
+            if ($(e.currentTarget).hasClass('done')) return false;
+
             this.setAssignment(parseInt($(e.currentTarget).attr('data-assignment')));
         }
     });

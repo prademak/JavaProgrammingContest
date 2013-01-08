@@ -226,9 +226,13 @@ body {
     border-right: 0;
 }
 
-.pane.assignments li.done {
+.pane.assignments li.done, .pane.assignments li.done:hover {
     opacity: 0.9;
     color: #dfdfdf;
+    box-shadow: none;
+    cursor: default;
+    background: url(images/tick.png) no-repeat;
+    background-position: 7px center;
 }
 
 .pane.assignments li:first-child {
