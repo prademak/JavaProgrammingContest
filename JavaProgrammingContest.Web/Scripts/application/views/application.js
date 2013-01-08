@@ -180,13 +180,11 @@ $(document).ready(function () {
         },
         
         submitAssignment: function (e) {
+            var ns = this;
+
             // Stop the timer
             this.timer.stop();
             this.timer = null;
-
-            // Submit the assignment using the model
-            var succ = (new CodeSubmitModel({Id: this.assignments.current.get('Id'), Code: this.editor.getContent() })).save();
-            var ns = this;
 
             // Notify the user
             $('#assignmentSubmitModal').modal({ backdrop: true, keyboard: false, show: true });
@@ -195,6 +193,9 @@ $(document).ready(function () {
                     text: 'Thank you for submitting!\nYour submission of "' + this.assignments.current.get('Title') + '" has been received and will be automatically reviewed, and will appear on the toplist as soon as this process has finished.',
                     type: 'success', layout: 'topCenter'
                 });*/
+
+                // Submit the assignment using the model
+                var succ = (new CodeSubmitModel({ Id: this.assignments.current.get('Id'), Code: this.editor.getContent() })).save();
 
                 // Load next assignment
                 ns.assignments.nextAssignment();
