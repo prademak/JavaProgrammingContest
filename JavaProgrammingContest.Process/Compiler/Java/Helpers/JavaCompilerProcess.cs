@@ -1,4 +1,3 @@
-using System.Configuration;
 using JavaProgrammingContest.Process.Compiler.Model;
 
 namespace JavaProgrammingContest.Process.Compiler.Java.Helpers{
@@ -26,5 +25,4 @@ namespace JavaProgrammingContest.Process.Compiler.Java.Helpers{
             return compilerResult;
         }
     }
-
 }

@@ -127,7 +127,7 @@ $(document).ready(function () {
 
             ass = $('#StartPane');
             ass.find('h1').text("Assignment " + this.current.get('Id'));
-            ass.find('.description').text("When you start the time the description of the assignment comes available");
+            ass.find('.description').text("When you start the time the description of the assignment becomes available");
             ass.find('.time').text(Math.round(this.current.get('MaxSolveTime') / 60) + ' minutes');
         },
 

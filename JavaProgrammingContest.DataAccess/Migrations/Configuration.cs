@@ -31,8 +31,7 @@ namespace JavaProgrammingContest.DataAccess.Migrations{
             if (!WebSecurity.UserExists("johndoe@mail.com"))
                 WebSecurity.CreateUserAndAccount(
                     "johndoe@mail.com",
-                    "testing",
-                    new { Interested = false });
+                    "testing");
 
             if (!Roles.GetRolesForUser("johndoe@mail.com").Contains("Administrator"))
                 Roles.AddUsersToRoles(new[] { "johndoe@mail.com" }, new[] { "Administrator" });

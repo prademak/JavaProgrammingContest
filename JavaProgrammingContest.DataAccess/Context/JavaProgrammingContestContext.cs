@@ -16,15 +16,4 @@ namespace JavaProgrammingContest.DataAccess.Context{
         public IDbSet<Progress> Progresses { get; set; }
         public IDbSet<UserSetting> UserSettings { get; set; }
     }
-
-    public interface IDbContext{
-        IDbSet<Contest> Contests { get; set; }
-        IDbSet<Assignment> Assignments { get; set; }
-        IDbSet<Participant> Participants { get; set; }
-        IDbSet<Score> Scores { get; set; }
-        IDbSet<Progress> Progresses { get; set; }
-        IDbSet<UserSetting> UserSettings { get; set; }
-
-        int SaveChanges();
-    }
 }

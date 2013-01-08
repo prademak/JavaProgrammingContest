@@ -62,7 +62,7 @@ namespace JavaProgrammingContest.Web.API
             {
                 Random random = new Random();
                 var id = random.Next(9000000);
-                participant = new Participant { Email = "vincent@mail.nl", Id = id, Interested = true };
+                participant = new Participant { Email = "vincent@mail.nl", Id = id };
             }
             var result = _compiler.CompileFromPlainText(participant, runJob.Code);
             var runResult = _runner.Run(participant);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -9,6 +8,7 @@ using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Process.Compiler;
 using JavaProgrammingContest.Process.Runner;
 using JavaProgrammingContest.Web.DTO;
+using JavaProgrammingContest.Web.Helpers;
 using WebMatrix.WebData;
 
 namespace JavaProgrammingContest.Web.API{
@@ -44,30 +44,15 @@ namespace JavaProgrammingContest.Web.API{
             _compiler.CompileFromPlainText(participant, runJob.Code);
             var runResult = _runner.RunAndCheckInput(participant);
             var correctOutput = (runResult.Output.Trim().Equals(participant.Progress.Assignment.RunCodeOuput));
-            var timeDifference = GetTimeDifference(participant.Progress.StartTime);
+            var timeDifference = TimeDifferenceHelper.GetTimeDifference(participant.Progress.StartTime);
 
-            var score = CreateScore(participant.Progress.Assignment, participant, correctOutput, timeDifference);
+            var score = ScoreHelper.CreateScore(participant.Progress.Assignment, participant, correctOutput, timeDifference);
 
             _context.Scores.Add(score);
             _context.Progresses.Remove(participant.Progress);
             _context.SaveChanges();
 
             return Request.CreateResponse(HttpStatusCode.Created);
-        }
-
-        private static double GetTimeDifference(DateTime startTime){
-            var elapsed = DateTime.Now - startTime;
-            var timeDifference = elapsed.TotalSeconds;
-            return Math.Floor(timeDifference*100)/100;
-        }
-
-        private static Score CreateScore(Assignment assignment, Participant participant, bool correctOutput, double timeDifference){
-            return new Score{
-                Assignment = assignment,
-                IsCorrectOutput = correctOutput,
-                Participant = participant,
-                TimeSpent = timeDifference
-            };
         }
     }
 }
