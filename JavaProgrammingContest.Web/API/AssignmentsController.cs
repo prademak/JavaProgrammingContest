@@ -63,7 +63,7 @@ namespace JavaProgrammingContest.Web.API{
             try{
                 _context.Assignments.Add(assignment);
                 _context.SaveChanges();
-            } catch (SqlException){
+            } catch (Exception){
                 throw new HttpResponseException(HttpStatusCode.InternalServerError);
             }
 
@@ -85,7 +85,7 @@ namespace JavaProgrammingContest.Web.API{
                 //TODO set properties
 
                 _context.SaveChanges();
-            } catch (SqlException){
+            } catch (Exception){
                 throw new HttpResponseException(HttpStatusCode.InternalServerError);
             }
         }
