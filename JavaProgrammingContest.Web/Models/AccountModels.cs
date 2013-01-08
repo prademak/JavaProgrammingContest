@@ -6,10 +6,6 @@ namespace JavaProgrammingContest.Web.Models{
         [Display(Name = "Email address")]
         public string UserName { get; set; }
 
-        [Display(Name = "Info support can contact me")]
-        [UIHint("SwitchedBoolean")]
-        public bool CanContact { get; set; }
-
         public string ExternalLogonData { get; set; }
     }
 
