@@ -8,6 +8,7 @@ using AutoMapper;
 using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Web.DTO;
+using WebMatrix.WebData;
 
 namespace JavaProgrammingContest.Web.API{
     /// <summary>
@@ -32,7 +33,21 @@ namespace JavaProgrammingContest.Web.API{
         /// </summary>
         /// <returns></returns>
         public IEnumerable<AssignmentDTO> Get(){
-            return Mapper.Map<IEnumerable<Assignment>, IEnumerable<AssignmentDTO>>(_context.Assignments);
+            var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
+            var assignmentDtos = new List<AssignmentDTO>();
+
+            foreach (var assignment in _context.Assignments){
+                var assignmentDto = Mapper.Map<Assignment, AssignmentDTO>(assignment);
+
+                //todo refactor
+                foreach (var score in participant.Scores)
+                    if (score.Assignment.Id == assignment.Id)
+                        assignmentDto.HasBeenSubmitted = true;
+
+                assignmentDtos.Add(assignmentDto);
+            }
+
+            return assignmentDtos;
         }
 
         /// <summary>
