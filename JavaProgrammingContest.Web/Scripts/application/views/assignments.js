@@ -47,7 +47,7 @@ $(document).ready(function () {
                 }
 
                 if (this.current.attributes.HasBeenSubmitted == true) {
-                    noty({ text: '<h3>You have completed all assignments!</h3>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
+                    noty({ text: '<h3>You have completed all assignments!</h3><strong>You can now continue to the <a href="/Scores">leaderboard</a>.</strong>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
                 }
 
                 var ns = this;
@@ -58,7 +58,7 @@ $(document).ready(function () {
                         modalProgress.find('#stopProgress').click(function () {
                             modalProgress.modal('hide');
                             API.Progress.stop();
-                            ns.$el.find('li[data-assignment=' + ns.assignments.modelIndex + ']').addClass('done');
+                            ns.$el.find('li[data-assignment=' + ns.modelIndex + ']').addClass('done');
                         });  
                         modalProgress.modal({
                             backdrop: true,
@@ -96,7 +96,10 @@ $(document).ready(function () {
             if (this.modelIndex < this.model.length) {
                 this.setAssignment(++this.modelIndex);
                 return false;
-            } else return false;
+            } else {
+                noty({ text: '<h3>You have completed all assignments!</h3><strong>You can now continue to the <a href="/Scores">leaderboard</a>.</strong>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
+                return false;
+            }
         },
         
         setAssignment: function (id) {

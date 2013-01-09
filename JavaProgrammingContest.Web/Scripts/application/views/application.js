@@ -206,7 +206,7 @@ $(document).ready(function () {
                 }
 
                 // Find current list-item and mark it as done
-                ns.$el.find('li[data-assignment=' + ns.assignments.current.get('Id') + ']').addClass('done');
+                ns.$el.find('li[data-assignment=' + ns.assignments.modelIndex + ']').addClass('done');
 
                 // Load next assignment
                 ns.assignments.nextAssignment();
