@@ -176,6 +176,7 @@ body {
 .pane.assignments {
     left: 0;
     right: 80%;
+    bottom: 20%;
 
     border-right: 4px solid #ccc;
     background-color: #f9f9f9;
