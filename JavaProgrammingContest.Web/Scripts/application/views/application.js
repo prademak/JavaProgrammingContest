@@ -192,7 +192,7 @@ $(document).ready(function () {
                 // Submit the assignment using the model
                 var succ = (new CodeSubmitModel({ Id: ns.assignments.current.get('Id'), Code: ns.editor.getContent() })).save();
 
-                if (succ == true) {
+                if (succ != false) {
                     noty({
                         text: 'Thank you for submitting!\nYour submission of "' + ns.assignments.current.get('Title') + '" has been received and will be automatically reviewed, and will appear on the toplist as soon as this process has finished.',
                         type: 'success', layout: 'topRight'
