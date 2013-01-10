@@ -182,13 +182,14 @@ $(document).ready(function () {
         submitAssignment: function (e) {
             var ns = this;
 
-            // Stop the timer
-            this.timer.stop();
-            this.timer = null;
 
             // Notify the user
             $('#assignmentSubmitModal').modal({ backdrop: true, keyboard: false, show: true });
             $('#assignmentSubmitModal .btn-success').click(function () {
+
+                // Stop the timer
+                ns.timer.stop();
+                ns.timer = null;
                 // Submit the assignment using the model
                 var succ = (new CodeSubmitModel({ Id: ns.assignments.current.get('Id'), Code: ns.editor.getContent() })).save();
 
