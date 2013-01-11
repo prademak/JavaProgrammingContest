@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Web.Mvc;
 using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
@@ -27,142 +28,86 @@ namespace JavaProgrammingContest.Web.Controllers{
         /// <returns></returns>
         public ActionResult Index()
         {
-            return View(CreateLeaderboard());
-        }
-
-        public Leaderboard CreateLeaderboard()
-        {
-            Leaderboard lb = new Leaderboard();
-
-            List<ContestScore> listC = new List<ContestScore>();
-
-            foreach (var contest in _context.Contests)
-            {
-                if (contest.Assignments != null)
-                {
-                    List<ParticipantScore> listP = new List<ParticipantScore>();
-
-                    ContestScore cs = new ContestScore();
-                    cs.ContestName = contest.Name;
-
-
-                    listP.Add(new ParticipantScore());
-
-                    cs.Participants = AddParticipantScores(contest);
-                    listC.Add(cs);
-                }
-            }
-
-            lb.Contest = listC;
-
-            return lb;
-        }
-
-        private List<ParticipantScore> AddParticipantScores(Contest contest)
-        {
-            List<ParticipantScore> pList = new List<ParticipantScore>();
-            List<int> IdList = new List<int>();
-
-            IdList = GetUniqueIdList(contest);
-
-            if(IdList != null){
-                foreach (var ID in IdList)
-                {
-                    foreach (var participant in _context.Participants)
-                    {
-                        if (ID == participant.Id)
-                        {
-                            ParticipantScore ps = CreateParticipantScore(contest, ID);
-                            ps.Email = participant.Email;
-
-                            pList.Add(ps);
-                        }
-                    }
-                }
-            }
-
-            return pList;
-        }
-
-        private List<int> GetUniqueIdList(Contest contest)
-        {
-            List<int> IDList = new List<int>();
-
-            foreach (var assignment in contest.Assignments)
-            {
-                foreach (var score in assignment.Scores)
-                {
-                    int newID = score.Participant.Id;
-                    bool IDfound = false;
-
-                    foreach (var oldID in IDList)
-                    {
-                        if (oldID == newID)
-                            IDfound = true;
-                    }
-
-                    if (!IDfound)
-                        IDList.Add(newID);
-                }
-            }
-
-            return IDList;
-        }
-
-        private double CalculateCompletePercentage(int assignmentsMade, int assignmentsComplete)
-        {
-            double completePercentage = 0;
-            double made = assignmentsMade;
-            double complete = assignmentsComplete;
-
-            if (assignmentsComplete != 0 && assignmentsMade != 0)
-            {
-                completePercentage = (complete / made) * 100;
-            }
-
-            return completePercentage;
-        }
-
-        private ParticipantScore CreateParticipantScore(Contest contest, int ID)
-        {
-            ParticipantScore ps = new ParticipantScore();
-
-            int assignmentsMade = 0;
-            int assignmentsCompleted = 0;
-            double totalTime = 0;
-
-            foreach (var assignment in contest.Assignments)
-            {
-                foreach (var score in assignment.Scores)
-                {
-                    if (ID == score.Participant.Id)
-                    {
-                        assignmentsMade++;
-                        totalTime += score.TimeSpent;
-                        if (score.IsCorrectOutput)
-                            assignmentsCompleted++;
-                    }
-                }
-            }
-
-            ps.AssignmentsMade = assignmentsMade;
-            ps.AssignmentsCompleted = assignmentsCompleted;
-            ps.AverageTime = totalTime / assignmentsMade;
-            ps.CompletePercentage = CalculateCompletePercentage(assignmentsMade, assignmentsCompleted);
-
-            return ps;
+            return View(new Leaderboard(_context.Contests, _context.Participants));
         }
     }
 
     public class Leaderboard
     {
         public IEnumerable<ContestScore> Contest { get; set; }
+        private readonly IDbSet<Contest> _contestsSet;
+        private readonly IDbSet<Participant> _participantSet;
+
+        public Leaderboard(IDbSet<Contest> contestsSet, IDbSet<Participant> participantList)
+        {
+            _contestsSet = contestsSet;
+            _participantSet = participantList;
+            CreateLeaderboard();
+        }
+
+        private void CreateLeaderboard()
+        {
+            var contestScores = new List<ContestScore>();
+
+            if (_contestsSet != null)
+                foreach (var contest in _contestsSet)
+                    if (contest.Assignments != null)
+                        contestScores.Add(new ContestScore(contest, _participantSet));
+                
+
+            Contest = contestScores;
+        }
     }
 
     public class ContestScore
     {
         public string ContestName { get; set; }
         public IEnumerable<ParticipantScore> Participants { get; set; }
+        private readonly Contest _contest;
+        private IDbSet<Participant> ParticipantList { get; set; }
+
+        public ContestScore(Contest contest, IDbSet<Participant> participantList)
+        {
+            _contest = contest;
+            ContestName = contest.Name;
+            ParticipantList = participantList;
+            AddParticipantScores();
+        }
+
+        private void AddParticipantScores()
+        {
+            var participantScores = new List<ParticipantScore>();
+            var idList = GetUniqueIdList();
+
+            if (idList != null)
+                foreach (var id in idList)
+                    foreach (var participant in ParticipantList)
+                        if (id == participant.Id)
+                            participantScores.Add(new ParticipantScore(_contest, id, participant.Email));
+
+            Participants = participantScores;
+        }
+
+        private IEnumerable<int> GetUniqueIdList()
+        {
+            var idList = new List<int>();
+
+            foreach (var assignment in _contest.Assignments)
+                foreach (var score in assignment.Scores)
+                {
+                    var newId = score.Participant.Id;
+                    var idfound = false;
+
+                    foreach (var oldId in idList)
+                        if (oldId == newId)
+                            idfound = true;
+
+                    if (!idfound)
+                        idList.Add(newId);
+                }
+
+            return idList;
+        }
     }
 
     public class ParticipantScore
@@ -172,5 +117,47 @@ namespace JavaProgrammingContest.Web.Controllers{
         public int AssignmentsMade { get; set; }
         public double AverageTime { get; set; }
         public double CompletePercentage { get; set; }
+
+        public ParticipantScore(Contest contest, int id, string email)
+        {
+            Email = email;
+            SetScore(contest, id);
+        }
+
+        private void SetScore(Contest contest, int id)
+        {
+            var assignmentsMade = 0;
+            var assignmentsCompleted = 0;
+            var totalTime = 0.0;
+
+            foreach (var assignment in contest.Assignments)
+                foreach (var score in assignment.Scores)
+                    if (id == score.Participant.Id)
+                    {
+                        assignmentsMade++;
+                        totalTime += score.TimeSpent;
+                        if (score.IsCorrectOutput)
+                            assignmentsCompleted++;
+                    }
+
+            AssignmentsMade = assignmentsMade;
+            AssignmentsCompleted = assignmentsCompleted;
+            AverageTime = totalTime / assignmentsMade + 0.0;
+            CompletePercentage = CalculateCompletePercentage(assignmentsMade, assignmentsCompleted);
+        }
+
+        private double CalculateCompletePercentage(int assignmentsMade, int assignmentsComplete)
+        {
+            var completePercentage = 0.0;
+            var made = assignmentsMade;
+            var complete = assignmentsComplete;
+
+            if (assignmentsComplete != 0 && assignmentsMade != 0)
+            {
+                completePercentage = (complete / made) * 100;
+            }
+
+            return completePercentage;
+        }
     }
 }
