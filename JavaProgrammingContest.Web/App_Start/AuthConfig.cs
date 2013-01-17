@@ -15,12 +15,12 @@ namespace JavaProgrammingContest.Web.App_Start{
 
              OAuthWebSecurity.RegisterGoogleClient();*/
 
-            //OAuthWebSecurity.RegisterLinkedInClient(
-            //    consumerKey: "b08e9cc9-a08e-4842-a702-46fc5527905f",
-            //    consumerSecret: "54044dc3-35e8-4fb4-8f44-ff74ad7fc1be");
+           OAuthWebSecurity.RegisterLinkedInClient(
+                 consumerKey: "tdodjkbahr83",
+              consumerSecret: "l9EaWtPS4nhPG35d");
 
-            OAuthWebSecurity.RegisterClient(new LinkedInCustomClient("b08e9cc9-a08e-4842-a702-46fc5527905f",
-                "54044dc3-35e8-4fb4-8f44-ff74ad7fc1be"), "LinkedIn", null);
+           // OAuthWebSecurity.RegisterClient(new LinkedInCustomClient("b08e9cc9-a08e-4842-a702-46fc5527905f",
+            //    "54044dc3-35e8-4fb4-8f44-ff74ad7fc1be"), "LinkedIn", null);
         }
     }
 }
