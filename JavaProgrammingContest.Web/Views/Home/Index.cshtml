@@ -5,10 +5,10 @@
         <h1>Ready for a challenge?</h1>
         <p class="lead">Geïnteresseerd om te komen werken voor info support? Bewijs jezelf als de programmeur die wij nodig hebben!</p>
         @if (Request.IsAuthenticated) { <a class="btn btn-large btn-success" href="@Url.Action("Index", "Editor")">Start Programmeren</a> } else {
-            <a class="btn btn-large btn-success" href="@Url.Action("Register", "Account")">LinkedIn Registratie</a>
+            <a class="btn btn-large btn-success" href="@Url.Action("Logon", "Account")">LinkedIn Registratie</a>
         }
       </div>
-
+   
       <hr>
 
       <div class="row-fluid marketing">

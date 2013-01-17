@@ -1,15 +1,15 @@
 ﻿@model JavaProgrammingContest.Web.Models.LogonModel
 
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Authenticatie";
 }
-
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
-
+ 
+<section class="social" id="socialLoginForm">
+    <h3>Gebruik linkedin</h3>
+    @Html.Action("ExternalLogonsList", new { ReturnUrl = ViewBag.ReturnUrl })
+</section>
 <section id="loginForm">
-<h2>Use a local account to log in.</h2>
+<h3>Gebruik een lokaal account</h3>
 @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -33,17 +33,11 @@
             </li>
         </ol>
         <input type="submit" value="Log in" />
-    </fieldset>
-    <p>
-        @Html.ActionLink("Register", "Register") if you don't have an account.
-    </p>
+    </fieldset> 
 }
 </section>
 
-<section class="social" id="socialLoginForm">
-    <h2>Use another service to log in.</h2>
-    @Html.Action("ExternalLogonsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
