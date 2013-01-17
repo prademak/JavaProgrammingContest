@@ -11,6 +11,11 @@ using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Web.API;
 using Moq;
 using NUnit.Framework;
+using JavaProgrammingContest.Web.App_Start;
+using System.Collections.Generic;
+using JavaProgrammingContest.Web.DTO;
+using System.Collections;
+using System.Collections.ObjectModel;
 
 namespace JavaProgrammingContest.Web.Tests.Api{
     [TestFixture]
@@ -21,7 +26,19 @@ namespace JavaProgrammingContest.Web.Tests.Api{
         [SetUp]
         public void SetUp(){
             _contextMock = new Mock<IDbContext>();
+            var scores = new Collection<Score> { };
+            scores.Add(new Score{ Assignment = new Assignment { Id = 1 } });
+            _controller = new AssignmentsController(_contextMock.Object, new Participant { Id = 1, Scores = scores });
+            MapperConfig.Configure();
+        }
+
+        [Test]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void SetConstructorWithoutGivenParticipantGivesInvalidOperationFromTest()
+        {
             _controller = new AssignmentsController(_contextMock.Object);
+         
+            Assert.IsTrue(true);
         }
 
         [Test]
@@ -29,13 +46,6 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(5));
             Assert.IsTrue(true);
         }
-
-        //TODO because of using dto's as return tpes, this test needs to be fixed
-        //[Test]
-        //public void GetAssignmentReturnsCorrectItemFromContext(){
-        //    _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(1));
-        //    Assert.AreEqual(1, _controller.Get(1).Id);
-        //}
 
         [Test]
         [ExpectedException(typeof (HttpResponseException))]
@@ -55,6 +65,49 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);
         }
 
+        [Test]
+        public void GetAssignmentWithId()
+        {
+            _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(2));
+            SetupControllerForTests(_controller);
+            var assignment = new Assignment { Id = 3, Title = "title 3" };
+            var result = _controller.Post(assignment);
+            var getresult = _controller.Get(assignment.Id);
+            Assert.AreEqual(assignment.Title,  getresult.Title);
+        }
+
+        [Test]
+        public void GetAListofAllTheAssignments()
+        {
+            var inputList = CreateSampleData(5);
+            _contextMock.Setup(m => m.Assignments).Returns(inputList);
+            SetupControllerForTests(_controller);
+            var getresult = _controller.Get();
+            Assert.AreEqual(5, count(getresult));
+        }
+
+        [Test]
+        public void DeleteAssignmentWithId()
+        {
+            _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(3));
+            SetupControllerForTests(_controller);
+            Assert.IsNotNull(_contextMock.Object.Assignments.Find(1));
+            _controller.Delete(1);
+            Assert.IsNull(_contextMock.Object.Assignments.Find(1));
+        }
+
+        [Test]
+        [ExpectedException(typeof(HttpResponseException))]
+        public void DeleteAssignmentWithInvalidIdGivesHTTPNotFound()
+        {
+            _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(3));
+            SetupControllerForTests(_controller);
+            _controller.Delete(5);
+           
+        }
+
+
+      
         [Test]
         public void PostAssignmentCallsAddOnContextWithProvidedAssignment(){
             _contextMock.Setup(m => m.Assignments.Add(It.IsAny<Assignment>()));
@@ -106,5 +159,17 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             controller.Request = request;
             controller.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
         }
+        private static int count(IEnumerable<AssignmentDTO> getresult)
+        {
+            int count = 0;
+            foreach (object obj in getresult)
+            {
+                count++;
+            }
+            return count;
+        }
+        
+
+        
     }
 }

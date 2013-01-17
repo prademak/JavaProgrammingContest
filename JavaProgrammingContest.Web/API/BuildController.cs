@@ -5,6 +5,7 @@ using System.Web.Http;
 using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Process.Compiler;
 using WebMatrix.WebData;
+using JavaProgrammingContest.Domain.Entities;
 
 namespace JavaProgrammingContest.Web.API{
     /// <summary>
@@ -24,11 +25,19 @@ namespace JavaProgrammingContest.Web.API{
         /// <summary>
         ///     API Build Proccessor Interface
         /// </summary>
+        /// 
+        /// 
         /// <param name="context"></param>
         /// <param name="compiler"></param>
-        public BuildController(IDbContext context, ICompiler compiler){
+        /// 
+
+        private Participant _participant;
+        public BuildController(IDbContext context, ICompiler compiler, Participant participant = null)
+        {
             _context = context;
             _compiler = compiler;
+            _participant = participant == null ? getCurrentParticipant() : participant;
+          
         }
 
         /// <summary>
@@ -37,8 +46,8 @@ namespace JavaProgrammingContest.Web.API{
         /// <param name="buildJob"></param>
         /// <returns></returns>
         public HttpResponseMessage Post(BuildJob buildJob){
-            var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
-            var result = _compiler.CompileFromPlainText(participant, buildJob.Code);
+             
+            var result = _compiler.CompileFromPlainText(_participant, buildJob.Code);
 
             //TODO use CompilerResult class as response
             return Request.CreateResponse(HttpStatusCode.Created,
@@ -47,6 +56,12 @@ namespace JavaProgrammingContest.Web.API{
                     Error = result.StandardError,
                     CompileTime = result.CompilationTime
                 });
+        }
+
+        private Participant getCurrentParticipant()
+        {
+            var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
+            return participant;
         }
 
         /// <summary>

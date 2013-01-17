@@ -24,8 +24,13 @@ namespace JavaProgrammingContest.Web.API{
         ///     API Interface Assignment Controller Constructor
         /// </summary>
         /// <param name="context"></param>
-        public AssignmentsController(IDbContext context){
+        /// 
+        private Participant _participant;
+
+        public AssignmentsController(IDbContext context, Participant participant = null){
             _context = context;
+            _participant = participant == null ? getCurrentParticipant() : participant;
+      
         }
 
         /// <summary>
@@ -33,21 +38,25 @@ namespace JavaProgrammingContest.Web.API{
         /// </summary>
         /// <returns></returns>
         public IEnumerable<AssignmentDTO> Get(){
-            var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             var assignmentDtos = new List<AssignmentDTO>();
 
             foreach (var assignment in _context.Assignments){
                 var assignmentDto = Mapper.Map<Assignment, AssignmentDTO>(assignment);
 
-                //todo refactor
-                foreach (var score in participant.Scores)
-                    if (score.Assignment.Id == assignment.Id)
-                        assignmentDto.HasBeenSubmitted = true;
+               if(_participant.Scores!= null)
+                   CheckForSubmittedAssignments(assignment, assignmentDto);
 
                 assignmentDtos.Add(assignmentDto);
             }
 
             return assignmentDtos;
+        }
+
+        private void CheckForSubmittedAssignments(Assignment assignment, AssignmentDTO assignmentDto)
+        {
+            foreach (var score in _participant.Scores)
+                if (score.Assignment.Id == assignment.Id)
+                    assignmentDto.HasBeenSubmitted = true;
         }
 
         /// <summary>
@@ -119,6 +128,12 @@ namespace JavaProgrammingContest.Web.API{
             } catch (SqlException){
                 throw new HttpResponseException(HttpStatusCode.InternalServerError);
             }
+        }
+
+        private Participant getCurrentParticipant()
+        {
+            var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
+            return participant;
         }
     }
 }

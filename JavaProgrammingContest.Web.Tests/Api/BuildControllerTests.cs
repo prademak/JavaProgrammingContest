@@ -1,36 +1,72 @@
-﻿using JavaProgrammingContest.DataAccess.Context;
-using JavaProgrammingContest.Process.Compiler;
-using JavaProgrammingContest.Process.Runner;
+﻿using System;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Controllers;
+using System.Web.Http.Hosting;
+using System.Web.Http.Routing;
+using JavaProgrammingContest.DataAccess.Context;
+using JavaProgrammingContest.DataAccess.TestSupport;
+using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Web.API;
-using JavaProgrammingContest.Web.App_Start;
 using Moq;
 using NUnit.Framework;
+using JavaProgrammingContest.Process.Compiler;
 
-namespace JavaProgrammingContest.Web.Tests.Api{
+namespace JavaProgrammingContest.Web.Tests.Api
+{
     [TestFixture]
-    public class BuildControllerTests {
+    public class BuildControllerTests
+    {
         private BuildController _controller;
-        private Mock<IDbContext> _contextMock;
-        private static IRunner _runner;
+
         private static ICompiler _compiler;
-        private BuildController.BuildJob _buildjob;
+        private Participant _participant;
+        private Mock<IDbContext> _contextMock;
+
         [SetUp]
         public void SetUp()
         {
-            _contextMock = new Mock<IDbContext>(); 
-            MapperConfig.Configure();
-            _compiler = new TestCompiler();
-            _controller = new BuildController(_contextMock.Object, _compiler);
-            _buildjob = new BuildController.BuildJob{ Code="test" };
+            _contextMock = new Mock<IDbContext>();
 
+            _compiler = new TestCompiler();
+            _participant = new Participant { Email = "", Id = 12 };
+            _controller = new BuildController(_contextMock.Object, _compiler, _participant);
         }
+
 
         [Test]
-        public void CheckIfThePostMethodWorks()
+        public void PostBuildJobReturnsCreatedStatusCode()
         {
-          //  Assert.AreEqual("Hello World!", _controller.Post(_buildjob));
-          
+             SetupControllerForTests(_controller);
+
+            var result = _controller.Post(new BuildController.BuildJob { Code = "test" });
+
+            Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);
         }
-    
+
+
+        [Test]
+       // [ExpectedException(typeof(HttpResponseException))]
+        public void PostBuildJobWithWithNoCodeCreatedStatusCode()
+        {
+            SetupControllerForTests(_controller);
+            _controller.Post(new BuildController.BuildJob());
+            
+        }
+
+
+
+        private static void SetupControllerForTests(ApiController controller)
+        {
+            var config = new HttpConfiguration();
+            var request = new HttpRequestMessage(HttpMethod.Post, "http://localhost/api/build");
+            var route = config.Routes.MapHttpRoute("DefaultApi", "api/{build}/{id}");
+            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "build" } });
+
+            controller.ControllerContext = new HttpControllerContext(config, routeData, request);
+            controller.Request = request;
+            controller.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
+        }
     }
 }
