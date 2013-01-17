@@ -24,7 +24,7 @@
                     <tr>
                         <td>@p.Email</td>
                         <td>@p.AssignmentsCompleted / @p.AssignmentsMade</td>
-                        <td>@p.AverageTime</td>
+                        <td>@Math.Round((Decimal)(p.AverageTime), 2) sec</td>
                     </tr>
                 }
             </tbody>
