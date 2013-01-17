@@ -19,8 +19,7 @@ namespace JavaProgrammingContest.Process.Tests.Compiler.Java
         [ExpectedException(typeof(NullReferenceException ))]
         public void CreateFilePathGivesNullReferenceException()
         {
-            jc = new JavaCompiler();
-            String result = jc.CreateFilePath(1, "Solution");
+            
         }
     }
 }

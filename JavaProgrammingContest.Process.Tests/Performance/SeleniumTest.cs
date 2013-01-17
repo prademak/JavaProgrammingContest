@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
@@ -14,20 +15,23 @@ namespace JavaProgrammingContest.Process.Tests.Performance{
             _applicationName = applicationName;
         }
 
-        public ChromeDriver ChromeDriver { get; set; }
+        //public List<ChromeDriver> ChromeDrivers { get; set; }
 
         [SetUp]
         public void TestInitialize(){
             StartIIS();
-            ChromeDriver = new ChromeDriver();
+
+            //for (var i = 0; i < _numDrivers; i++)
+            //    ChromeDrivers.Add(new ChromeDriver("C:\\Program Files (x86)\\Google\\Chrome\\Application"));
         }
 
-        [TearDown]
+        [TestFixtureTearDown]
         public void TestCleanup(){
             if (_iisProcess.HasExited == false)
                 _iisProcess.Kill();
 
-            ChromeDriver.Quit();
+            //foreach (var chromeDriver in ChromeDrivers)
+            //    chromeDriver.Quit();
         }
 
         private void StartIIS(){

@@ -45,6 +45,7 @@ namespace JavaProgrammingContest.Web{
             builder.RegisterType<JavaRunner>().As<IRunner>().PropertiesAutowired();
             builder.RegisterType<JavaRunnerProcess>().As<IRunnerProcess>();
             builder.RegisterType<SettingsReader>().As<ISettingsReader>();
+            builder.RegisterType<FilePathCreator>().As<IFilePathCreator>();
         }
 
         private static void SetMvcResolver(ILifetimeScope container){

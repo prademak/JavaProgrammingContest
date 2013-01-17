@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaProgrammingContest.Proc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaProgrammingContest.Process.Tests", "JavaProgrammingContest.Process.Tests\JavaProgrammingContest.Process.Tests.csproj", "{FD8C4A39-E64D-424A-BB0B-6311BEB7A7FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaProgrammingContest.Performance.Tests", "JavaProgrammingContest.Performance.Tests\JavaProgrammingContest.Performance.Tests.csproj", "{5BBF305F-1EB1-4793-A57D-54D6987CD706}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,12 @@ Global
 		{FD8C4A39-E64D-424A-BB0B-6311BEB7A7FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD8C4A39-E64D-424A-BB0B-6311BEB7A7FF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FD8C4A39-E64D-424A-BB0B-6311BEB7A7FF}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{5BBF305F-1EB1-4793-A57D-54D6987CD706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BBF305F-1EB1-4793-A57D-54D6987CD706}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BBF305F-1EB1-4793-A57D-54D6987CD706}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BBF305F-1EB1-4793-A57D-54D6987CD706}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BBF305F-1EB1-4793-A57D-54D6987CD706}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{5BBF305F-1EB1-4793-A57D-54D6987CD706}.Test|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

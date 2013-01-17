@@ -9,7 +9,7 @@
 }
 else
 {
-    using (Html.BeginForm("ExternalLogon", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
+    using (Html.BeginForm("ExternalLogon", "Account", new { returnUrl = ViewBag.ReturnUrl }))
     {
     @Html.AntiForgeryToken()
     <fieldset id="socialLoginList">
