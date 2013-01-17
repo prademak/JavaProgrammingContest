@@ -16,6 +16,7 @@ using JavaProgrammingContest.Process.Runner;
 using System.Collections.Generic;
 using JavaProgrammingContest.Web.DTO;
 using System.Collections.ObjectModel;
+using JavaProgrammingContest.Web.App_Start;
 
 namespace JavaProgrammingContest.Web.Tests.Api
 {
@@ -42,6 +43,7 @@ namespace JavaProgrammingContest.Web.Tests.Api
             Progress progress = new Progress { Assignment = new Assignment { Id = 1, MaxSolveTime = 1000, RunCodeInput = "test", RunCodeOuput = "test" }, Id = 1, StartTime = DateTime.Now, Participant = _participant };
             _participant.Progress = progress;
             _controller = new ScoresController(_contextMock.Object, _compiler, _runner, _participant);
+            MapperConfig.Configure();
         }
 
         //test need to be fixed
