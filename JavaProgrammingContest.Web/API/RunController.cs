@@ -7,6 +7,7 @@ using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Process.Compiler;
 using JavaProgrammingContest.Process.Runner;
 using WebMatrix.WebData;
+using System.Diagnostics.CodeAnalysis;
 
 namespace JavaProgrammingContest.Web.API
 {
@@ -36,11 +37,21 @@ namespace JavaProgrammingContest.Web.API
         /// <param name="context">Database Context</param>
         /// <param name="compiler">Compiler to use.</param>
         /// <param name="runner">Runner to use.</param>
-        public RunController(IDbContext context, ICompiler compiler, IRunner runner)
+        /// 
+        private Participant _participant;
+        public RunController(IDbContext context, ICompiler compiler, IRunner runner, Participant participant = null)
         {
             _context = context;
             _compiler = compiler;
             _runner = runner;
+            _participant = participant == null ? getCurrentParticipant() : participant;
+        }
+
+        [ExcludeFromCodeCoverage]
+        private Participant getCurrentParticipant()
+        {
+            var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
+            return participant;
         }
 
         /// <summary>
@@ -49,25 +60,11 @@ namespace JavaProgrammingContest.Web.API
         /// <param name="runJob"></param>
         /// <returns></returns>
         public HttpResponseMessage Run(RunJob runJob)
-        {
+        { 
+            var result = _compiler.CompileFromPlainText(_participant, runJob.Code);
+            var runResult = _runner.Run(_participant);
 
-            if (runJob == null)
-            {
-                runJob = new RunJob { Code = "// Sample class\nclass Solution {\n\tpublic static void main(String[] args){\n\t\tSystem.out.println(\"Hello World!\");\n\t}\n}\n" };
-            }
-          
-
-            var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
-            if (participant == null)
-            {
-                Random random = new Random();
-                var id = random.Next(9000000);
-                participant = new Participant { Email = "vincent@mail.nl", Id = id };
-            }
-            var result = _compiler.CompileFromPlainText(participant, runJob.Code);
-            var runResult = _runner.Run(participant);
-
-     var response = new RunResult{
+             var response = new RunResult{
                 BuildResult = new BuildController.BuildResult{
                     Output = result.StandardOutput,
                     Error = result.StandardError,

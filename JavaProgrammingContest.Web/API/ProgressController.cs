@@ -8,6 +8,7 @@ using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Web.DTO;
 using JavaProgrammingContest.Web.Helpers;
 using WebMatrix.WebData;
+using System.Diagnostics.CodeAnalysis;
 
 namespace JavaProgrammingContest.Web.API{
     /// <summary>
@@ -24,8 +25,11 @@ namespace JavaProgrammingContest.Web.API{
         ///     Constructs the Progress WebAPI Controller.
         /// </summary>
         /// <param name="context">Database Context</param>
-        public ProgressController(IDbContext context){
+        /// 
+        private Participant _participant;
+        public ProgressController(IDbContext context, Participant participant = null){
             _context = context;
+          _participant = participant == null ? getCurrentParticipant() : participant;
         }
 
         /// <summary>
@@ -36,11 +40,11 @@ namespace JavaProgrammingContest.Web.API{
         /// <returns>HttpStatusCode.Ok + the progress object when given assignment is in progress by the currently logged in user</returns>
         /// <returns>HttpStatusCode.NotFound when given assignment is not in progress by the currently logged in user</returns>
         public HttpResponseMessage Get(int assignmentId){
-            var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
-            return participant.Progress == null
+
+            return _participant.Progress == null
                        ? Request.CreateErrorResponse(HttpStatusCode.NotFound, "No assignments in progress for current user.")
-                       : participant.Progress.Assignment.Id == assignmentId
-                             ? Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Progress, ProgressDTO>(participant.Progress))
+                       : _participant.Progress.Assignment.Id == assignmentId
+                             ? Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Progress, ProgressDTO>(_participant.Progress))
                              : Request.CreateErrorResponse(HttpStatusCode.NotFound,
                                  "Given assignment is not in progress by the currently logged in user.");
         }
@@ -52,14 +56,12 @@ namespace JavaProgrammingContest.Web.API{
         /// <param name="progress">May be empty, or contain at least the StartTime (Which is currently ignored)</param>
         /// <returns></returns>
         public HttpResponseMessage Put(int id, Progress progress){
-            var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
-
-            if (participant.Progress != null)
+            if (_participant.Progress != null)
                 return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Can't start another assignment.");
 
             var assignment = _context.Assignments.Find(id);
             progress.Assignment = assignment;
-            progress.Participant = participant;
+            progress.Participant = _participant;
             progress.StartTime = DateTime.Now;
 
             try{
@@ -77,26 +79,34 @@ namespace JavaProgrammingContest.Web.API{
         /// </summary>
         public HttpResponseMessage Delete(){
             // Tried to fixx the "not being able to start an assignment if you reloaded the page during one" problem.
-            var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
 
-            if (participant.Progress == null)
+            if (_participant.Progress == null)
                 return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "No assignment was started.");
 
             try{
-                var timeDifference = TimeDifferenceHelper.GetTimeDifference(participant.Progress.StartTime);
-                if (timeDifference > participant.Progress.Assignment.MaxSolveTime)
-                    timeDifference = participant.Progress.Assignment.MaxSolveTime;
-                var score = ScoreHelper.CreateScore(participant.Progress.Assignment, participant, false, timeDifference);
+                var timeDifference = TimeDifferenceHelper.GetTimeDifference(_participant.Progress.StartTime);
+                if (timeDifference > _participant.Progress.Assignment.MaxSolveTime)
+                    timeDifference = _participant.Progress.Assignment.MaxSolveTime;
+                var score = ScoreHelper.CreateScore(_participant.Progress.Assignment, _participant, false, timeDifference);
 
                 _context.Scores.Add(score);
-                _context.Progresses.Remove(participant.Progress);
+                _context.Progresses.Remove(_participant.Progress);
 
                 _context.SaveChanges();
             } catch (Exception){
+  
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error while saving to database.");
             }
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
+        [ExcludeFromCodeCoverage]
+        private Participant getCurrentParticipant()
+        {
+            var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
+            return participant;
+        }
     }
+
+       
 }

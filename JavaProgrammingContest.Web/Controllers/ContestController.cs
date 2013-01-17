@@ -13,6 +13,7 @@ namespace JavaProgrammingContest.Web.Controllers
     /// <summary>
     ///     Contest Controller
     /// </summary>
+    [Authorize(Roles = "Administrator")]
     public class ContestController : Controller
     {
         /// <summary>
