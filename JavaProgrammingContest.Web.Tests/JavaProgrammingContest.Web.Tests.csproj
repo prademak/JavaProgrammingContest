@@ -68,6 +68,7 @@
     <Compile Include="Api\RunControllerTests.cs" />
     <Compile Include="Api\ScoresControllerTests.cs" />
     <Compile Include="Api\TestCompiler.cs" />
+    <Compile Include="Api\TestRunner.cs" />
     <Compile Include="Api\UserSettingsControllerTests.cs" />
     <Compile Include="App_Start\ConfigTests.cs" />
     <Compile Include="Controllers\AccountControllerTests.cs" />

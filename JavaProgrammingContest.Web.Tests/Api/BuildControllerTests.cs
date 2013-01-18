@@ -39,23 +39,25 @@ namespace JavaProgrammingContest.Web.Tests.Api
         public void PostBuildJobReturnsCreatedStatusCode()
         {
              SetupControllerForTests(_controller);
-
             var result = _controller.Post(new BuildController.BuildJob { Code = "test" });
-
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);
         }
 
 
         [Test]
-       // [ExpectedException(typeof(HttpResponseException))]
-        public void PostBuildJobWithWithNoCodeCreatedStatusCode()
+        [ExpectedException(typeof(NullReferenceException))]
+        public void PostNullInteadOfABuildjobReturnsNullReferenceException()
         {
             SetupControllerForTests(_controller);
-            _controller.Post(new BuildController.BuildJob());
-            
+            _controller.Post(null);
         }
 
-
+        [Test]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void SetBuildConstructorWithoutGivenParticipantGivesInvalidOperationFromTest()
+        {
+            _controller = new BuildController(_contextMock.Object, _compiler);
+        }
 
         private static void SetupControllerForTests(ApiController controller)
         {

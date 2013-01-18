@@ -29,6 +29,16 @@ namespace JavaProgrammingContest.Web.Tests.Api{
         }
 
         [Test]
+        public void CreateUserSettingsIfDontExist()
+        {
+            var testId = 1;
+            var sampleData = CreateSampleData(0);
+            sampleData.Add(new Participant { Id = testId, UserSetting = null });
+            _contextMock.Setup(m => m.Participants).Returns(sampleData);
+            Assert.IsNotNull(_controller.Get(testId).Id);
+        }
+
+        [Test]
         [ExpectedException(typeof(HttpResponseException))]
         public void GetUserSettingsWithInvalidId(){
             var testId = 100;

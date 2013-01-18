@@ -96,6 +96,8 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             Assert.IsNull(_contextMock.Object.Assignments.Find(1));
         }
 
+   
+
         [Test]
         [ExpectedException(typeof(HttpResponseException))]
         public void DeleteAssignmentWithInvalidIdGivesHTTPNotFound()
@@ -105,9 +107,7 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             _controller.Delete(5);
            
         }
-
-
-      
+    
         [Test]
         public void PostAssignmentCallsAddOnContextWithProvidedAssignment(){
             _contextMock.Setup(m => m.Assignments.Add(It.IsAny<Assignment>()));
@@ -137,6 +137,7 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             _controller.Post(new Assignment());
         }
 
+     
         private static FakeAssignmentsSet CreateSampleData(int nrOfRecords){
             var sampleData = new FakeAssignmentsSet();
 

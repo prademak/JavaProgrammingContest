@@ -7,6 +7,7 @@ namespace JavaProgrammingContest.Web.Controllers{
     /// <summary>
     ///     Assignment Administration Controller
     /// </summary>
+    [Authorize(Roles = "Administrator")]
     public class AssignmentController : Controller{
         /// <summary>
         ///     Database Context

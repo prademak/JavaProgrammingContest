@@ -9,6 +9,7 @@ using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Web.DTO;
 using WebMatrix.WebData;
+using System.Diagnostics.CodeAnalysis;
 
 namespace JavaProgrammingContest.Web.API{
     /// <summary>
@@ -43,8 +44,9 @@ namespace JavaProgrammingContest.Web.API{
             foreach (var assignment in _context.Assignments){
                 var assignmentDto = Mapper.Map<Assignment, AssignmentDTO>(assignment);
 
-               if(_participant.Scores!= null)
-                   CheckForSubmittedAssignments(assignment, assignmentDto);
+                foreach (var score in _participant.Scores)
+                    if (score.Assignment.Id == assignment.Id)
+                        assignmentDto.HasBeenSubmitted = true;
 
                 assignmentDtos.Add(assignmentDto);
             }
@@ -52,12 +54,7 @@ namespace JavaProgrammingContest.Web.API{
             return assignmentDtos;
         }
 
-        private void CheckForSubmittedAssignments(Assignment assignment, AssignmentDTO assignmentDto)
-        {
-            foreach (var score in _participant.Scores)
-                if (score.Assignment.Id == assignment.Id)
-                    assignmentDto.HasBeenSubmitted = true;
-        }
+      
 
         /// <summary>
         ///     Get all the info of the given Assignment
@@ -95,29 +92,10 @@ namespace JavaProgrammingContest.Web.API{
         }
 
         /// <summary>
-        ///     Change an assignment. (REDUNDANT)
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="assignment"></param>
-        public void Put(int id, Assignment assignment){
-            if (!ModelState.IsValid || assignment == null)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
-
-            try{
-                var dbAssignment = _context.Assignments.Find(id);
-
-                //TODO set properties
-
-                _context.SaveChanges();
-            } catch (Exception){
-                throw new HttpResponseException(HttpStatusCode.InternalServerError);
-            }
-        }
-
-        /// <summary>
         ///     Delete an Assignment (REDUNDANT)
         /// </summary>
         /// <param name="id"></param>
+    [Authorize(Roles = "Administrator")]
         public void Delete(int id){
             try{
                 var assignment = _context.Assignments.Find(id);
@@ -129,7 +107,7 @@ namespace JavaProgrammingContest.Web.API{
                 throw new HttpResponseException(HttpStatusCode.InternalServerError);
             }
         }
-
+        [ExcludeFromCodeCoverage]
         private Participant getCurrentParticipant()
         {
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
