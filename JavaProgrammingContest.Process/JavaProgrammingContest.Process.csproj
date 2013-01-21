@@ -46,9 +46,9 @@
     <Compile Include="Compiler\Java\Helpers\JavaCompilerProcess.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Compiler\IFilePathCreator.cs" />
     <Compile Include="Compiler\Java\JavaCompiler.cs" />
     <Compile Include="Compiler\Model\CompilerResult.cs" />
-    <Compile Include="Compiler\SettingsReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Runner\IRunner.cs" />
     <Compile Include="Runner\IRunnerProcess.cs" />
