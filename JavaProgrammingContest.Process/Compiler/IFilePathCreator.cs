@@ -2,7 +2,7 @@
 using System.IO;
 using System.Web;
 
-namespace JavaProgrammingContest.Process.Compiler.Java{
+namespace JavaProgrammingContest.Process.Compiler{
     public interface IFilePathCreator{
         string CreateFilePath(int participantId, string appName);
     }

@@ -2,11 +2,13 @@ using JavaProgrammingContest.Process.Compiler.Model;
 
 namespace JavaProgrammingContest.Process.Compiler.Java.Helpers{
     public class JavaCompilerProcess : System.Diagnostics.Process, ICompilerProcess{
-        public JavaCompilerProcess(ISettingsReader appSettingsReader){
+        public ISettingsReader AppSettingsReader { get; set; }
+
+        public JavaCompilerProcess(){
             StartInfo.UseShellExecute = false;
             StartInfo.RedirectStandardOutput = true;
             StartInfo.RedirectStandardError = true;
-            StartInfo.FileName = appSettingsReader.GetValueAsString("javac_path");
+            StartInfo.FileName = AppSettingsReader.GetValueAsString("javac_path");
         }
 
         public CompilerResult Compile(string arguments){

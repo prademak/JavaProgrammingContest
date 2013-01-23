@@ -14,10 +14,10 @@ namespace JavaProgrammingContest.Performance.Tests{
         private const int NumThreads = 25;
         private static readonly Random Random = new Random();
         private static readonly List<CompilerResult> Results = new List<CompilerResult>();
-        private static Stopwatch _stopwatch = new Stopwatch();
+        private static readonly Stopwatch Stopwatch = new Stopwatch();
 
         private static void Main(string[] args){
-            _stopwatch.Start();
+            Stopwatch.Start();
             for (var i = 0; i < NumThreads; i++)
                 new Thread(Compile).Start();
             Console.ReadLine();
@@ -29,8 +29,8 @@ namespace JavaProgrammingContest.Performance.Tests{
                 CompilerProcess = new JavaCompilerProcess(new SettingsReader())
             };
 
-            var result = compiler.CompileFromPlainText(new Participant{Id = Random.Next(1, 10000)}, @"
-// Sample class
+            var result = compiler.CompileFromPlainText(new Participant{Id = Random.Next(1, 10000)}, 
+@"// Sample class
 class Solution {
 	public static void main(String[] args){
 		System.out.println(""Hello World!"");
@@ -45,7 +45,7 @@ class Solution {
             Results.Add(result);
 
             if (Results.Count == NumThreads){
-                _stopwatch.Stop();
+                Stopwatch.Stop();
 
                 var minTime = Results.Min(c => c.CompilationTime);
                 var maxTime = Results.Max(c => c.CompilationTime);
@@ -56,7 +56,7 @@ class Solution {
                 Console.WriteLine("Average Compile Time : {0}", average);
                 Console.WriteLine("Minimum Compile Time : {0}", minTime);
                 Console.WriteLine("Maximum Compile Time : {0}", maxTime);
-                Console.WriteLine("Total running time : {0}", _stopwatch.ElapsedMilliseconds);
+                Console.WriteLine("Total running time : {0}", Stopwatch.ElapsedMilliseconds);
             }
         }
     }
