@@ -9,7 +9,7 @@ $(document).ready(function () {
         defaultEditorOptions: {
             mode: "text/x-java",
             theme: "eclipse",
-            value: "// No assignment loaded yet.",
+            value: "// Geen opdracht geladen",
     
             lineNumbers: true,
             lineWrapping: false,

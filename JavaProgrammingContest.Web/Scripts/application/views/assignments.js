@@ -33,7 +33,7 @@ $(document).ready(function () {
         render: function () {
             // Check if model is empty
             if (this.model.length == 0) {
-                noty({ text: '<h3>No assignments found!</h3>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
+                noty({ text: '<h3>Geen opdrachten gevonden!</h3>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
                 return false;
             }
 
@@ -47,7 +47,7 @@ $(document).ready(function () {
                 }
 
                 if (this.current.attributes.HasBeenSubmitted == true) {
-                    noty({ text: '<h3>You have completed all assignments!</h3><strong>You can now continue to the <a href="/Scores">leaderboard</a>.</strong>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
+                    noty({ text: '<h3>Je hebt alle opdrachten afgerond!</h3><strong>Je kunt nu verder gaan naar de <a href="/Scores">top lijst</a>.</strong>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
                 }
 
                 var ns = this;
@@ -97,7 +97,7 @@ $(document).ready(function () {
                 this.setAssignment(++this.modelIndex);
                 return false;
             } else {
-                noty({ text: '<h3>You have completed all assignments!</h3><strong>You can now continue to the <a href="/Scores">leaderboard</a>.</strong>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
+                noty({ text: '<h3>Je hebt alle opdrachten afgerond!</h3><strong>Je kunt nu verder gaan naar de <a href="/Scores">top lijst</a>.</strong>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
                 return false;
             }
         },
@@ -141,7 +141,7 @@ $(document).ready(function () {
 
             ass = $('#StartPane');
             ass.find('h1').text("Assignment " + this.current.get('Id'));
-            ass.find('.description').text("When you start the time the description of the assignment becomes available");
+            ass.find('.description').text("Zodra je de opdracht hebt gestart, mag je de opdracht lezen en kun je de opdracht maken.");
             ass.find('.time').text(Math.round(this.current.get('MaxSolveTime') / 60) + ' minutes');
         },
 
