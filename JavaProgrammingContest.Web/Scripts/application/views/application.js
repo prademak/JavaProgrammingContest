@@ -43,7 +43,7 @@ $(document).ready(function () {
             // Ask if user really wants to leave when assignment is in progress
             $(document).unload(function() {
                 if (ns.assignments.started == true)
-                    return confirm('Do you really want to cancel your assignment?');
+                    return confirm('Wil je echt stoppen met het maken van de opdracht? (Je kunt hem niet herstarten!)');
             });
         },
         
@@ -168,7 +168,7 @@ $(document).ready(function () {
                 },
                 error: function () {
                     noty({
-                        text: 'Failed to start the assignment, another one is already in progress.',
+                        text: 'Fout bij het starten van de opdracht; de gebruiker is reeds bezig met een opdracht.',
                         type: 'error', layout: 'topRight'
                     });
                 }
@@ -195,13 +195,13 @@ $(document).ready(function () {
 
                 if (succ != false) {
                     noty({
-                        text: 'Thank you for submitting!\nYour submission of "' + ns.assignments.current.get('Title') + '" has been received and will be automatically reviewed, and will appear on the toplist as soon as this process has finished.',
+                        text: 'Bedankt voor het inzenden!\nJe inzending "' + ns.assignments.current.get('Title') + '" is ontvangen en zal automatisch worden beoordeelt. Zodra dit is gebeurt verschein je in de toplijsten.',
                         type: 'success', layout: 'topRight'
                     });
                 } else {
                     console.log('FAILED TO SUBMIT THE ASSIGNMENT!');
                     noty({
-                        text: 'Sorry I failed to submit the assignment "' + ns.assignments.current.get('Title') + '"! Probably the compiler/runner was not properly setup on the server side.',
+                        text: 'Sorry, het is me niet gelukt om de opdracht "' + ns.assignments.current.get('Title') + '" in te zenden! De meest voorkomende oorzaak is dat de serverbeheerder de java(c) executables niet in de $PATH$ variable heeft gezet.',
                         type: 'error', layout: 'topRight'
                     });
                 }
@@ -227,12 +227,12 @@ $(document).ready(function () {
                 // Enable the start time button
                 ns.$el.find('#AssignmentPane .properties a')
                    .removeClass('disabled')
-                   .text('Start the Time!');
+                   .text('Start de tijd!');
 
                 // Enable the start time button
                 ns.$el.find('#StartPane .properties a')
                    .removeClass('disabled')
-                   .text('Start the Time!');
+                   .text('Start de tijd!');
             });
 
             e.stopPropagation();
@@ -243,7 +243,7 @@ $(document).ready(function () {
         cancelAssignment: function () {
             var ns = this;
             noty({
-                text: 'Are you sure you want to stop this assignment?\nYou cannot reopen it when you give up!', type: 'confirm', layout: 'topCenter', modal: true, buttons: [
+                text: 'Weet je zeker dat je de opdracht wilt stoppen?\nJe kunt hem niet opnieuw openen/maken!', type: 'confirm', layout: 'topCenter', modal: true, buttons: [
                      {
                          addClass: 'btn btn-danger', text: 'Ok', onClick: function ($noty) {
                              $noty.close();
@@ -286,12 +286,12 @@ $(document).ready(function () {
             // Enable the start time button
             ns.$el.find('#AssignmentPane .properties a')
                 .removeClass('disabled')
-                .text('Start the Time!');
+                .text('Start de tijd!');
 
             // Enable the start time button
             ns.$el.find('#StartPane .properties a')
                 .removeClass('disabled')
-                .text('Start the Time!');
+                .text('Start de tijd!');
         }
     });
 }); 
