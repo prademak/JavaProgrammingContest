@@ -10,7 +10,7 @@
 
 <script type="text/template" id="assignment-template">
     <li class="{Class}" data-assignment="{dataKey}">
-        <h3>Assignment {Id}</h3>
+        <h3>Opdracht {Id}</h3>
     </li>
 </script>
 
@@ -32,23 +32,23 @@
 
 <div id="noAssignmentsModal" class="modal hide fade">
     <div class="modal-header">
-        <h3>No Assignments Found</h3>
+        <h3>Geen opdrachten gevonden.</h3>
     </div>
     <div class="modal-body">
-        <p>I could not find any</p>
+        <p>Kon niks vinden.</p>
     </div>
     <div class="modal-footer">
-        <a href="#" class="btn">Close</a>
-        <a href="#" class="btn btn-primary">Save changes</a>
+        <a href="#" class="btn">Sluiten</a>
+        <a href="#" class="btn btn-primary">Veranderingen opslaan</a>
     </div>
 </div>
 
 <div id="assignmentInProgressModal" class="modal hide fade">
     <div class="modal-header">
-        <h3>Assignment already in Progress</h3>
+        <h3>Een opdracht wordt al uitgevoerd.</h3>
     </div>
     <div class="modal-body">
-        <p>You didn't finished the last assignment. You started this assignment <span class="moment"></span>. The assignment will stop and you can start with the next assignment.</p>
+        <p>U heeft de vorige opdracht niet afgerond. U begon deze opdracht <span class="moment"></span>. De opdracht zal stoppen en u kunt de volgende opdracht starten.</p>
     </div>
     <div class="modal-footer">
         <a href="#" class="btn btn-warning" id="stopProgress">Stop</a>
@@ -58,13 +58,13 @@
 
 <div id="assignmentSubmitModal" class="modal hide fade">
     <div class="modal-header">
-        <h3>Confirm the Submit</h3>
+        <h3>Bevestig de Submit</h3>
     </div>
     <div class="modal-body">
-        <p>Do you really want to submit this assignment? You will not be ale to retry!</p>
+        <p>Wilt u echt submitten? U kunt de opdracht niet nog een keer proberen!</p>
     </div>
     <div class="modal-footer">
-        <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <a href="#" class="btn" data-dismiss="modal">Terug</a>
         <a href="#" class="btn btn-success" data-dismiss="modal">Submit</a>
     </div>
 </div>
@@ -72,7 +72,7 @@
 <div class="modal hide fade" id="settings-dialog">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Editor Settings</h3>
+        <h3>Editor Voorkeuren</h3>
     </div>
     <div class="modal-body">
         <form onsubmit="return false;">
@@ -80,16 +80,16 @@
                 <div class="row-fluid">
                     <div class="pull-left span7">
                         <div class="input-prepend">
-                            <span class="add-on">Theme</span>
+                            <span class="add-on">Thema</span>
                             <select name="Theme" data-original="">
-                                <option value="eclipse">Eclipse (Default)</option>
+                                <option value="eclipse">Eclipse (Standaard)</option>
                                 <option value="lesser-dark">Lesser Dark</option>
                                 <option value="monokai">Monokai</option>
                             </select>
                         </div>
                         
                         <div class="input-prepend">
-                            <span class="add-on">Tabsize</span>
+                            <span class="add-on">Tabgrootte</span>
                             <input name="TabSize" type="number" style="width: 35px" min="2" max="6" data-original="" value="" />
                         </div>
                     </div>
@@ -104,14 +104,14 @@
         </form>
     </div>
     <div class="modal-footer">
-        <a href="#" class="btn" data-dismiss="modal">Close</a>
-        <a href="#" class="btn btn-primary" id="settings-save">Apply</a>
+        <a href="#" class="btn" data-dismiss="modal">Sluiten</a>
+        <a href="#" class="btn btn-primary" id="settings-save">Toepassen</a>
     </div>
 </div>
 
 <div class="editor-row">
     <div class="pane assignments" id="AssignmentList">
-        <h2>Assignments</h2>
+        <h2>Opdrachten</h2>
         <ul>
             <!--li data-assignmentid="0">
                 <h3>Assignmenttitle1</h3>
@@ -126,7 +126,7 @@
         <div class="btn-toolbar">
             <div class="btn-group">
                 <a class="btn btn-small btn-success" href="#submit"><i class="icon-hdd icon-white"></i> <u>S</u>ubmit</a>
-                <a class="btn btn-small btn-danger" href="#cancel"><i class="icon-remove icon-white"></i> Resign</a>
+                <a class="btn btn-small btn-danger" href="#cancel"><i class="icon-remove icon-white"></i> Cancel</a>
             </div>
             <div class="btn-group">
                 <a class="btn btn-small" href="#build"><i class="icon-fire"></i> <u>B</u>uild</a>
@@ -134,9 +134,9 @@
             </div>
             <div class="btn-group">
                 <a class="btn btn-small" href="#settings-dialog" data-toggle="modal"><i class="icon-cog"></i> Sett<u>i</u>ngs</a>
-                <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-tint"></i> Theme <span class="caret"></span></a>
+                <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-tint"></i> Thema <span class="caret"></span></a>
                 <ul class="dropdown-menu pull-right">
-                    <li><a href="#" data-theme="eclipse">Eclipse (Default)</a></li>
+                    <li><a href="#" data-theme="eclipse">Eclipse (Standaard)</a></li>
                     <li><a href="#" data-theme="monokai">Monokai</a></li>
                     <li><a href="#" data-theme="lesser-dark">Lesser Dark</a></li>
                 </ul>
@@ -154,15 +154,15 @@
             <div id="StartPane" class="activePane">
                 <h1>#TITLE</h1>
                 <div class="properties">
-                    <a class="btn btn-large btn-block btn-success">Start the Time!</a>
+                    <a class="btn btn-large btn-block btn-success">Start de tijd!</a>
                 </div>
                 <div class="description">#DESCRIPTION</div>
-                Target solve time: <span class="time"></span>
+                Tijdlimiet: <span class="time"></span>
             </div>
             <div id="AssignmentPane">
                 <h1>#TITLE</h1>
                 <div class="properties">
-                    <a class="btn btn-large btn-block btn-success">Start the Time!</a>
+                    <a class="btn btn-large btn-block btn-success">Start de tijd!</a>
                 </div>
                 <div class="description">#DESCRIPTION</div>
             </div>
@@ -186,7 +186,7 @@
         <div class="tabbable tabs-below">
             <ul class="nav nav-tabs">
                 <li id="startTab" class="active"><a href="#start">Start</a></li>
-                <li class="disabled"><a href="#assignment">Assignment</a></li>
+                <li class="disabled"><a href="#assignment">Opdracht</a></li>
                 <li class="disabled"><a href="#splitscreen">Splitscreen</a></li>
                 <li class="disabled"><a href="#editor">Editor</a></li>
                 <li class="disabled"><a href="#console">Console</a></li>

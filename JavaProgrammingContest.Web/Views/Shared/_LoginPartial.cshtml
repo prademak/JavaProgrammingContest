@@ -6,10 +6,10 @@
                 <a class="dropdown-toggle navbar-text" data-toggle="dropdown" href="#">@User.Identity.Name</a>
         
             <ul  class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <li>@Html.ActionLink("Manage", "Manage", "Account")</li>
+                <li>@Html.ActionLink("Beheer", "Manage", "Account")</li>
                 @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
                     @Html.AntiForgeryToken()
-                    <li> <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>  </li>
+                    <li> <a href="javascript:document.getElementById('logoutForm').submit()">Uitloggen</a>  </li>
                 } 
          
             </ul>
@@ -17,7 +17,7 @@
  
     } else {
     <ul class="nav pull-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Registreer", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Log in", "Logon", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

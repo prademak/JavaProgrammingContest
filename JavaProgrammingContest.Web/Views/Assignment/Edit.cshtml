@@ -1,6 +1,6 @@
 ﻿@model JavaProgrammingContest.Domain.Entities.Assignment
 @Html.Partial("../Assignment/_menuBalk") 
-<h2>Edit</h2>
+<h2>Wijzigen</h2>
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
@@ -59,13 +59,13 @@
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Opslaan" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Terug naar lijst", "Index")
 </div>
 
 @section Scripts {

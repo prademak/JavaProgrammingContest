@@ -6,26 +6,26 @@ namespace JavaProgrammingContest.Domain.Entities{
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Title")]
+        [Display(Name = "Titel")]
         public string Title { get; set; }
 
         [Required]
-        [Display(Name = "Description")]
+        [Display(Name = "Omschrijving")]
         public string Description { get; set; }
 
         [Required]
-        [Display(Name = "Code given")]
+        [Display(Name = "Gegeven Code")]
         public string CodeGiven { get; set; }
 
         [Required]
-        [Display(Name = "Max Solve Time")]
+        [Display(Name = "Tijdlimiet")]
         public double MaxSolveTime { get; set; }
 
-        [Display(Name = "Input text when assignments runs.")]
+        [Display(Name = "Input tekst wanneer opdracht actief is.")]
         public string RunCodeInput { get; set; }
 
         [Required]
-        [Display(Name = "Expected output when assignment runs.")]
+        [Display(Name = "Verwachte output wanneer opdracht actief is.")]
         public string RunCodeOuput { get; set; }
 
         public virtual Contest Contest { get; set; }

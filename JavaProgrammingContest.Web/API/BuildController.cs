@@ -53,7 +53,7 @@ namespace JavaProgrammingContest.Web.API{
             //TODO use CompilerResult class as response
             return Request.CreateResponse(HttpStatusCode.Created,
                 new BuildResult{
-                    Output = result.StandardOutput.Length == 0 && result.StandardError.Length == 0 ? "Build succeeded" : string.Empty,
+                    Output = result.StandardOutput.Length == 0 && result.StandardError.Length == 0 ? "Build succesvol" : string.Empty,
                     Error = result.StandardError,
                     CompileTime = result.CompilationTime
                 });
