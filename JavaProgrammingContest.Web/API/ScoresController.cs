@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -7,10 +8,10 @@ using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Process.Compiler;
 using JavaProgrammingContest.Process.Runner;
+using JavaProgrammingContest.Process.Runner.Model;
 using JavaProgrammingContest.Web.DTO;
 using JavaProgrammingContest.Web.Helpers;
 using WebMatrix.WebData;
-using System.Diagnostics.CodeAnalysis;
 
 namespace JavaProgrammingContest.Web.API{
     /// <summary>
@@ -20,18 +21,17 @@ namespace JavaProgrammingContest.Web.API{
         private readonly IRunner _runner;
         private readonly ICompiler _compiler;
         private readonly IDbContext _context;
-        private Participant _participant;
-        
+        private readonly Participant _participant;
+
         public ScoresController(IDbContext context, ICompiler compiler, IRunner runner, Participant participant = null){
             _context = context;
             _compiler = compiler;
             _runner = runner;
-            _participant = participant == null ? getCurrentParticipant() : participant;
+            _participant = participant ?? GetCurrentParticipant();
         }
 
         [ExcludeFromCodeCoverage]
-        private Participant getCurrentParticipant()
-        {
+        private Participant GetCurrentParticipant(){
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             return participant;
         }
@@ -40,7 +40,6 @@ namespace JavaProgrammingContest.Web.API{
         /// Returns a list of scores from 
         /// </summary>
         public IEnumerable<ScoreDTO> GetScoresFromCurrentUser(){
-            
             return Mapper.Map<IEnumerable<Score>, IEnumerable<ScoreDTO>>(_participant.Scores);
         }
 
@@ -50,10 +49,9 @@ namespace JavaProgrammingContest.Web.API{
         /// <param name="runJob">See RunController.</param>
         /// <returns></returns>
         public HttpResponseMessage Post(RunController.RunJob runJob){
-
             _compiler.CompileFromPlainText(_participant, runJob.Code);
             var runResult = _runner.RunAndCheckInput(_participant);
-            var correctOutput = (runResult.Output.Trim().Equals(_participant.Progress.Assignment.RunCodeOuput));
+            var correctOutput = IsCorrectOutput(runResult);
             var timeDifference = TimeDifferenceHelper.GetTimeDifference(_participant.Progress.StartTime);
 
             var score = ScoreHelper.CreateScore(_participant.Progress.Assignment, _participant, correctOutput, timeDifference);
@@ -63,6 +61,10 @@ namespace JavaProgrammingContest.Web.API{
             _context.SaveChanges();
 
             return Request.CreateResponse(HttpStatusCode.Created);
+        }
+
+        private bool IsCorrectOutput(RunResult runResult){
+            return (runResult.Output.Trim().Equals(_participant.Progress.Assignment.RunCodeOuput));
         }
     }
 }
