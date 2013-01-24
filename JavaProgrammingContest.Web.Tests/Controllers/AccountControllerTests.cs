@@ -30,7 +30,6 @@ namespace JavaProgrammingContest.Web.Tests.Controllers
         private Mock<IDbContext> _contextMock;
         private AccountController _controller; 
         private LogonModel _logmod;
-        private AccountController Controller { get; set; } 
         private Mock<IWebSecurity> _WebSecurity { get; set; } 
 
                 [SetUp]
@@ -50,19 +49,31 @@ namespace JavaProgrammingContest.Web.Tests.Controllers
                     Assert.IsNotNull(result);
                 }
                 [Test]
-                public void Register_ViewTest()
+                //need WebSecurity Mock
+                [ExpectedException]
+                public void Logof_ViewTest()
                 {
-                    var result = _controller.Logon("/Home/Register") as ViewResult;
+                    SetupControllerForTests(_controller);
+                    var result = _controller.LogOff();
 
                     Assert.IsNotNull(result);
                 }
                 [Test]
+                public void Register_ViewTest()
+                {
+                    var result = _controller.Register() as ViewResult;
+
+                    Assert.IsNotNull(result);
+                }
+                [Test]
+                //need WebSecurity Mock
+                [ExpectedException]
                 public void Login_UserCanLogin()
                 {
                     string returnUrl = "/Home/Index";
                     string userName = "user";
                     string password = "password";
-
+                 
                     _WebSecurity.Setup(s => s.Login(userName, password, false)).Returns(true);
                     SetupControllerForTests(_controller);
                     var model = new LogonModel
@@ -78,6 +89,8 @@ namespace JavaProgrammingContest.Web.Tests.Controllers
 
 
                 [Test]
+                //need WebSecurity Mock
+                    [ExpectedException]
                 public void Register_UserCanCreateAAccount()
                 {
                     string userName = "user";

@@ -19,7 +19,7 @@ namespace JavaProgrammingContest.Web.Controllers{
         ///     Database Context
         /// </summary>
         private readonly IDbContext _context;
-        private IWebSecurity WebSecurity { get; set; }
+       
         /// <summary>
         ///     Controller Constructor
         /// </summary>
@@ -30,8 +30,7 @@ namespace JavaProgrammingContest.Web.Controllers{
 
         public AccountController(IDbContext context, IWebSecurity webSecurity)
         {
-            _context = context;
-            WebSecurity = webSecurity; 
+            _context = context; 
         }
 
         /// <summary>
