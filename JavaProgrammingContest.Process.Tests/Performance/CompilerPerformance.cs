@@ -17,10 +17,10 @@ namespace JavaProgrammingContest.Process.Tests.Performance{
             //    t.Join();    
             //}
 
-            TestInitialize();
+//            TestInitialize();
 
             //ChromeDriver.Navigate().GoToUrl(GetAbsoluteUrl("/"));
-            Thread.Sleep(50000);
+           // Thread.Sleep(50000);
         }
 
         private void OpenBrowser(object obj){

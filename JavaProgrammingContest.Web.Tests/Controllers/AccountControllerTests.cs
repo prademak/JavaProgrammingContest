@@ -42,7 +42,21 @@ namespace JavaProgrammingContest.Web.Tests.Controllers
                         _controller = new AccountController(_contextMock.Object, _WebSecurity.Object);
 
                 }
-                  [Test]
+                [Test]
+                public void Login_ViewTest()
+                {
+                    var result = _controller.Logon("/Home/Index") as ViewResult;
+
+                    Assert.IsNotNull(result);
+                }
+                [Test]
+                public void Register_ViewTest()
+                {
+                    var result = _controller.Logon("/Home/Register") as ViewResult;
+
+                    Assert.IsNotNull(result);
+                }
+                [Test]
                 public void Login_UserCanLogin()
                 {
                     string returnUrl = "/Home/Index";
@@ -58,6 +72,28 @@ namespace JavaProgrammingContest.Web.Tests.Controllers
                     };
 
                     var result = _controller.Logon(model, returnUrl) as RedirectResult;
+                    Assert.NotNull(result);
+                    Assert.AreEqual(returnUrl, result.Url);
+                }
+
+
+                [Test]
+                public void Register_UserCanCreateAAccount()
+                {
+                    string returnUrl = "/Home/Index";
+                    string userName = "user";
+                    string password = "password";
+
+                    _WebSecurity.Setup(s => s.Login(userName, password, false)).Returns(true);
+                    SetupControllerForTests(_controller);
+                    var model = new RegisterModel
+                    {   Name = "naam",
+                        UserName = userName,
+                        Password = password,
+                        ConfirmPassword = password
+                    };
+
+                    var result = _controller.Register(model) as RedirectResult;
                     Assert.NotNull(result);
                     Assert.AreEqual(returnUrl, result.Url);
                 }
