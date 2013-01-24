@@ -5,6 +5,9 @@ namespace JavaProgrammingContest.Web.Models{
         [Required]
         [Display(Name = "Email adress")]
         public string UserName { get; set; }
+        [Display(Name = "Naam")]
+        public string Name { get; set; }
+        public string Functie { get; set; }
 
         public string ExternalLogonData { get; set; }
     }

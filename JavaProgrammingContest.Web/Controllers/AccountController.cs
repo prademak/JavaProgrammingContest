@@ -222,7 +222,8 @@ namespace JavaProgrammingContest.Web.Controllers{
             ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
             ViewBag.ReturnUrl = returnUrl;
             return View("ExternalLogonConfirmation",
-                new RegisterExternalLogonModel{UserName = result.UserName, ExternalLogonData = logonData});
+                new RegisterExternalLogonModel { UserName = result.UserName, Name = result.UserName, Functie = result.ExtraData["headline"], ExternalLogonData = logonData });
+
         }
 
         /// <summary>
@@ -245,7 +246,7 @@ namespace JavaProgrammingContest.Web.Controllers{
             if (ModelState.IsValid){
                 var user = _context.Participants.FirstOrDefault(u => u.Email.ToLower() == model.UserName.ToLower());
                 if (user == null){
-                    _context.Participants.Add(new Participant{Email = model.UserName});
+                    _context.Participants.Add(new Participant{Email = model.UserName, Name = model.Name, Functie = model.Functie});
                     _context.SaveChanges();
 
                     OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
