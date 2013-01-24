@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var p in contest.Participants.OrderByDescending(p => p.CompletePercentage).ThenBy(a => a.AverageTime))
+                @foreach (var p in contest.Participants.OrderByDescending(p => p.CompletePercentage).ThenBy(p => p.AverageTime))
                 {
                     <tr>
                         <td><a href="http://www.linkedin.com/search/fpsearch?type=people&keywords=@p.Name" title="@p.Functie">@p.Name</a> <a href="mailto:@p.Email"><i class="icon-envelope"></i></a></td>

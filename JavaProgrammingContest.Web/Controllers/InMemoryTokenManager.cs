@@ -1,10 +1,11 @@
-﻿using DotNetOpenAuth.OAuth.ChannelElements;
-using DotNetOpenAuth.OAuth.Messages;
-using DotNetOpenAuth.OpenId.Extensions.OAuth;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DotNetOpenAuth.OAuth.ChannelElements;
+using DotNetOpenAuth.OAuth.Messages;
+using DotNetOpenAuth.OpenId.Extensions.OAuth;
+
 
 namespace JavaProgrammingContest.Web.Controllers
 {

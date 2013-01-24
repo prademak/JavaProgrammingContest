@@ -1,6 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System.Security.Principal;
+using System.Data.Entity;
 using JavaProgrammingContest.Domain.Entities;
-using System.Security.Principal;
 
 namespace JavaProgrammingContest.DataAccess.Context
 {
