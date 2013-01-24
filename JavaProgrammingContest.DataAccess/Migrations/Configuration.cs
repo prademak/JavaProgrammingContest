@@ -30,7 +30,7 @@ namespace JavaProgrammingContest.DataAccess.Migrations{
             if (!WebSecurity.UserExists("admin"))
                 WebSecurity.CreateUserAndAccount(
                     "admin",
-                    "!nf0suPP0r7");
+                    "   ");
 
             if (!Roles.GetRolesForUser("admin").Contains("Administrator"))
                 Roles.AddUsersToRoles(new[]{"admin"}, new[]{"Administrator"});

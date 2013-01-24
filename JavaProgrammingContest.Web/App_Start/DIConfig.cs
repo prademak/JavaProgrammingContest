@@ -41,9 +41,9 @@ namespace JavaProgrammingContest.Web{
 
         private static void RegisterOther(ContainerBuilder builder){
             builder.RegisterType<JavaCompiler>().As<ICompiler>().PropertiesAutowired();
-            builder.RegisterType<JavaCompilerProcess>().As<ICompilerProcess>();
+            builder.RegisterType<JavaCompilerProcess>().As<ICompilerProcess>().PropertiesAutowired();
             builder.RegisterType<JavaRunner>().As<IRunner>().PropertiesAutowired();
-            builder.RegisterType<JavaRunnerProcess>().As<IRunnerProcess>();
+            builder.RegisterType<JavaRunnerProcess>().As<IRunnerProcess>().PropertiesAutowired();
             builder.RegisterType<SettingsReader>().As<ISettingsReader>();
             builder.RegisterType<WorkingFolder>().As<IWorkingFolder>();
         }
