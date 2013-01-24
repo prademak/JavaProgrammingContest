@@ -83,7 +83,7 @@ namespace JavaProgrammingContest.Web.Controllers{
                 foreach (var id in idList)
                     foreach (var participant in ParticipantList)
                         if (id == participant.Id)
-                            participantScores.Add(new ParticipantScore(_contest, id, participant.Email, participant.Name, participant.Functie));
+                            participantScores.Add(new ParticipantScore(_contest, participant));
 
             Participants = participantScores;
         }
@@ -120,12 +120,12 @@ namespace JavaProgrammingContest.Web.Controllers{
         public double AverageTime { get; set; }
         public double CompletePercentage { get; set; }
 
-        public ParticipantScore(Contest contest, int id, string email, string name, string functie)
+        public ParticipantScore(Contest contest, Participant participant)
         {
-            Email = email;
-            Name = name;
-            Functie = functie;
-            SetScore(contest, id);
+            Email = participant.Email;
+            Name = participant.Name;
+            Functie = participant.Functie;
+            SetScore(contest, participant.Id);
         }
 
         private void SetScore(Contest contest, int id)
