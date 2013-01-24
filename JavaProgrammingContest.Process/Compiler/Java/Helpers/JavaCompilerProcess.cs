@@ -5,6 +5,7 @@ namespace JavaProgrammingContest.Process.Compiler.Java.Helpers{
         public ISettingsReader AppSettingsReader { get; set; }
 
         public JavaCompilerProcess(){
+            AppSettingsReader = new SettingsReader();
             StartInfo.UseShellExecute = false;
             StartInfo.RedirectStandardOutput = true;
             StartInfo.RedirectStandardError = true;

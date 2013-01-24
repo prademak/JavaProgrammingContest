@@ -146,7 +146,7 @@ namespace JavaProgrammingContest.Web.Controllers{
             CompletePercentage = CalculateCompletePercentage(assignmentsMade, assignmentsCompleted);
         }
 
-        private static double CalculateCompletePercentage(int assignmentsMade, int assignmentsComplete)
+        private double CalculateCompletePercentage(int assignmentsMade, int assignmentsComplete)
         {
             var completePercentage = 0.0;
             var made = assignmentsMade;
