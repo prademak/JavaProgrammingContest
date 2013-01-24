@@ -1,11 +1,10 @@
 ﻿@model JavaProgrammingContest.Web.Models.RegisterExternalLogonModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Registreer";
 }
 
 <hgroup class="title">
     <h1>@ViewBag.Title.</h1>
-    <h2>Associate your @ViewBag.ProviderDisplayName account.</h2>
 </hgroup>
 
 @using (Html.BeginForm("ExternalLogonConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl })) {
@@ -13,11 +12,10 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Association Form</legend>
+        <legend>LinkedIn</legend>
         <p>
-            You've successfully authenticated with <strong>@ViewBag.ProviderDisplayName</strong>.
-            Please enter a user name for this site below and click the Confirm button to finish
-            logging in.
+         Hallo  @ViewBag.Name, je bent succesvol geregistreerd met <strong>@ViewBag.ProviderDisplayName</strong>.
+            Geef uw e-mailadres om door te gaan.
         </p>
         <ol>
             <li class="name">

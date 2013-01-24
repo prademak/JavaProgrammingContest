@@ -140,7 +140,7 @@ $(document).ready(function () {
             ass.find('.time').text(Math.round(this.current.get('MaxSolveTime') / 60) + ' minutes');
 
             ass = $('#StartPane');
-            ass.find('h1').text("Assignment " + this.current.get('Id'));
+            ass.find('h1').text("Opdracht " + this.current.get('Id'));
             ass.find('.description').text("Zodra je de opdracht hebt gestart, mag je de opdracht lezen en kun je de opdracht maken.");
             ass.find('.time').text(Math.round(this.current.get('MaxSolveTime') / 60) + ' minutes');
         },

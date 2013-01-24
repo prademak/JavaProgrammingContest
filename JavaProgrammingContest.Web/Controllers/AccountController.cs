@@ -219,6 +219,7 @@ namespace JavaProgrammingContest.Web.Controllers{
             }
 
             var logonData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
+            ViewBag.Name = result.UserName;
             ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
             ViewBag.ReturnUrl = returnUrl;
             return View("ExternalLogonConfirmation",
@@ -256,7 +257,7 @@ namespace JavaProgrammingContest.Web.Controllers{
                 }
                 ModelState.AddModelError("UserName", "Deze naam bestaat al. Kies een andere naam.");
             }
-
+            ViewBag.Name = model.Name;
             ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
             ViewBag.ReturnUrl = returnUrl;
             return View(model);

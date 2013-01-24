@@ -154,7 +154,8 @@ $(document).ready(function () {
                             .removeClass('disabled');
                         // Enable all the editor tabs
                         this.$el.find('li#startTab').addClass('hide');
-                      
+
+                        this.$el.find('div.btn-toolbar').removeClass('hide');
                         // Change the view to splitscreen mode
                         this.changeView('assignment');
 
@@ -279,7 +280,7 @@ $(document).ready(function () {
             ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
                 .addClass('disabled');
             ns.$el.find('li#startTab').removeClass('hide disabled');
-
+            ns.$el.find('div.btn-toolbar').addClass('hide');
             // Change view to assignment
             ns.changeView('start');
 

@@ -3,7 +3,8 @@
 namespace JavaProgrammingContest.Web.Models{
     public class RegisterExternalLogonModel{
         [Required]
-        [Display(Name = "Email adress")]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "E-mailadres")]
         public string UserName { get; set; }
         [Display(Name = "Naam")]
         public string Name { get; set; }
@@ -26,13 +27,13 @@ namespace JavaProgrammingContest.Web.Models{
 
         [DataType(DataType.Password)]
         [Display(Name = "Bevestig nieuw wachtwoord")]
-        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        [Compare("NewPassword", ErrorMessage = "De gegeven wachtwoorden komen niet overeen.")]
         public string ConfirmPassword { get; set; }
     }
 
     public class LogonModel{
         [Required]
-        [Display(Name = "Email adres")]
+        [Display(Name = "e-mailadres")]
         public string UserName { get; set; }
 
         [Required]
@@ -48,8 +49,9 @@ namespace JavaProgrammingContest.Web.Models{
         [Required]
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
         [Display(Name = "Naam")]
-        public string Name { get; set; }
+        public string Name { get; set; } 
 
+        public string Functie { get; set; }
         [Required]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email adres")]
