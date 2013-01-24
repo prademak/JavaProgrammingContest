@@ -80,7 +80,6 @@ namespace JavaProgrammingContest.Web.Tests.Controllers
                 [Test]
                 public void Register_UserCanCreateAAccount()
                 {
-                    string returnUrl = "/Home/Index";
                     string userName = "user";
                     string password = "password";
 
@@ -93,11 +92,11 @@ namespace JavaProgrammingContest.Web.Tests.Controllers
                         ConfirmPassword = password
                     };
 
-                    var result = _controller.Register(model) as RedirectResult;
-                    Assert.NotNull(result);
-                    Assert.AreEqual(returnUrl, result.Url);
+                    var result = _controller.Register(model) as RedirectToRouteResult;
+                    Assert.AreEqual("Editor", result.RouteValues["controller"]);
+                    Assert.AreEqual("Index", result.RouteValues["action"]);
                 }
-
+         
 
                 private static void SetupControllerForTests(Controller controller)
                 {
