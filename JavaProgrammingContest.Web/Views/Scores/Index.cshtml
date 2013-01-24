@@ -4,6 +4,7 @@
 
 @{
     ViewBag.Title = "Index";
+
 }
 
 @foreach (var contest in Model.Contest)
@@ -13,7 +14,7 @@
         <table class="table table-bordered table-bordered">
             <thead>
                 <tr>
-                    <th>Email deelnemer</th>
+                    <th>Deelnemer</th>
                     <th>Correcte opdrachten</th>
                     <th>Gemiddelde tijd</th>
                 </tr>
@@ -22,7 +23,7 @@
                 @foreach (var p in contest.Participants.OrderByDescending(p => p.CompletePercentage).ThenBy(a => a.AverageTime))
                 {
                     <tr>
-                        <td>@p.Email</td>
+                        <td><a href="http://www.linkedin.com/search/fpsearch?type=people&keywords=@p.Name" title="@p.Functie">@p.Name</a> <a href="mailto:@p.Email"><i class="icon-envelope"></i></a></td>
                         <td>@p.AssignmentsCompleted / @p.AssignmentsMade</td>
                         <td>@Math.Round((Decimal)(p.AverageTime), 2) sec</td>
                     </tr>
