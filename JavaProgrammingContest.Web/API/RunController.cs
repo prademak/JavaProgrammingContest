@@ -6,8 +6,7 @@ using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Process.Compiler;
 using JavaProgrammingContest.Process.Runner;
-using WebMatrix.WebData;
-using System.Diagnostics.CodeAnalysis;
+using WebMatrix.WebData; 
 
 namespace JavaProgrammingContest.Web.API
 {
@@ -44,11 +43,10 @@ namespace JavaProgrammingContest.Web.API
             _context = context;
             _compiler = compiler;
             _runner = runner;
-            _participant = participant == null ? getCurrentParticipant() : participant;
+            _participant = participant == null ? GetCurrentParticipant() : participant;
         }
-
-        [ExcludeFromCodeCoverage]
-        private Participant getCurrentParticipant()
+         
+        private Participant GetCurrentParticipant()
         {
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             return participant;

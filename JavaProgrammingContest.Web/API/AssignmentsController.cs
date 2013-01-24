@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Diagnostics.CodeAnalysis;
+using System.Data.SqlClient; 
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -103,8 +102,7 @@ namespace JavaProgrammingContest.Web.API{
                 throw new HttpResponseException(HttpStatusCode.InternalServerError);
             }
         }
-
-        [ExcludeFromCodeCoverage]
+         
         private Participant GetCurrentParticipant(){
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             return participant;
