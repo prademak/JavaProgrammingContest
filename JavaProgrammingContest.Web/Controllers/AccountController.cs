@@ -52,7 +52,7 @@ namespace JavaProgrammingContest.Web.Controllers{
             if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, model.RememberMe))
                 return RedirectToLocal(returnUrl);
 
-            ModelState.AddModelError(string.Empty, "The user name or password provided is incorrect.");
+            ModelState.AddModelError(string.Empty, "De gebruikersnaam of wachtwoord is niet correct.");
             return View(model);
         }
 
@@ -132,11 +132,11 @@ namespace JavaProgrammingContest.Web.Controllers{
         public ActionResult Manage(ManageMessageId? message){
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess
-                    ? "Your password has been changed."
+                    ? "Uw wachtwoord is veranderd."
                     : message == ManageMessageId.SetPasswordSuccess
-                          ? "Your password has been set."
+                          ? "Uw wachtwoord is opgeslagen."
                           : message == ManageMessageId.RemoveLogonSuccess
-                                ? "The external Logon was removed."
+                                ? "De externe login is verwijderd."
                                 : string.Empty;
 
             ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
@@ -166,7 +166,7 @@ namespace JavaProgrammingContest.Web.Controllers{
 
                     if (changePasswordSucceeded)
                         return RedirectToAction("Manage", new{Message = ManageMessageId.ChangePasswordSuccess});
-                    ModelState.AddModelError(string.Empty, "The current password is incorrect or the new password is invalid.");
+                    ModelState.AddModelError(string.Empty, "Het huidige wachtwoord is niet correct of het nieuwe wachtwoord klopt niet.");
                 }
             } else{
                 var state = ModelState["OldPassword"];
@@ -253,7 +253,7 @@ namespace JavaProgrammingContest.Web.Controllers{
 
                     return RedirectToLocal(returnUrl);
                 }
-                ModelState.AddModelError("UserName", "User name already exists. Please enter a different user name.");
+                ModelState.AddModelError("UserName", "Deze naam bestaat al. Kies een andere naam.");
             }
 
             ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
@@ -360,25 +360,25 @@ namespace JavaProgrammingContest.Web.Controllers{
         private static string ErrorCodeToString(MembershipCreateStatus createStatus){
             switch (createStatus){
                 case MembershipCreateStatus.DuplicateUserName:
-                    return "User name already exists. Please enter a different user name.";
+                    return "Deze naam bestaat al. Kies een andere naam.";
 
                 case MembershipCreateStatus.DuplicateEmail:
-                    return "A user name for that e-mail address already exists. Please enter a different e-mail address.";
+                    return "Dit email adres bestaat al. Kies een ander email adres.";
 
                 case MembershipCreateStatus.InvalidPassword:
-                    return "The password provided is invalid. Please enter a valid password value.";
+                    return "Dit wachtwoord klopt niet. Voer een correcte wachtwoord in.";
 
                 case MembershipCreateStatus.InvalidEmail:
-                    return "The e-mail address provided is invalid. Please check the value and try again.";
+                    return "Dit email adres klopt niet. Voer een correct email adres in.";
 
                 case MembershipCreateStatus.InvalidAnswer:
-                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
+                    return "Het wachtwoord herstel antwoord klopt niet. Voer een correct antwoord in.";
 
                 case MembershipCreateStatus.InvalidQuestion:
-                    return "The password retrieval question provided is invalid. Please check the value and try again.";
+                    return "De wachtwoord herstel vraag klopt niet. Voer een correcte vraag in.";
 
                 case MembershipCreateStatus.InvalidUserName:
-                    return "The user name provided is invalid. Please check the value and try again.";
+                    return "De user naam klopt niet. Voer een correcte naam in.";
 
                 case MembershipCreateStatus.ProviderError:
                     return

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title - InfoSupport Programming Contest</title>
+    <title>@ViewBag.Title - InfoSupport Programmeer Wedstrijd</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/bootstrap")
@@ -32,12 +32,12 @@
                     <ul class="nav">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         <li>@Html.ActionLink("Opdrachten", "Index", "Editor")</li>
-                        <li>@Html.ActionLink("Leaderboard", "Index", "Scores")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Scorebord", "Index", "Scores")</li>
+                        <li>@Html.ActionLink("Over Ons", "About", "Home")</li>
                         <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                          @if (User.IsInRole("Administrator"))
                          {
-                             <li>@Html.ActionLink("Admin", "Index", "Assignment")</li>
+                             <li>@Html.ActionLink("Beheren", "Index", "Assignment")</li>
                          }
                     </ul>
                 </div>

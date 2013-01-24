@@ -42,11 +42,11 @@ namespace JavaProgrammingContest.Web.API{
         public HttpResponseMessage Get(int assignmentId){
 
             return _participant.Progress == null
-                       ? Request.CreateErrorResponse(HttpStatusCode.NotFound, "No assignments in progress for current user.")
+                       ? Request.CreateErrorResponse(HttpStatusCode.NotFound, "Geen opdrachten actief voor de huidige user.")
                        : _participant.Progress.Assignment.Id == assignmentId
                              ? Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Progress, ProgressDTO>(_participant.Progress))
                              : Request.CreateErrorResponse(HttpStatusCode.NotFound,
-                                 "Given assignment is not in progress by the currently logged in user.");
+                                 "Gegeven opdracht is niet actief bij de huidige user.");
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace JavaProgrammingContest.Web.API{
         /// <returns></returns>
         public HttpResponseMessage Put(int id, Progress progress){
             if (_participant.Progress != null)
-                return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Can't start another assignment.");
+                return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Kan niet nog een opdracht starten.");
 
             var assignment = _context.Assignments.Find(id);
             progress.Assignment = assignment;
@@ -68,7 +68,7 @@ namespace JavaProgrammingContest.Web.API{
                 _context.Progresses.Add(progress);
                 _context.SaveChanges();
             } catch (Exception){
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error while saving to database.");
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error bij het opslaan in de database.");
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Progress, ProgressDTO>(progress));
@@ -81,7 +81,7 @@ namespace JavaProgrammingContest.Web.API{
             // Tried to fixx the "not being able to start an assignment if you reloaded the page during one" problem.
 
             if (_participant.Progress == null)
-                return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "No assignment was started.");
+                return Request.CreateErrorResponse(HttpStatusCode.Forbidden, "Geen opdracht is gestart.");
 
             try{
                 var timeDifference = TimeDifferenceHelper.GetTimeDifference(_participant.Progress.StartTime);
@@ -94,8 +94,8 @@ namespace JavaProgrammingContest.Web.API{
 
                 _context.SaveChanges();
             } catch (Exception){
-  
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error while saving to database.");
+
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error bij het opslaan in de database.");
             }
 
             return Request.CreateResponse(HttpStatusCode.OK);
