@@ -123,6 +123,7 @@ $(document).ready(function () {
                     modalProgress.find('#stopProgress').click(function () {
                         modalProgress.modal('hide');
                         API.Progress.stop();
+                        location.reload();
                     });
                     modalProgress.modal({
                         backdrop: true,
