@@ -19,13 +19,19 @@ namespace JavaProgrammingContest.Web.Controllers{
         ///     Database Context
         /// </summary>
         private readonly IDbContext _context;
-
+        private IWebSecurity WebSecurity { get; set; }
         /// <summary>
         ///     Controller Constructor
         /// </summary>
         /// <param name="context">Database Context to use.</param>
         public AccountController(IDbContext context){
             _context = context;
+        }
+
+        public AccountController(IDbContext context, IWebSecurity webSecurity)
+        {
+            _context = context;
+            WebSecurity = webSecurity; 
         }
 
         /// <summary>
