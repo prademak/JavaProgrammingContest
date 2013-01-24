@@ -5,12 +5,17 @@ using JavaProgrammingContest.Process.Compiler.Model;
 namespace JavaProgrammingContest.Process.Compiler.Java{
     public class JavaCompiler : ICompiler{
         public ICompilerProcess CompilerProcess { get; set; }
-        public IFilePathCreator FilePathCreator { get; set; }
+        public IWorkingFolder WorkingFolder { get; set; }
 
         public CompilerResult CompileFromPlainText(Participant participant, string code){
-            var javaFile = FilePathCreator.CreateFilePath(participant.Id, "Solution");
-            File.WriteAllText(javaFile, code);
-            return CompilerProcess.Compile(string.Format("\"{0}\"", javaFile));
+            var workingFolder = WorkingFolder.GetWorkingFolder(participant.Id);
+
+            const string fileName = "Solution" + ".java";
+            Directory.CreateDirectory(workingFolder);
+            var filePath = Path.Combine(workingFolder, fileName);
+
+            File.WriteAllText(filePath, code);
+            return CompilerProcess.Compile(string.Format("\"{0}\"", filePath));
         }
     }
 }

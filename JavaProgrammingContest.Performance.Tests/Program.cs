@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using JavaProgrammingContest.Domain.Entities;
+using JavaProgrammingContest.Process;
 using JavaProgrammingContest.Process.Compiler;
 using JavaProgrammingContest.Process.Compiler.Java;
 using JavaProgrammingContest.Process.Compiler.Java.Helpers;
@@ -25,9 +26,12 @@ namespace JavaProgrammingContest.Performance.Tests{
 
         private static void Compile(){
             var compiler = new JavaCompiler{
-                FilePathCreator = new TestFilePathCreator(),
-                CompilerProcess = new JavaCompilerProcess(new SettingsReader())
+                WorkingFolder = new TestWorkingFolder(),
+                CompilerProcess = new JavaCompilerProcess{AppSettingsReader = new SettingsReader()}
             };
+
+
+
 
             var result = compiler.CompileFromPlainText(new Participant{Id = Random.Next(1, 10000)}, 
 @"// Sample class

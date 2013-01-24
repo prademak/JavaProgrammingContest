@@ -1,11 +1,11 @@
-﻿using System.Data.Entity;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Web.Http;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using JavaProgrammingContest.DataAccess.Context;
+using JavaProgrammingContest.Process;
 using JavaProgrammingContest.Process.Compiler;
 using JavaProgrammingContest.Process.Compiler.Java;
 using JavaProgrammingContest.Process.Compiler.Java.Helpers;
@@ -45,13 +45,13 @@ namespace JavaProgrammingContest.Web{
             builder.RegisterType<JavaRunner>().As<IRunner>().PropertiesAutowired();
             builder.RegisterType<JavaRunnerProcess>().As<IRunnerProcess>();
             builder.RegisterType<SettingsReader>().As<ISettingsReader>();
-            builder.RegisterType<FilePathCreator>().As<IFilePathCreator>();
+            builder.RegisterType<WorkingFolder>().As<IWorkingFolder>();
         }
 
         private static void SetMvcResolver(ILifetimeScope container){
             DependencyResolver.SetResolver(
                 new AutofacDependencyResolver(container)
-            );
+                );
         }
 
         private static void SetApiResolver(ILifetimeScope container){

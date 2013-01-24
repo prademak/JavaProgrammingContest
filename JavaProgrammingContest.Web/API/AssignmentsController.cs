@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -9,7 +10,6 @@ using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Web.DTO;
 using WebMatrix.WebData;
-using System.Diagnostics.CodeAnalysis;
 
 namespace JavaProgrammingContest.Web.API{
     /// <summary>
@@ -24,14 +24,11 @@ namespace JavaProgrammingContest.Web.API{
         /// <summary>
         ///     API Interface Assignment Controller Constructor
         /// </summary>
-        /// <param name="context"></param>
-        /// 
-        private Participant _participant;
+        private readonly Participant _participant;
 
         public AssignmentsController(IDbContext context, Participant participant = null){
             _context = context;
-            _participant = participant == null ? getCurrentParticipant() : participant;
-      
+            _participant = participant ?? GetCurrentParticipant();
         }
 
         /// <summary>
@@ -44,17 +41,16 @@ namespace JavaProgrammingContest.Web.API{
             foreach (var assignment in _context.Assignments){
                 var assignmentDto = Mapper.Map<Assignment, AssignmentDTO>(assignment);
 
-                foreach (var score in _participant.Scores)
-                    if (score.Assignment.Id == assignment.Id)
-                        assignmentDto.HasBeenSubmitted = true;
+                if (_participant.Scores != null)
+                    foreach (var score in _participant.Scores)
+                        if (score.Assignment.Id == assignment.Id)
+                            assignmentDto.HasBeenSubmitted = true;
 
                 assignmentDtos.Add(assignmentDto);
             }
 
             return assignmentDtos;
         }
-
-      
 
         /// <summary>
         ///     Get all the info of the given Assignment
@@ -95,7 +91,7 @@ namespace JavaProgrammingContest.Web.API{
         ///     Delete an Assignment (REDUNDANT)
         /// </summary>
         /// <param name="id"></param>
-    [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         public void Delete(int id){
             try{
                 var assignment = _context.Assignments.Find(id);
@@ -107,9 +103,9 @@ namespace JavaProgrammingContest.Web.API{
                 throw new HttpResponseException(HttpStatusCode.InternalServerError);
             }
         }
+
         [ExcludeFromCodeCoverage]
-        private Participant getCurrentParticipant()
-        {
+        private Participant GetCurrentParticipant(){
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             return participant;
         }

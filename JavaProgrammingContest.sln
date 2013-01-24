@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaProgrammingContest.Doma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaProgrammingContest.DataAccess", "JavaProgrammingContest.DataAccess\JavaProgrammingContest.DataAccess.csproj", "{E16DD783-0CFB-4B8C-BDAD-3ACAE6F9B521}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaProgrammingContest.DataAccess.Tests", "JavaProgrammingContest.DataAccess.Tests\JavaProgrammingContest.DataAccess.Tests.csproj", "{30D9E662-6536-4BB2-AA16-498F52BEB51C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaProgrammingContest.Web", "JavaProgrammingContest.Web\JavaProgrammingContest.Web.csproj", "{0CC29C47-AF8A-4701-92C6-51E9B761E668}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaProgrammingContest.Web.Tests", "JavaProgrammingContest.Web.Tests\JavaProgrammingContest.Web.Tests.csproj", "{C9C8762A-79B2-45FE-BB11-0C8D65088914}"
@@ -14,8 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaProgrammingContest.Process", "JavaProgrammingContest.Process\JavaProgrammingContest.Process.csproj", "{E9B7E0DF-073C-4305-A379-44966F127781}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaProgrammingContest.Process.Tests", "JavaProgrammingContest.Process.Tests\JavaProgrammingContest.Process.Tests.csproj", "{FD8C4A39-E64D-424A-BB0B-6311BEB7A7FF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaProgrammingContest.Performance.Tests", "JavaProgrammingContest.Performance.Tests\JavaProgrammingContest.Performance.Tests.csproj", "{5BBF305F-1EB1-4793-A57D-54D6987CD706}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,12 +32,6 @@ Global
 		{E16DD783-0CFB-4B8C-BDAD-3ACAE6F9B521}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E16DD783-0CFB-4B8C-BDAD-3ACAE6F9B521}.Test|Any CPU.ActiveCfg = Test|Any CPU
 		{E16DD783-0CFB-4B8C-BDAD-3ACAE6F9B521}.Test|Any CPU.Build.0 = Test|Any CPU
-		{30D9E662-6536-4BB2-AA16-498F52BEB51C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{30D9E662-6536-4BB2-AA16-498F52BEB51C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{30D9E662-6536-4BB2-AA16-498F52BEB51C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{30D9E662-6536-4BB2-AA16-498F52BEB51C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{30D9E662-6536-4BB2-AA16-498F52BEB51C}.Test|Any CPU.ActiveCfg = Test|Any CPU
-		{30D9E662-6536-4BB2-AA16-498F52BEB51C}.Test|Any CPU.Build.0 = Test|Any CPU
 		{0CC29C47-AF8A-4701-92C6-51E9B761E668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0CC29C47-AF8A-4701-92C6-51E9B761E668}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CC29C47-AF8A-4701-92C6-51E9B761E668}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -64,12 +54,6 @@ Global
 		{FD8C4A39-E64D-424A-BB0B-6311BEB7A7FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD8C4A39-E64D-424A-BB0B-6311BEB7A7FF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FD8C4A39-E64D-424A-BB0B-6311BEB7A7FF}.Test|Any CPU.ActiveCfg = Release|Any CPU
-		{5BBF305F-1EB1-4793-A57D-54D6987CD706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5BBF305F-1EB1-4793-A57D-54D6987CD706}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5BBF305F-1EB1-4793-A57D-54D6987CD706}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5BBF305F-1EB1-4793-A57D-54D6987CD706}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5BBF305F-1EB1-4793-A57D-54D6987CD706}.Test|Any CPU.ActiveCfg = Release|Any CPU
-		{5BBF305F-1EB1-4793-A57D-54D6987CD706}.Test|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

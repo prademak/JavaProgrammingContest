@@ -42,11 +42,11 @@
   <ItemGroup>
     <Compile Include="Compiler\ICompiler.cs" />
     <Compile Include="Compiler\ICompilerProcess.cs" />
-    <Compile Include="Compiler\ISettingsReader.cs" />
+    <Compile Include="SettingsReader.cs" />
     <Compile Include="Compiler\Java\Helpers\JavaCompilerProcess.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Compiler\IFilePathCreator.cs" />
+    <Compile Include="FilePathCreator.cs" />
     <Compile Include="Compiler\Java\JavaCompiler.cs" />
     <Compile Include="Compiler\Model\CompilerResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

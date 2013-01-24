@@ -1,31 +1,28 @@
-﻿using System.IO;
-using System.Web;
-using JavaProgrammingContest.Domain.Entities;
+﻿using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Process.Runner.Model;
 
 namespace JavaProgrammingContest.Process.Runner.Java{
-    //todo refactor arguments, something like IJavaRunArgumentsProvider
     public class JavaRunner : IRunner{
         public IRunnerProcess RunnerProcess { get; set; }
+        public IWorkingFolder WorkingFolder { get; set; }
 
         public RunResult Run(Participant participant){
-            var argument = "-cp " + CreateFilePath(participant.Id) + " Solution";
+            var argument = CreateRunArgument(participant);
             return RunnerProcess.Run(argument);
         }
 
-        public RunResult RunAndCheckInput(Participant participant)
-        {
-            var argument = "-cp " + CreateFilePath(participant.Id) + " Solution";
+        public RunResult RunAndCheckInput(Participant participant){
+            var argument = CreateRunArgument(participant);
             return RunnerProcess.Run(argument, participant.Progress.Assignment.RunCodeInput);
         }
 
-        public string CreateFilePath(int id){
-            var path = HttpContext.Current.Server.MapPath("~/");
+        private string GetFilePath(int participantId){
+            var workingFolder = WorkingFolder.GetWorkingFolder(participantId);
+            return string.Format("\"{0}\"", workingFolder);
+        }
 
-            path = Path.Combine(path, "temp");
-            path = Path.Combine(path, id.ToString());
-          //  path = path.Remove(path.LastIndexOf('\\'));
-            return string.Format("\"{0}\"", path );
+        private string CreateRunArgument(Participant participant){
+            return "-cp " + GetFilePath(participant.Id) + " Solution";
         }
     }
 }
