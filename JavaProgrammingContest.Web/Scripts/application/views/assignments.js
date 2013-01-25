@@ -59,6 +59,7 @@ $(document).ready(function () {
                             modalProgress.modal('hide');
                             API.Progress.stop();
                             ns.$el.find('li[data-assignment=' + ns.modelIndex + ']').addClass('done');
+                            ns.nextAssignment();
                         });  
                         modalProgress.modal({
                             backdrop: true,
@@ -116,6 +117,7 @@ $(document).ready(function () {
             this.render();
 
             // Check if the assignment is already in progress
+            var ns = this;
             API.Progress.inProgress(this.current.id, function (data) {
                 if (data.StartTime) {
                     var modalProgress = $('#assignmentInProgressModal');
@@ -123,7 +125,9 @@ $(document).ready(function () {
                     modalProgress.find('#stopProgress').click(function () {
                         modalProgress.modal('hide');
                         API.Progress.stop();
-                        location.reload();
+                        ns.$el.find('li[data-assignment=' + ns.modelIndex + ']').addClass('done');
+                        ns.nextAssignment();
+                        //location.reload();
                     });
                     modalProgress.modal({
                         backdrop: true,
