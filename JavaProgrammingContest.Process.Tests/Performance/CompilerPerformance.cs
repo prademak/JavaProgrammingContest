@@ -10,7 +10,6 @@ namespace JavaProgrammingContest.Process.Tests.Performance{
             : base("JavaProgrammingContest.Web") {}
 
         [Test]
-<<<<<<< HEAD
         public void EndToEndTest(){
             ChromeDriver.Navigate().GoToUrl(GetAbsoluteUrl("/"));
             ChromeDriver.FindElementByLinkText("Log in").Click();
@@ -24,19 +23,6 @@ namespace JavaProgrammingContest.Process.Tests.Performance{
             ChromeDriver.FindElementById("assignmentSubmitModal").FindElement(By.LinkText("Submit")).Click();
 
             Thread.Sleep(5000);
-=======
-        public void Test(){
-            //for (int i = 0; i < 2; i++){
-            //    var t = new Thread(OpenBrowser);
-            //    t.Start();
-            //    t.Join();    
-            //}
-
-//            TestInitialize();
-
-            //ChromeDriver.Navigate().GoToUrl(GetAbsoluteUrl("/"));
-           // Thread.Sleep(50000);
->>>>>>> fe46ed6a49515e0e878f8cc100f135dc323e80a3
         }
 
         private void OpenBrowser(object obj){
