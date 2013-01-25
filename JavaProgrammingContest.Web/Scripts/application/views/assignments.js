@@ -93,7 +93,7 @@ $(document).ready(function () {
         },
         
         nextAssignment: function () {
-            if (this.modelIndex < this.model.length) {
+            if (this.modelIndex+1 < this.model.length) {
                 this.setAssignment(++this.modelIndex);
                 return false;
             } else {
