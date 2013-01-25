@@ -1,26 +1,28 @@
 ﻿using System.Threading;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 namespace JavaProgrammingContest.Process.Tests.Performance{
     [TestFixture]
     public class Simulation : SeleniumTest{
         public Simulation()
-            : base("JavaProgrammingContest"){
-        }
+            : base("JavaProgrammingContest.Web") {}
 
         [Test]
-        public void Test(){
-            //for (int i = 0; i < 2; i++){
-            //    var t = new Thread(OpenBrowser);
-            //    t.Start();
-            //    t.Join();    
-            //}
+        public void EndToEndTest(){
+            ChromeDriver.Navigate().GoToUrl(GetAbsoluteUrl("/"));
+            ChromeDriver.FindElementByLinkText("Log in").Click();
+            ChromeDriver.FindElementById("UserName").SendKeys("admin");
+            ChromeDriver.FindElementById("Password").SendKeys("!nf0suPP0r7");
+            ChromeDriver.FindElementsByTagName("form")[1].Submit();
+            ChromeDriver.FindElementByLinkText("Start Programmeren").Click();
+            ChromeDriver.FindElementByLinkText("Start de tijd!").Click();
+            ChromeDriver.FindElementByLinkText("Editor").Click();
+            ChromeDriver.FindElementByLinkText("Submit").Click();
+            ChromeDriver.FindElementById("assignmentSubmitModal").FindElement(By.LinkText("Submit")).Click();
 
-            TestInitialize();
-
-            //ChromeDriver.Navigate().GoToUrl(GetAbsoluteUrl("/"));
-            Thread.Sleep(50000);
+            Thread.Sleep(5000);
         }
 
         private void OpenBrowser(object obj){
