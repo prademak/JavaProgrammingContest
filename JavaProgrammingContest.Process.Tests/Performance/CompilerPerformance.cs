@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
 namespace JavaProgrammingContest.Process.Tests.Performance{
-    [TestFixture]
+    [TestFixture(Ignore = true)]
     public class Simulation : SeleniumTest{
         public Simulation()
             : base("JavaProgrammingContest.Web") {}
