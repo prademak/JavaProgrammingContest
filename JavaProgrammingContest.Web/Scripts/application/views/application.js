@@ -247,6 +247,7 @@ $(document).ready(function () {
                      {
                          addClass: 'btn btn-danger', text: 'Ok', onClick: function ($noty) {
                              $noty.close();
+                             API.Progess.stop();
                              ns.showNextAssignment();
                          }
                      },
