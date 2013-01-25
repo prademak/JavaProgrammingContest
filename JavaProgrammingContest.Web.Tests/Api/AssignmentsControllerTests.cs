@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -9,13 +11,9 @@ using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.DataAccess.TestSupport;
 using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Web.API;
+using JavaProgrammingContest.Web.App_Start;
 using Moq;
 using NUnit.Framework;
-using JavaProgrammingContest.Web.App_Start;
-using System.Collections.Generic;
-using JavaProgrammingContest.Web.DTO;
-using System.Collections;
-using System.Collections.ObjectModel;
 
 namespace JavaProgrammingContest.Web.Tests.Api{
     [TestFixture]
@@ -26,32 +24,21 @@ namespace JavaProgrammingContest.Web.Tests.Api{
         [SetUp]
         public void SetUp(){
             _contextMock = new Mock<IDbContext>();
-            var scores = new Collection<Score> { };
-            scores.Add(new Score{ Assignment = new Assignment { Id = 1 } });
-            _controller = new AssignmentsController(_contextMock.Object, new Participant { Id = 1, Scores = scores });
+            var scores = new Collection<Score>{new Score{Assignment = new Assignment{Id = 1}}};
+            _controller = new AssignmentsController(_contextMock.Object, new Participant{Id = 1, Scores = scores});
             MapperConfig.Configure();
         }
 
         [Test]
-        [ExpectedException(typeof(InvalidOperationException))]
-        public void SetConstructorWithoutGivenParticipantGivesInvalidOperationFromTest()
-        {
+        [ExpectedException(typeof (InvalidOperationException))]
+        public void SetConstructorWithoutGivenParticipantGivesInvalidOperationFromTest(){
             _controller = new AssignmentsController(_contextMock.Object);
-         
-            Assert.IsTrue(true);
-        }
-
-        [Test]
-        public void GetAllAssignmentsReturnsListOfAssignments(){
-            _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(5));
-            Assert.IsTrue(true);
         }
 
         [Test]
         [ExpectedException(typeof (HttpResponseException))]
         public void GetAssignmentThrowsHttpResponseExceptionWhenContextReturnsNull(){
             _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(1));
-
             _controller.Get(2);
         }
 
@@ -59,36 +46,29 @@ namespace JavaProgrammingContest.Web.Tests.Api{
         public void PostAssignmentReturnsCreatedStatusCode(){
             _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(2));
             SetupControllerForTests(_controller);
-
             var result = _controller.Post(new Assignment{Id = 3, Title = "title 3"});
-
             Assert.AreEqual(HttpStatusCode.Created, result.StatusCode);
         }
 
         [Test]
-        public void GetAssignmentWithId()
-        {
+        public void GetAssignmentWithId(){
             _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(2));
             SetupControllerForTests(_controller);
-            var assignment = new Assignment { Id = 3, Title = "title 3" };
+            var assignment = new Assignment{Id = 3, Title = "title 3"};
             var result = _controller.Post(assignment);
             var getresult = _controller.Get(assignment.Id);
-            Assert.AreEqual(assignment.Title,  getresult.Title);
+            Assert.AreEqual(assignment.Title, getresult.Title);
         }
 
         [Test]
-        public void GetAListofAllTheAssignments()
-        {
-            var inputList = CreateSampleData(5);
-            _contextMock.Setup(m => m.Assignments).Returns(inputList);
+        public void GetAListofAllTheAssignments(){
+            _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(5));
             SetupControllerForTests(_controller);
-            var getresult = _controller.Get();
-            Assert.AreEqual(5, count(getresult));
+            Assert.AreEqual(5, _controller.Get().Count());
         }
 
         [Test]
-        public void DeleteAssignmentWithId()
-        {
+        public void DeleteAssignmentWithId(){
             _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(3));
             SetupControllerForTests(_controller);
             Assert.IsNotNull(_contextMock.Object.Assignments.Find(1));
@@ -96,18 +76,14 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             Assert.IsNull(_contextMock.Object.Assignments.Find(1));
         }
 
-   
-
         [Test]
-        [ExpectedException(typeof(HttpResponseException))]
-        public void DeleteAssignmentWithInvalidIdGivesHTTPNotFound()
-        {
+        [ExpectedException(typeof (HttpResponseException))]
+        public void DeleteAssignmentWithInvalidIdGivesHTTPNotFound(){
             _contextMock.Setup(m => m.Assignments).Returns(CreateSampleData(3));
             SetupControllerForTests(_controller);
             _controller.Delete(5);
-           
         }
-    
+
         [Test]
         public void PostAssignmentCallsAddOnContextWithProvidedAssignment(){
             _contextMock.Setup(m => m.Assignments.Add(It.IsAny<Assignment>()));
@@ -137,7 +113,6 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             _controller.Post(new Assignment());
         }
 
-     
         private static FakeAssignmentsSet CreateSampleData(int nrOfRecords){
             var sampleData = new FakeAssignmentsSet();
 
@@ -160,17 +135,5 @@ namespace JavaProgrammingContest.Web.Tests.Api{
             controller.Request = request;
             controller.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
         }
-        private static int count(IEnumerable<AssignmentDTO> getresult)
-        {
-            int count = 0;
-            foreach (object obj in getresult)
-            {
-                count++;
-            }
-            return count;
-        }
-        
-
-        
     }
 }

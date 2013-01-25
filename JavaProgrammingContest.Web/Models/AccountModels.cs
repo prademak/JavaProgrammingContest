@@ -6,8 +6,10 @@ namespace JavaProgrammingContest.Web.Models{
         [DataType(DataType.EmailAddress)]
         [Display(Name = "E-mailadres")]
         public string UserName { get; set; }
+
         [Display(Name = "Naam")]
         public string Name { get; set; }
+
         public string Functie { get; set; }
 
         public string ExternalLogonData { get; set; }
@@ -49,9 +51,10 @@ namespace JavaProgrammingContest.Web.Models{
         [Required]
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 2)]
         [Display(Name = "Naam")]
-        public string Name { get; set; } 
+        public string Name { get; set; }
 
         public string Functie { get; set; }
+
         [Required]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email adres")]

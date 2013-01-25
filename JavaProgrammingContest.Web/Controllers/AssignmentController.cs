@@ -12,14 +12,14 @@ namespace JavaProgrammingContest.Web.Controllers{
         /// <summary>
         ///     Database Context
         /// </summary>
-        private readonly IDbContext db;
+        private readonly IDbContext _db;
 
         /// <summary>
         ///     Controller Constructor
         /// </summary>
         /// <param name="context"></param>
         public AssignmentController(IDbContext context){
-            db = context;
+            _db = context;
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace JavaProgrammingContest.Web.Controllers{
         /// </summary>
         /// <returns></returns>
         public ActionResult Index(){
-            return View(db.Assignments.ToList());
+            return View(_db.Assignments.ToList());
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace JavaProgrammingContest.Web.Controllers{
         /// <param name="id"></param>
         /// <returns></returns>
         public ActionResult Details(int id = 0){
-            Assignment assignment = db.Assignments.Find(id);
+            Assignment assignment = _db.Assignments.Find(id);
             if (assignment == null)
                 return HttpNotFound();
             return View(assignment);
@@ -58,8 +58,8 @@ namespace JavaProgrammingContest.Web.Controllers{
         [HttpPost]
         public ActionResult Create(Assignment assignment){
             if (ModelState.IsValid){
-                db.Assignments.Add(assignment);
-                db.SaveChanges();
+                _db.Assignments.Add(assignment);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -72,7 +72,7 @@ namespace JavaProgrammingContest.Web.Controllers{
         /// <param name="id"></param>
         /// <returns></returns>
         public ActionResult Edit(int id = 0){
-            Assignment assignment = db.Assignments.Find(id);
+            Assignment assignment = _db.Assignments.Find(id);
             if (assignment == null)
                 return HttpNotFound();
             return View(assignment);
@@ -87,10 +87,10 @@ namespace JavaProgrammingContest.Web.Controllers{
         [HttpPost]
         public ActionResult Edit(int id, Assignment assignment){
             if (ModelState.IsValid){
-                var assignmentOld = db.Assignments.Find(id);
-                
+                var assignmentOld = _db.Assignments.Find(id);
+
                 if (TryUpdateModel(assignmentOld)){
-                    db.SaveChanges();
+                    _db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 ModelState.AddModelError("Internal Error", "Unexpected error while saving to the database.");
@@ -104,7 +104,7 @@ namespace JavaProgrammingContest.Web.Controllers{
         /// <param name="id"></param>
         /// <returns></returns>
         public ActionResult Delete(int id = 0){
-            Assignment assignment = db.Assignments.Find(id);
+            Assignment assignment = _db.Assignments.Find(id);
             if (assignment == null)
                 return HttpNotFound();
             return View(assignment);
@@ -117,9 +117,9 @@ namespace JavaProgrammingContest.Web.Controllers{
         /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id){
-            Assignment assignment = db.Assignments.Find(id);
-            db.Assignments.Remove(assignment);
-            db.SaveChanges();
+            Assignment assignment = _db.Assignments.Find(id);
+            _db.Assignments.Remove(assignment);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
     }

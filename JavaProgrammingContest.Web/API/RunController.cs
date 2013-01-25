@@ -1,20 +1,17 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Process.Compiler;
 using JavaProgrammingContest.Process.Runner;
-using WebMatrix.WebData; 
+using WebMatrix.WebData;
 
-namespace JavaProgrammingContest.Web.API
-{
+namespace JavaProgrammingContest.Web.API{
     /// <summary>
     ///     Controller for interface interaction with the processing objects.
     /// </summary>
-    public class RunController : ApiController
-    {
+    public class RunController : ApiController{
         /// <summary>
         ///     Stores a runner instance.
         /// </summary>
@@ -38,16 +35,15 @@ namespace JavaProgrammingContest.Web.API
         /// <param name="runner">Runner to use.</param>
         /// 
         private Participant _participant;
-        public RunController(IDbContext context, ICompiler compiler, IRunner runner, Participant participant = null)
-        {
+
+        public RunController(IDbContext context, ICompiler compiler, IRunner runner, Participant participant = null){
             _context = context;
             _compiler = compiler;
             _runner = runner;
             _participant = participant == null ? GetCurrentParticipant() : participant;
         }
-         
-        private Participant GetCurrentParticipant()
-        {
+
+        private Participant GetCurrentParticipant(){
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             return participant;
         }
@@ -57,12 +53,11 @@ namespace JavaProgrammingContest.Web.API
         /// </summary>
         /// <param name="runJob"></param>
         /// <returns></returns>
-        public HttpResponseMessage Run(RunJob runJob)
-        { 
+        public HttpResponseMessage Run(RunJob runJob){
             var result = _compiler.CompileFromPlainText(_participant, runJob.Code);
             var runResult = _runner.Run(_participant);
 
-             var response = new RunResult{
+            var response = new RunResult{
                 BuildResult = new BuildController.BuildResult{
                     Output = result.StandardOutput,
                     Error = result.StandardError,
@@ -79,8 +74,7 @@ namespace JavaProgrammingContest.Web.API
         /// <summary>
         ///     Defines the datastructure for a run job.
         /// </summary>
-        public class RunJob
-        {
+        public class RunJob{
             /// <summary>
             ///     Code to run.
             /// </summary>
@@ -92,12 +86,10 @@ namespace JavaProgrammingContest.Web.API
             public int Id { get; set; }
         }
 
-
         /// <summary>
         ///     Defined the Result of a run job.
         /// </summary>
-        public class RunResult
-        {
+        public class RunResult{
             /// <summary>
             ///     Result of the Build Job.
             /// </summary>
@@ -109,6 +101,7 @@ namespace JavaProgrammingContest.Web.API
             public int RunTime { get; set; }
 
             public string Error { get; set; }
+
             /// <summary>
             ///     Output that was given by the code.
             /// </summary>
