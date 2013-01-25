@@ -7,8 +7,7 @@ using JavaProgrammingContest.DataAccess.Context;
 using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Web.DTO;
 using JavaProgrammingContest.Web.Helpers;
-using WebMatrix.WebData;
-using System.Diagnostics.CodeAnalysis;
+using WebMatrix.WebData; 
 
 namespace JavaProgrammingContest.Web.API{
     /// <summary>
@@ -29,7 +28,7 @@ namespace JavaProgrammingContest.Web.API{
         private Participant _participant;
         public ProgressController(IDbContext context, Participant participant = null){
             _context = context;
-          _participant = participant == null ? getCurrentParticipant() : participant;
+          _participant = participant == null ? GetCurrentParticipant() : participant;
         }
 
         /// <summary>
@@ -67,8 +66,9 @@ namespace JavaProgrammingContest.Web.API{
             try{
                 _context.Progresses.Add(progress);
                 _context.SaveChanges();
-            } catch (Exception){
+            } catch {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error bij het opslaan in de database.");
+                throw;
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<Progress, ProgressDTO>(progress));
@@ -93,15 +93,16 @@ namespace JavaProgrammingContest.Web.API{
                 _context.Progresses.Remove(_participant.Progress);
 
                 _context.SaveChanges();
-            } catch (Exception){
+            } catch {
 
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error bij het opslaan in de database.");
+                throw;
             }
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
-        [ExcludeFromCodeCoverage]
-        private Participant getCurrentParticipant()
+  
+        private Participant GetCurrentParticipant()
         {
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             return participant;

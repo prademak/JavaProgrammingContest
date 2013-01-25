@@ -1,6 +1,6 @@
 ﻿@model JavaProgrammingContest.Web.Models.LocalPasswordModel
 @{
-    ViewBag.Title = "Manage Account";
+    ViewBag.Title = "Beheer Account";
 }
 
 <hgroup class="title">
@@ -9,7 +9,7 @@
 
 <p class="message-success">@ViewBag.StatusMessage</p>
 
-<p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
+<p>Je bent ingelogd als <strong>@User.Identity.Name</strong>.</p>
 
 @if (ViewBag.HasLocalPassword)
 {
@@ -23,7 +23,7 @@ else
 <section id="externalLogins">
     @Html.Action("RemoveExternalLogons")
 
-    <h3>Add an external login</h3>
+    <h3>Voeg authenticatie toe</h3>
     @Html.Action("ExternalLogonsList", new { ReturnUrl = ViewBag.ReturnUrl })
 </section>
 

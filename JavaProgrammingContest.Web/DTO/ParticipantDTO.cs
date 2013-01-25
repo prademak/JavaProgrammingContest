@@ -2,6 +2,7 @@
     public class ParticipantDTO{
         public int Id { get; set; }
         public string Email { get; set; }
+        public string Name { get; set; }
         public int UserSettingId { get; set; }
         public int ProgressId { get; set; }
     }

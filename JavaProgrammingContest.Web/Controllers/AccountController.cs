@@ -19,13 +19,18 @@ namespace JavaProgrammingContest.Web.Controllers{
         ///     Database Context
         /// </summary>
         private readonly IDbContext _context;
-
+       
         /// <summary>
         ///     Controller Constructor
         /// </summary>
         /// <param name="context">Database Context to use.</param>
         public AccountController(IDbContext context){
             _context = context;
+        }
+
+        public AccountController(IDbContext context, IWebSecurity webSecurity)
+        {
+            _context = context; 
         }
 
         /// <summary>
@@ -219,10 +224,12 @@ namespace JavaProgrammingContest.Web.Controllers{
             }
 
             var logonData = OAuthWebSecurity.SerializeProviderUserId(result.Provider, result.ProviderUserId);
+            ViewBag.Name = result.UserName;
             ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
             ViewBag.ReturnUrl = returnUrl;
             return View("ExternalLogonConfirmation",
-                new RegisterExternalLogonModel{UserName = result.UserName, ExternalLogonData = logonData});
+                new RegisterExternalLogonModel { UserName = result.UserName, Name = result.UserName, Functie = result.ExtraData["headline"], ExternalLogonData = logonData });
+
         }
 
         /// <summary>
@@ -245,7 +252,7 @@ namespace JavaProgrammingContest.Web.Controllers{
             if (ModelState.IsValid){
                 var user = _context.Participants.FirstOrDefault(u => u.Email.ToLower() == model.UserName.ToLower());
                 if (user == null){
-                    _context.Participants.Add(new Participant{Email = model.UserName});
+                    _context.Participants.Add(new Participant{Email = model.UserName, Name = model.Name, Functie = model.Functie});
                     _context.SaveChanges();
 
                     OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
@@ -255,7 +262,7 @@ namespace JavaProgrammingContest.Web.Controllers{
                 }
                 ModelState.AddModelError("UserName", "Deze naam bestaat al. Kies een andere naam.");
             }
-
+            ViewBag.Name = model.Name;
             ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(provider).DisplayName;
             ViewBag.ReturnUrl = returnUrl;
             return View(model);

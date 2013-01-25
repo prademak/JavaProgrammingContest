@@ -83,7 +83,7 @@ namespace JavaProgrammingContest.Web.Controllers{
                 foreach (var id in idList)
                     foreach (var participant in ParticipantList)
                         if (id == participant.Id)
-                            participantScores.Add(new ParticipantScore(_contest, id, participant.Email));
+                            participantScores.Add(new ParticipantScore(_contest, participant));
 
             Participants = participantScores;
         }
@@ -113,15 +113,19 @@ namespace JavaProgrammingContest.Web.Controllers{
     public class ParticipantScore
     {
         public string Email { get; set; }
+        public string Name { get; set; }
+        public string Functie { get; set; }
         public int AssignmentsCompleted { get; set; }
         public int AssignmentsMade { get; set; }
         public double AverageTime { get; set; }
         public double CompletePercentage { get; set; }
 
-        public ParticipantScore(Contest contest, int id, string email)
+        public ParticipantScore(Contest contest, Participant participant)
         {
-            Email = email;
-            SetScore(contest, id);
+            Email = participant.Email;
+            Name = participant.Name;
+            Functie = participant.Functie;
+            SetScore(contest, participant.Id);
         }
 
         private void SetScore(Contest contest, int id)
@@ -148,9 +152,9 @@ namespace JavaProgrammingContest.Web.Controllers{
 
         private double CalculateCompletePercentage(int assignmentsMade, int assignmentsComplete)
         {
-            var completePercentage = 0.0;
-            var made = assignmentsMade;
-            var complete = assignmentsComplete;
+            double completePercentage = 0.0;
+            double made = assignmentsMade;
+            double complete = assignmentsComplete;
 
             if (assignmentsComplete != 0 && assignmentsMade != 0)
             {

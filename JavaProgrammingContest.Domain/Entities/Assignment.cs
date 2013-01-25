@@ -18,7 +18,7 @@ namespace JavaProgrammingContest.Domain.Entities{
         public string CodeGiven { get; set; }
 
         [Required]
-        [Display(Name = "Tijdlimiet")]
+        [Display(Name = "Tijdslimiet (sec)")]
         public double MaxSolveTime { get; set; }
 
         [Display(Name = "Input tekst wanneer opdracht actief is.")]

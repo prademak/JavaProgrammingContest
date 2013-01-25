@@ -205,17 +205,12 @@ $(document).ready(function () {
                         type: 'error', layout: 'topRight'
                     });
                 }
-
                 // Find current list-item and mark it as done
-                ns.$el.find('li[data-assignment=' + ns.assignments.modelIndex + ']').addClass('done');
-
-                // Load next assignment
-                ns.assignments.nextAssignment();
-
-                // No assignment in progress anymore
-                ns.assignments.started = false;
-
-                // Disable all tabs
+               
+           
+                 ns.$el.find('li[data-assignment=' + ns.assignments.modelIndex + ']').addClass('done');
+                 
+                       // Disable all tabs
                 ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
                    .addClass('disabled');
 
@@ -224,6 +219,13 @@ $(document).ready(function () {
                 // Change view to assignment
                 ns.changeView('start');
 
+                 // Load next assignment
+                ns.assignments.nextAssignment();
+
+                // No assignment in progress anymore
+                ns.assignments.started = false;
+
+         
                 // Enable the start time button
                 ns.$el.find('#AssignmentPane .properties a')
                    .removeClass('disabled')
@@ -248,8 +250,6 @@ $(document).ready(function () {
                          addClass: 'btn btn-danger', text: 'Ok', onClick: function ($noty) {
                              $noty.close();
 
-                             this.timer.stop();
-                             this.timer = null;
 
                              ns.showNextAssignment();
                          }
@@ -269,29 +269,38 @@ $(document).ready(function () {
         showNextAssignment: function () {
             var ns = this;
 
-            API.Progress.stop();
+            ns.timer.stop();
+            ns.timer = null;
+          
+            // Find current list-item and mark it as done
+            ns.$el.find('li[data-assignment=' + ns.assignments.modelIndex + ']').addClass('done');
+                 
+            // Disable all tabs
+            ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
+               .addClass('disabled');
+
+            ns.$el.find('li#startTab').removeClass('hide');
+
+            // Change view to assignment
+            ns.changeView('start');
+
+            // Load next assignment
             ns.assignments.nextAssignment();
 
             // No assignment in progress anymore
             ns.assignments.started = false;
 
-            // Disable all tabs
-            ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
-                .addClass('disabled');
-            ns.$el.find('li#startTab').removeClass('hide disabled');
-
-            // Change view to assignment
-            ns.changeView('start');
-
+         
             // Enable the start time button
             ns.$el.find('#AssignmentPane .properties a')
-                .removeClass('disabled')
-                .text('Start de tijd!');
+               .removeClass('disabled')
+               .text('Start de tijd!');
 
             // Enable the start time button
             ns.$el.find('#StartPane .properties a')
-                .removeClass('disabled')
-                .text('Start de tijd!');
+               .removeClass('disabled')
+               .text('Start de tijd!');
+
         }
     });
 }); 

@@ -13,11 +13,11 @@ namespace JavaProgrammingContest.DataAccess.Migrations{
         }
 
         protected override void Seed(JavaProgrammingContestContext context){
-            SetupWebSercurity();
+            SetupWebSecurity();
             InsertSampleData(context);
         }
 
-        private static void SetupWebSercurity(){
+        private static void SetupWebSecurity(){
             WebSecurity.InitializeDatabaseConnection(
                 "JavaProgrammingContest",
                 "Participants",
