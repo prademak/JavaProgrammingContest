@@ -240,14 +240,14 @@ $(document).ready(function () {
             return false;
         },
         
-        cancelAssignment: function () {
+        cancelAssignment: function (e) {
             var ns = this;
             noty({
                 text: 'Weet je zeker dat je de opdracht wilt stoppen?\nJe kunt hem niet opnieuw openen/maken!', type: 'confirm', layout: 'topCenter', modal: true, buttons: [
                      {
                          addClass: 'btn btn-danger', text: 'Ok', onClick: function ($noty) {
                              $noty.close();
-                             API.Progess.stop();
+                             API.Progress.stop();
                              ns.showNextAssignment();
                          }
                      },
