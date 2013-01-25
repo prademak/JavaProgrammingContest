@@ -182,14 +182,13 @@ $(document).ready(function () {
         submitAssignment: function (e) {
             var ns = this;
 
-
             // Notify the user
             $('#assignmentSubmitModal').modal({ backdrop: true, keyboard: false, show: true });
             $('#assignmentSubmitModal .btn-success').click(function () {
-
                 // Stop the timer
                 ns.timer.stop();
                 ns.timer = null;
+
                 // Submit the assignment using the model
                 var succ = (new CodeSubmitModel({ Id: ns.assignments.current.get('Id'), Code: ns.editor.getContent() })).save();
 
@@ -205,12 +204,11 @@ $(document).ready(function () {
                         type: 'error', layout: 'topRight'
                     });
                 }
+
                 // Find current list-item and mark it as done
-               
-           
-                 ns.$el.find('li[data-assignment=' + ns.assignments.modelIndex + ']').addClass('done');
+                ns.$el.find('li[data-assignment=' + ns.assignments.modelIndex + ']').addClass('done');
                  
-                       // Disable all tabs
+                // Disable all tabs
                 ns.$el.find('.tabbable.tabs-below li:not(:first-child)')
                    .addClass('disabled');
 
@@ -219,12 +217,11 @@ $(document).ready(function () {
                 // Change view to assignment
                 ns.changeView('start');
 
-                 // Load next assignment
+                // Load next assignment
                 ns.assignments.nextAssignment();
 
                 // No assignment in progress anymore
                 ns.assignments.started = false;
-
          
                 // Enable the start time button
                 ns.$el.find('#AssignmentPane .properties a')
