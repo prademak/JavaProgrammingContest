@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Web.DTO;
 

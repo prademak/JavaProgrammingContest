@@ -35,16 +35,15 @@ namespace JavaProgrammingContest.Web.API{
 
             var userSetting = participant.UserSetting;
             if (userSetting == null){
-                participant.UserSetting = new UserSetting()
-                    {
-                        AutoIndent = true,
-                        IntelliSense = true,
-                        LineWrapping = true,
-                        MatchBrackets = true,
-                        TabSize = 6,
-                        Theme = "eclipse",
-                        Participant = participant
-                    };
+                participant.UserSetting = new UserSetting(){
+                    AutoIndent = true,
+                    IntelliSense = true,
+                    LineWrapping = true,
+                    MatchBrackets = true,
+                    TabSize = 6,
+                    Theme = "eclipse",
+                    Participant = participant
+                };
                 userSetting = participant.UserSetting;
             }
 

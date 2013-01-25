@@ -1,11 +1,10 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using JavaProgrammingContest.DataAccess.Context;
+using JavaProgrammingContest.Domain.Entities;
 using JavaProgrammingContest.Process.Compiler;
 using WebMatrix.WebData;
-using JavaProgrammingContest.Domain.Entities; 
 
 namespace JavaProgrammingContest.Web.API{
     /// <summary>
@@ -30,14 +29,12 @@ namespace JavaProgrammingContest.Web.API{
         /// <param name="context"></param>
         /// <param name="compiler"></param>
         /// 
-
         private Participant _participant;
-        public BuildController(IDbContext context, ICompiler compiler, Participant participant = null)
-        {
+
+        public BuildController(IDbContext context, ICompiler compiler, Participant participant = null){
             _context = context;
             _compiler = compiler;
             _participant = participant == null ? GetCurrentParticipant() : participant;
-          
         }
 
         /// <summary>
@@ -46,7 +43,6 @@ namespace JavaProgrammingContest.Web.API{
         /// <param name="buildJob"></param>
         /// <returns></returns>
         public HttpResponseMessage Post(BuildJob buildJob){
-             
             var result = _compiler.CompileFromPlainText(_participant, buildJob.Code);
 
             //TODO use CompilerResult class as response
@@ -58,8 +54,7 @@ namespace JavaProgrammingContest.Web.API{
                 });
         }
 
-        private Participant GetCurrentParticipant()
-        {
+        private Participant GetCurrentParticipant(){
             var participant = _context.Participants.Find(WebSecurity.GetUserId(User.Identity.Name));
             return participant;
         }
@@ -67,8 +62,7 @@ namespace JavaProgrammingContest.Web.API{
         /// <summary>
         ///     Defines the data-structure for a Build Job
         /// </summary>
-        public class BuildJob
-        {
+        public class BuildJob{
             /// <summary>
             ///     Code to build.
             /// </summary>
@@ -78,8 +72,7 @@ namespace JavaProgrammingContest.Web.API{
         /// <summary>
         ///     Result of a Build-Job.
         /// </summary>
-        public class BuildResult
-        {
+        public class BuildResult{
             /// <summary>
             ///     Time it took to build the code.
             /// </summary>

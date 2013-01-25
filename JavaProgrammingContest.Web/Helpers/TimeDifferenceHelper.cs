@@ -1,5 +1,4 @@
 using System;
-using JavaProgrammingContest.Domain.Entities;
 
 namespace JavaProgrammingContest.Web.Helpers{
     public class TimeDifferenceHelper{
@@ -11,6 +10,4 @@ namespace JavaProgrammingContest.Web.Helpers{
             return timeDifference;
         }
     }
-
-    
 }

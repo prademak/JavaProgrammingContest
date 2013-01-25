@@ -19,7 +19,7 @@ namespace JavaProgrammingContest.Web.Controllers{
         ///     Database Context
         /// </summary>
         private readonly IDbContext _context;
-       
+
         /// <summary>
         ///     Controller Constructor
         /// </summary>
@@ -28,9 +28,8 @@ namespace JavaProgrammingContest.Web.Controllers{
             _context = context;
         }
 
-        public AccountController(IDbContext context, IWebSecurity webSecurity)
-        {
-            _context = context; 
+        public AccountController(IDbContext context, IWebSecurity webSecurity){
+            _context = context;
         }
 
         /// <summary>
@@ -228,8 +227,12 @@ namespace JavaProgrammingContest.Web.Controllers{
             ViewBag.ProviderDisplayName = OAuthWebSecurity.GetOAuthClientData(result.Provider).DisplayName;
             ViewBag.ReturnUrl = returnUrl;
             return View("ExternalLogonConfirmation",
-                new RegisterExternalLogonModel { UserName = result.UserName, Name = result.UserName, Functie = result.ExtraData["headline"], ExternalLogonData = logonData });
-
+                new RegisterExternalLogonModel{
+                    UserName = result.UserName,
+                    Name = result.UserName,
+                    Functie = result.ExtraData["headline"],
+                    ExternalLogonData = logonData
+                });
         }
 
         /// <summary>
