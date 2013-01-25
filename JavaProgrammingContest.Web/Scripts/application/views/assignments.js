@@ -31,6 +31,8 @@ $(document).ready(function () {
             this.model.bind('destroy', this.remove, this);
         },
         render: function () {
+            var firstRenderer = (this.current == null);
+
             // Check if model is empty
             if (this.model.length == 0) {
                 noty({ text: '<h3>Geen opdrachten gevonden!</h3>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
@@ -58,8 +60,9 @@ $(document).ready(function () {
                         modalProgress.find('#stopProgress').click(function () {
                             modalProgress.modal('hide');
                             API.Progress.stop();
-                            ns.$el.find('li[data-assignment=' + ns.modelIndex + ']').addClass('done');
-                            ns.nextAssignment();
+                            //ns.$el.find('li[data-assignment=' + ns.modelIndex + ']').addClass('done');
+                            //ns.nextAssignment();
+                            ns.trigger('next');
                         });  
                         modalProgress.modal({
                             backdrop: true,
@@ -73,18 +76,20 @@ $(document).ready(function () {
             this.renderPane();
             
             // Template
-            var list = "";
-            var ns = this;
-            this.model.each(function (model, key) {
-                var currTmpl = "" + ns.template;
-                currTmpl = currTmpl.replace('{Class}', model.attributes.HasBeenSubmitted==true?'done':'');
-                currTmpl = currTmpl.replace('{dataKey}', key); // Replace the data-attr value
-                $.each(model.attributes, function (k, v) {
-                    currTmpl = currTmpl.replace('{'+k+'}', v);
+            if (firstRenderer) {
+                var list = "";
+                var ns = this;
+                this.model.each(function (model, key) {
+                    var currTmpl = "" + ns.template;
+                    currTmpl = currTmpl.replace('{Class}', model.attributes.HasBeenSubmitted == true ? 'done' : '');
+                    currTmpl = currTmpl.replace('{dataKey}', key); // Replace the data-attr value
+                    $.each(model.attributes, function (k, v) {
+                        currTmpl = currTmpl.replace('{' + k + '}', v);
+                    });
+                    list += currTmpl;
                 });
-                list += currTmpl;
-            });
-            this.$el.html(list);
+                this.$el.html(list);
+            }
             
             // Set selected
             this.$el.find('.selected').removeClass('selected');
@@ -125,9 +130,9 @@ $(document).ready(function () {
                     modalProgress.find('#stopProgress').click(function () {
                         modalProgress.modal('hide');
                         API.Progress.stop();
-                        ns.$el.find('li[data-assignment=' + ns.modelIndex + ']').addClass('done');
-                        ns.nextAssignment();
-                        //location.reload();
+                        //ns.$el.find('li[data-assignment=' + ns.modelIndex + ']').addClass('done');
+                        //ns.nextAssignment();
+                        ns.trigger('next');
                     });
                     modalProgress.modal({
                         backdrop: true,

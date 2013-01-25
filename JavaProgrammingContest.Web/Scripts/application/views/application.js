@@ -39,6 +39,7 @@ $(document).ready(function () {
             this.assignments = new AssignmentView({ model: new AssignmentCollection() });
             var ns = this;
             this.assignments.on('select', function (mdl) { ns.changeAssignment.call(ns, mdl); });
+            this.assignments.on('next', function () { ns.showNextAssignment.call(ns); });
             
             // Ask if user really wants to leave when assignment is in progress
             $(document).unload(function() {
@@ -246,8 +247,6 @@ $(document).ready(function () {
                      {
                          addClass: 'btn btn-danger', text: 'Ok', onClick: function ($noty) {
                              $noty.close();
-
-
                              ns.showNextAssignment();
                          }
                      },
@@ -266,8 +265,10 @@ $(document).ready(function () {
         showNextAssignment: function () {
             var ns = this;
 
-            ns.timer.stop();
-            ns.timer = null;
+            if (ns.timer != null) {
+                ns.timer.stop();
+                ns.timer = null;
+            }
           
             // Find current list-item and mark it as done
             ns.$el.find('li[data-assignment=' + ns.assignments.modelIndex + ']').addClass('done');
@@ -286,7 +287,6 @@ $(document).ready(function () {
 
             // No assignment in progress anymore
             ns.assignments.started = false;
-
          
             // Enable the start time button
             ns.$el.find('#AssignmentPane .properties a')
@@ -297,7 +297,6 @@ $(document).ready(function () {
             ns.$el.find('#StartPane .properties a')
                .removeClass('disabled')
                .text('Start de tijd!');
-
         }
     });
 }); 
