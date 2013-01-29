@@ -49,7 +49,7 @@ $(document).ready(function () {
                 }
 
                 if (this.current.attributes.HasBeenSubmitted == true) {
-                    noty({ text: '<h3>Je hebt alle opdrachten afgerond!</h3><strong>Je kunt nu verder gaan naar de <a href="/Scores">top lijst</a>.</strong>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
+                    noty({ text: '<h3>Je hebt alle opdrachten afgerond!</h3><strong>Je kunt nu verder gaan naar het <a href="/Scores">scorebord</a>.</strong>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
                 }
 
                 var ns = this;
@@ -103,7 +103,7 @@ $(document).ready(function () {
                 this.setAssignment(++this.modelIndex);
                 return false;
             } else {
-                noty({ text: '<h3>Je hebt alle opdrachten afgerond!</h3><strong>Je kunt nu verder gaan naar de <a href="/Scores">top lijst</a>.</strong>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
+                noty({ text: '<h3>Je hebt alle opdrachten afgerond!</h3><strong>Je kunt nu verder gaan naar het <a href="/Scores">scorebord</a>.</strong>', type: 'warning', layout: 'topCenter', modal: true, closeWith: [] });
                 return false;
             }
         },
@@ -151,7 +151,7 @@ $(document).ready(function () {
 
             ass = $('#StartPane');
             ass.find('h1').text("Opdracht " + this.current.get('Id'));
-            ass.find('.description').text("Zodra je de opdracht hebt gestart, mag je de opdracht lezen en kun je de opdracht maken.");
+            ass.find('.description').text("Zodra de tijds is gestart, mag de opdracht worden gelezen en kan de opdracht worden gemaakt.");
             ass.find('.time').text(Math.round(this.current.get('MaxSolveTime') / 60) + ' minutes');
         },
 

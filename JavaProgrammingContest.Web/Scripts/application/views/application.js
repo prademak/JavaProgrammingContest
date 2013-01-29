@@ -195,13 +195,13 @@ $(document).ready(function () {
 
                 if (succ != false) {
                     noty({
-                        text: 'Bedankt voor het inzenden!\nJe inzending "' + ns.assignments.current.get('Title') + '" is ontvangen en zal automatisch worden beoordeelt. Zodra dit is gebeurt verschein je in de toplijsten.',
+                        text: 'Bedankt voor het inzenden!\nJe inzending "' + ns.assignments.current.get('Title') + '" is ontvangen en zal automatisch worden beoordeelt. Zodra dit is gebeurd verschijnt uw resultaat in het scorebord.',
                         type: 'success', layout: 'topRight'
                     });
                 } else {
                     console.log('FAILED TO SUBMIT THE ASSIGNMENT!');
                     noty({
-                        text: 'Sorry, het is me niet gelukt om de opdracht "' + ns.assignments.current.get('Title') + '" in te zenden! De meest voorkomende oorzaak is dat de serverbeheerder de java(c) executables niet in de $PATH$ variable heeft gezet.',
+                        text: 'Sorry, het is niet gelukt om de opdracht "' + ns.assignments.current.get('Title') + '" in te zenden! Neem contact op met een serverbeheerder.',
                         type: 'error', layout: 'topRight'
                     });
                 }
@@ -243,7 +243,7 @@ $(document).ready(function () {
         cancelAssignment: function (e) {
             var ns = this;
             noty({
-                text: 'Weet je zeker dat je de opdracht wilt stoppen?\nJe kunt hem niet opnieuw openen/maken!', type: 'confirm', layout: 'topCenter', modal: true, buttons: [
+                text: 'Weet je zeker dat je de opdracht wilt stoppen?\nU kunt hem niet opnieuw openen/maken!', type: 'confirm', layout: 'topCenter', modal: true, buttons: [
                      {
                          addClass: 'btn btn-danger', text: 'Ok', onClick: function ($noty) {
                              $noty.close();

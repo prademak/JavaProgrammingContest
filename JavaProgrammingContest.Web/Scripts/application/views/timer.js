@@ -98,7 +98,7 @@ $(document).ready(function () {
             var ns = app;
 
             noty({
-                text: 'Sorry, de timer is afgelopen! Je hebt de opdracht niet binnen de tijd kunnen afronden. De opdracht zal nu worden afgesloten.', type: 'confirm', layout: 'topCenter', modal: true, buttons: [
+                text: 'Sorry, de timer is afgelopen! U heeft de opdracht niet binnen de tijd kunnen afronden. De opdracht zal nu worden afgesloten.', type: 'confirm', layout: 'topCenter', modal: true, buttons: [
                      {
                          addClass: 'btn btn-danger', text: 'Ok', onClick: function ($noty) {
                              $noty.close();
