@@ -2,9 +2,12 @@
 
 $(document).ready(function () {
     TimerView = Backbone.View.extend({
+        //constants
+        hourInSecondes: 3600,
+        minuteInSeconds: 60,
+
         // Representing element
         el: $("#TimerPane"),
-
         running: true,
         start: null,
         time: 0,
@@ -27,13 +30,13 @@ $(document).ready(function () {
             var hours = 0;
             var minutes = 0;
 
-            while (difference >= (60 * 60)) {
-                difference -= (60 * 60);
+            while (difference >= this.hourInSecondes) {
+                difference -= this.hourInSecondes;
                 hours++;
             }
 
-            while (difference >= 60) {
-                difference -= 60;
+            while (difference >= this.minuteInSeconds) {
+                difference -= this.minuteInSeconds;
                 minutes++;
             }
 
@@ -41,13 +44,13 @@ $(document).ready(function () {
             var maxHours = 0;
             var maxMinutes = 0;
             
-            while (countDown >= (60 * 60)) {
-                countDown -= (60 * 60);
+            while (countDown >= this.hourInSecondes) {
+                countDown -= this.hourInSecondes;
                 maxHours++;
             }
             
-            while (countDown >= 60) {
-                countDown -= 60;
+            while (countDown >= this.minuteInSeconds) {
+                countDown -= this.minuteInSeconds;
                 maxMinutes++;
             }
 
@@ -60,7 +63,7 @@ $(document).ready(function () {
             if (countSeconds < 0) {
                 if (countMinutes > 0) {
                     countMinutes--;
-                    countSeconds += 60;
+                    countSeconds += this.minuteInSeconds;
                 } else {
                     countSeconds = 0;
                     this.stop();
@@ -68,11 +71,11 @@ $(document).ready(function () {
             }
 
             if (countMinutes < 0) {
-                countMinutes += 60;
+                countMinutes += this.minuteInSeconds;
 
                 if (countHours > 0) {
                     countHours--;
-                    countMinutes += 60;
+                    countMinutes += this.minuteInSeconds;
                 } else {
                     countMinutes = 0;
                 }
